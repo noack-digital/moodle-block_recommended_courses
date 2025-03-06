@@ -1,0 +1,152 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template block_empfohlene_kurse/main
+
+    Haupttemplate für den Block "Empfohlene Kurse"
+
+    Classes required for JS:
+    * slider-container
+    * main-course
+    * course-cards
+    * slider-nav
+}}
+<div class="block_empfohlene_kurse" id="block_empfohlene_kurse_{{uniqid}}">
+    {{#hascourses}}
+        <div class="slider-container">
+            {{#courses}}
+                {{#first}}
+                    <div class="main-course-wrapper" data-course-id="{{id}}">
+                        <div class="main-course">
+                            <div class="main-course-image">
+                                <img src="{{courseimage}}" alt="{{fullname}}">
+                            </div>
+                            <div class="main-course-content">
+                                <div class="main-course-title">{{fullname}}</div>
+                                <div class="main-course-description">{{summary}}</div>
+                                <div class="button-container">
+                                    <a href="{{enrollurl}}" class="btn btn-primary">{{buttontext}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{/first}}
+            {{/courses}}
+            
+            <div class="course-cards">
+                {{#courses}}
+                    {{^first}}
+                        {{#visible}}
+                            <div class="course-card" data-course-id="{{id}}">
+                                <div class="course-card-image">
+                                    <img src="{{courseimage}}" alt="{{fullname}}">
+                                </div>
+                                <div class="course-card-title">{{fullname}}</div>
+                            </div>
+                        {{/visible}}
+                    {{/first}}
+                {{/courses}}
+            </div>
+            
+            <div class="slider-nav prev" title="{{prev_course}}">
+                <i class="fa fa-chevron-left"></i>
+            </div>
+            <div class="slider-nav next" title="{{next_course}}">
+                <i class="fa fa-chevron-right"></i>
+            </div>
+        </div>
+    {{/hascourses}}
+    
+    {{^hascourses}}
+        <div class="no-courses">
+            {{no_courses_message}}
+        </div>
+    {{/hascourses}}
+</div>
+
+{{#js}}
+require(['jquery'], function($) {
+    var container = $('#block_empfohlene_kurse_{{uniqid}}');
+    var allCourses = {{{coursesJson}}};
+    var coursesCount = allCourses.length;
+    var currentIndex = 0;
+    var visibleCards = 3; // Anzahl der sichtbaren Kurskarten (außer dem Hauptkurs)
+    
+    // Aktualisierung des Sliders
+    function updateSlider() {
+        // Hauptkurs aktualisieren
+        var mainCourse = allCourses[currentIndex];
+        var $mainCourseWrapper = container.find('.main-course-wrapper');
+        
+        $mainCourseWrapper.attr('data-course-id', mainCourse.id);
+        $mainCourseWrapper.find('.main-course-image img').attr('src', mainCourse.courseimage).attr('alt', mainCourse.fullname);
+        $mainCourseWrapper.find('.main-course-title').text(mainCourse.fullname);
+        $mainCourseWrapper.find('.main-course-description').text(mainCourse.summary);
+        $mainCourseWrapper.find('.button-container a').attr('href', mainCourse.enrollurl);
+        
+        // Kurskarten aktualisieren
+        var $courseCards = container.find('.course-cards');
+        $courseCards.empty();
+        
+        for (var i = 1; i <= visibleCards; i++) {
+            var index = (currentIndex + i) % coursesCount;
+            var course = allCourses[index];
+            
+            var $card = $('<div>').addClass('course-card').attr('data-course-id', course.id);
+            var $imageContainer = $('<div>').addClass('course-card-image');
+            var $image = $('<img>').attr('src', course.courseimage).attr('alt', course.fullname);
+            var $title = $('<div>').addClass('course-card-title').text(course.fullname);
+            
+            $imageContainer.append($image);
+            $card.append($imageContainer).append($title);
+            $courseCards.append($card);
+            
+            // Event-Listener für Kurskarten
+            $card.on('click', function() {
+                var courseId = $(this).attr('data-course-id');
+                // Index des angeklickten Kurses finden
+                var clickedIndex = allCourses.findIndex(function(course) {
+                    return course.id == courseId;
+                });
+                if (clickedIndex !== -1) {
+                    currentIndex = clickedIndex;
+                    updateSlider();
+                }
+            });
+        }
+    }
+    
+    // Event-Listener für die Navigationspfeile
+    container.find('.slider-nav.prev').on('click', function() {
+        currentIndex = (currentIndex - 1 + coursesCount) % coursesCount;
+        updateSlider();
+    });
+    
+    container.find('.slider-nav.next').on('click', function() {
+        currentIndex = (currentIndex + 1) % coursesCount;
+        updateSlider();
+    });
+    
+    // Bei mehr als 1 Kurs die Karten und Navigationspfeile initialisieren
+    if (coursesCount > 1) {
+        updateSlider();
+    } else {
+        // Bei nur einem Kurs die Navigationspfeile ausblenden
+        container.find('.slider-nav').hide();
+    }
+});
+{{/js}}

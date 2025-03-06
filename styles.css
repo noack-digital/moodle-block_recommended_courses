@@ -1,0 +1,235 @@
+/**
+ * CSS für den Block "Empfohlene Kurse"
+ */
+
+/* Titelausrichtung */
+.block_empfohlene_kurse.title-left .header .title {
+    text-align: left;
+}
+
+.block_empfohlene_kurse.title-center .header .title {
+    text-align: center;
+}
+
+.block_empfohlene_kurse.title-right .header .title {
+    text-align: right;
+}
+
+/* Slider-Styling */
+.block_empfohlene_kurse .slider-container {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    overflow: visible; /* Geändert von hidden zu visible, damit die Pfeile nicht abgeschnitten werden */
+}
+
+.block_empfohlene_kurse .main-course-wrapper {
+    margin-bottom: 20px;
+    position: relative;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.block_empfohlene_kurse .main-course {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Hauptkursbild mit 200px Höhe */
+.block_empfohlene_kurse .main-course-image {
+    width: 100%;
+    height: 200px; /* Angepasst auf 200px wie angefordert */
+    overflow: hidden;
+    position: relative; /* Positionierungskontext für die Navigationspfeile */
+}
+
+.block_empfohlene_kurse .main-course-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+/* Hover-Effekt für Bilder */
+.block_empfohlene_kurse .main-course-image:hover img,
+.block_empfohlene_kurse .course-card-image:hover img {
+    transform: scale(1.05);
+}
+
+.block_empfohlene_kurse .main-course-content {
+    padding: 15px;
+}
+
+.block_empfohlene_kurse .main-course-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    cursor: pointer;
+    color: #0f6cbf;
+}
+
+.block_empfohlene_kurse .main-course-title:hover {
+    text-decoration: underline;
+}
+
+.block_empfohlene_kurse .main-course-description {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.block_empfohlene_kurse .button-container {
+    text-align: center;
+}
+
+.block_empfohlene_kurse .course-cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding-bottom: 15px;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.block_empfohlene_kurse .course-card {
+    flex: 0 0 calc(33.333% - 7px);
+    max-width: calc(33.333% - 7px);
+    background-color: #fff;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s;
+    position: relative;
+}
+
+.block_empfohlene_kurse .course-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Kleine Kurskarten-Bilder */
+.block_empfohlene_kurse .course-card-image {
+    width: 100%;
+    height: 120px;
+    overflow: hidden;
+}
+
+.block_empfohlene_kurse .course-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.block_empfohlene_kurse .course-card-title {
+    padding: 10px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #0f6cbf;
+}
+
+.block_empfohlene_kurse .course-card-title:hover {
+    text-decoration: underline;
+}
+
+/* Kurslinks */
+.block_empfohlene_kurse .course-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+/* Navigationspfeile exakt in der vertikalen Mitte des Hauptkursbildes */
+.block_empfohlene_kurse .slider-nav {
+    position: absolute;
+    top: 100px; /* Genau die Hälfte der Hauptkursbild-Höhe (200px) */
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    z-index: 100; /* Erhöhter z-index um sicherzustellen, dass die Pfeile über allem anderen liegen */
+    margin-top: -20px; /* Kompensiere die Hälfte der Pfeile-Höhe (40px) für perfekte Zentrierung */
+    transition: background-color 0.3s ease;
+}
+
+.block_empfohlene_kurse .slider-nav:hover {
+    background-color: #fff;
+    transform: scale(1.1);
+}
+
+.block_empfohlene_kurse .slider-nav.prev {
+    left: 10px;
+}
+
+.block_empfohlene_kurse .slider-nav.next {
+    right: 10px;
+}
+
+.block_empfohlene_kurse .slider-nav i,
+.block_empfohlene_kurse .slider-nav span {
+    color: #333;
+    font-size: 18px;
+}
+
+/* Slider-Indikatoren (Punkte) */
+.block_empfohlene_kurse .slider-indicators {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.block_empfohlene_kurse .slider-indicators .dot {
+    width: 12px;
+    height: 12px;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.block_empfohlene_kurse .slider-indicators .dot:hover {
+    background-color: #aaa;
+}
+
+.block_empfohlene_kurse .slider-indicators .dot.active {
+    background-color: #0f6cbf; /* Moodle-Blau */
+    transform: scale(1.2);
+}
+
+/* Animation für das Einblenden */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Animation für das Hereingleiten */
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Responsive Anpassungen für kleinere Bildschirme */
+@media (max-width: 768px) {
+    .block_empfohlene_kurse .course-cards {
+        flex-wrap: wrap;
+    }
+    
+    .block_empfohlene_kurse .course-card {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 10px;
+    }
+}
