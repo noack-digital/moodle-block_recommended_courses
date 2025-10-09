@@ -25,15 +25,15 @@
     * course-cards
     * slider-nav
 }}
-<div class="block_empfohlene_kurse" id="block_empfohlene_kurse_{{uniqid}}">
+<div class="block_empfohlene_kurse" id="block_empfohlene_kurse_{{uniqid}}" data-image-fit="{{image_fit}}" data-image-height="{{image_height}}" data-border-radius="{{border_radius}}" data-animation-speed="{{animation_speed}}">
     {{#hascourses}}
         <div class="slider-container">
             {{#courses}}
                 {{#first}}
                     <div class="main-course-wrapper" data-course-id="{{id}}">
-                        <div class="main-course">
-                            <div class="main-course-image">
-                                <img src="{{courseimage}}" alt="{{fullname}}">
+                        <div class="main-course" style="border-radius: {{border_radius}}px;">
+                            <div class="main-course-image image-fit-{{image_fit}}" style="height: {{image_height}}px;">
+                                <img src="{{courseimage}}" alt="{{fullname}}" style="object-fit: {{image_fit}};">
                             </div>
                             <div class="main-course-content">
                                 <div class="main-course-title">{{fullname}}</div>
@@ -62,10 +62,10 @@
                 {{/courses}}
             </div>
             
-            <div class="slider-nav prev" title="{{prev_course}}">
+            <div class="slider-nav prev" title="{{prev_course}}" style="top: calc({{image_height}}px / 2); margin-top: -20px;">
                 <i class="fa fa-chevron-left"></i>
             </div>
-            <div class="slider-nav next" title="{{next_course}}">
+            <div class="slider-nav next" title="{{next_course}}" style="top: calc({{image_height}}px / 2); margin-top: -20px;">
                 <i class="fa fa-chevron-right"></i>
             </div>
         </div>
@@ -91,17 +91,50 @@ require(['jquery'], function($) {
     var currentIndex = 0;
     var visibleCards = 3;
     
+    // Konfigurationsoptionen aus data-Attributen
+    var imageFit = container.attr('data-image-fit') || 'cover';
+    var imageHeight = container.attr('data-image-height') || '200';
+    var borderRadius = container.attr('data-border-radius') || '8';
+    var animationSpeed = parseInt(container.attr('data-animation-speed')) || 300;
+    
     function updateSlider() {
         if (coursesCount === 0) return;
         
         var mainCourse = allCourses[currentIndex];
         var $mainCourseWrapper = container.find('.main-course-wrapper');
         
-        $mainCourseWrapper.attr('data-course-id', mainCourse.id);
-        $mainCourseWrapper.find('.main-course-image img').attr('src', mainCourse.courseimage).attr('alt', mainCourse.fullname);
-        $mainCourseWrapper.find('.main-course-title').text(mainCourse.fullname);
-        $mainCourseWrapper.find('.main-course-description').text(mainCourse.summary);
-        $mainCourseWrapper.find('.button-container a').attr('href', mainCourse.enrollurl);
+        // Mit Animation aktualisieren (falls aktiviert)
+        if (animationSpeed > 0) {
+            $mainCourseWrapper.css('opacity', '0');
+            setTimeout(function() {
+                updateContent();
+                $mainCourseWrapper.animate({opacity: 1}, animationSpeed);
+            }, animationSpeed / 2);
+        } else {
+            updateContent();
+        }
+        
+        function updateContent() {
+            $mainCourseWrapper.attr('data-course-id', mainCourse.id);
+            
+            // Bildeinstellungen dynamisch anwenden
+            var $image = $mainCourseWrapper.find('.main-course-image img');
+            $image.attr('src', mainCourse.courseimage)
+                  .attr('alt', mainCourse.fullname)
+                  .css('object-fit', imageFit);
+            
+            $mainCourseWrapper.find('.main-course-image')
+                  .css('height', imageHeight + 'px')
+                  .removeClass('image-fit-cover image-fit-contain image-fit-fill')
+                  .addClass('image-fit-' + imageFit);
+            
+            $mainCourseWrapper.find('.main-course')
+                  .css('border-radius', borderRadius + 'px');
+            
+            $mainCourseWrapper.find('.main-course-title').text(mainCourse.fullname);
+            $mainCourseWrapper.find('.main-course-description').text(mainCourse.summary);
+            $mainCourseWrapper.find('.button-container a').attr('href', mainCourse.enrollurl);
+        }
         
         var $courseCards = container.find('.course-cards');
         $courseCards.empty();

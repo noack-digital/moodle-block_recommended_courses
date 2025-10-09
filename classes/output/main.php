@@ -55,15 +55,29 @@ class main implements renderable, templatable {
     protected $nocoursesmessage;
     
     /**
+     * @var array Darstellungsoptionen
+     */
+    protected $displayoptions;
+    
+    /**
      * Konstruktor.
      *
      * @param array $courses Liste der Kurse für den Slider
      * @param string $buttontext Text für den Einschreibe-Button
+     * @param array $displayoptions Darstellungsoptionen für den Slider
      */
-    public function __construct($courses, $buttontext = null) {
+    public function __construct($courses, $buttontext = null, $displayoptions = []) {
         global $PAGE;
         
         $this->courses = $courses;
+        
+        // Darstellungsoptionen mit Standardwerten
+        $this->displayoptions = array_merge([
+            'image_fit' => 'cover',
+            'image_height' => '200',
+            'border_radius' => '8',
+            'animation_speed' => '300',
+        ], $displayoptions);
         
         // Falls der Button-Text nicht angegeben wurde, den Standardwert aus den Sprachdateien verwenden
         if ($buttontext === null) {
@@ -95,6 +109,12 @@ class main implements renderable, templatable {
         $data->no_courses_message = $this->nocoursesmessage;
         $data->prev_course = get_string('previous_course', 'block_empfohlene_kurse');
         $data->next_course = get_string('next_course', 'block_empfohlene_kurse');
+        
+        // Darstellungsoptionen an Template übergeben
+        $data->image_fit = $this->displayoptions['image_fit'];
+        $data->image_height = $this->displayoptions['image_height'];
+        $data->border_radius = $this->displayoptions['border_radius'];
+        $data->animation_speed = $this->displayoptions['animation_speed'];
         
         // Wenn keine Kurse vorhanden sind, leeres Objekt zurückgeben
         if (!$data->hascourses) {

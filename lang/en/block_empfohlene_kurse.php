@@ -40,3 +40,25 @@ $string['no_courses_to_display'] = 'No courses available to display';
 $string['privacy:metadata'] = 'The Recommended Courses block does not store any personal data.';
 $string['next_course'] = 'Next course';
 $string['previous_course'] = 'Previous course';
+
+// Display options
+$string['display_settings'] = 'Display settings';
+$string['config_image_fit'] = 'Image fit mode';
+$string['config_image_fit_help'] = 'Determines how the course image is displayed in the main area:<br>
+<strong>Cover:</strong> Image fills the area completely, may be cropped top/bottom<br>
+<strong>Contain:</strong> Image is displayed completely, may have empty spaces<br>
+<strong>Fill:</strong> Image is stretched to fill the entire area';
+$string['imagefit_cover'] = 'Cover - Image will be cropped';
+$string['imagefit_contain'] = 'Contain - Full image visible';
+$string['imagefit_fill'] = 'Fill - Image will be stretched';
+$string['config_image_height'] = 'Main course image height';
+$string['config_border_radius'] = 'Border radius';
+$string['border_radius_none'] = 'No rounded corners (0px)';
+$string['border_radius_small'] = 'Slightly rounded (4px)';
+$string['border_radius_medium'] = 'Medium rounded (8px)';
+$string['border_radius_large'] = 'Heavily rounded (12px)';
+$string['config_animation_speed'] = 'Animation speed';
+$string['animation_none'] = 'No animation';
+$string['animation_fast'] = 'Fast (200ms)';
+$string['animation_normal'] = 'Normal (300ms)';
+$string['animation_slow'] = 'Slow (500ms)';

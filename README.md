@@ -33,6 +33,15 @@ Dieses Moodle-Plugin stellt einen Block zur Verfügung, der ausgewählte Kurse a
 
 ## Changelog
 
+### Version 1.0.0 (2025-10-09) - STABLE RELEASE
+
+**Neue Features:**
+- 🎨 **Bildanpassungsmodus:** Cover / Contain / Fill
+- 📏 **Konfigurierbare Bildhöhe:** 150-350px
+- 🔲 **Anpassbarer Eckenradius:** 0-12px  
+- ⚡ **Animationsgeschwindigkeit:** Keine bis Langsam
+- ✨ Vollständig anpassbare Darstellung über Block-Einstellungen
+
 ### Version 0.2.0 (2025-10-09)
 **Bug-Fixes und Verbesserungen:**
 - **KRITISCHER BUG BEHOBEN:** SQL-Query JOIN-Reihenfolge korrigiert

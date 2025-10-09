@@ -60,6 +60,54 @@ class block_empfohlene_kurse_edit_form extends block_edit_form {
         $mform->setDefault('config_button_text', get_string('enrollbutton', 'block_empfohlene_kurse'));
         $mform->setType('config_button_text', PARAM_TEXT);
         
+        // Abschnitt für Darstellungsoptionen
+        $mform->addElement('header', 'displayheader', get_string('display_settings', 'block_empfohlene_kurse'));
+        
+        // Bilddarstellungsmodus
+        $imagefitmodes = [
+            'cover' => get_string('imagefit_cover', 'block_empfohlene_kurse'),
+            'contain' => get_string('imagefit_contain', 'block_empfohlene_kurse'),
+            'fill' => get_string('imagefit_fill', 'block_empfohlene_kurse'),
+        ];
+        $mform->addElement('select', 'config_image_fit', 
+            get_string('config_image_fit', 'block_empfohlene_kurse'), $imagefitmodes);
+        $mform->setDefault('config_image_fit', 'cover');
+        $mform->addHelpButton('config_image_fit', 'config_image_fit', 'block_empfohlene_kurse');
+        
+        // Bildhöhe des Hauptkurses
+        $imageheights = [
+            '150' => '150px',
+            '200' => '200px (Standard)',
+            '250' => '250px',
+            '300' => '300px',
+            '350' => '350px',
+        ];
+        $mform->addElement('select', 'config_image_height', 
+            get_string('config_image_height', 'block_empfohlene_kurse'), $imageheights);
+        $mform->setDefault('config_image_height', '200');
+        
+        // Eckenradius (Border Radius)
+        $borderradius = [
+            '0' => get_string('border_radius_none', 'block_empfohlene_kurse'),
+            '4' => get_string('border_radius_small', 'block_empfohlene_kurse'),
+            '8' => get_string('border_radius_medium', 'block_empfohlene_kurse'),
+            '12' => get_string('border_radius_large', 'block_empfohlene_kurse'),
+        ];
+        $mform->addElement('select', 'config_border_radius', 
+            get_string('config_border_radius', 'block_empfohlene_kurse'), $borderradius);
+        $mform->setDefault('config_border_radius', '8');
+        
+        // Animationsgeschwindigkeit
+        $animationspeeds = [
+            '0' => get_string('animation_none', 'block_empfohlene_kurse'),
+            '200' => get_string('animation_fast', 'block_empfohlene_kurse'),
+            '300' => get_string('animation_normal', 'block_empfohlene_kurse'),
+            '500' => get_string('animation_slow', 'block_empfohlene_kurse'),
+        ];
+        $mform->addElement('select', 'config_animation_speed', 
+            get_string('config_animation_speed', 'block_empfohlene_kurse'), $animationspeeds);
+        $mform->setDefault('config_animation_speed', '300');
+        
         // Abschnitt für die Kursauswahl
         $mform->addElement('header', 'courseselectionheader', get_string('select_courses', 'block_empfohlene_kurse'));
         

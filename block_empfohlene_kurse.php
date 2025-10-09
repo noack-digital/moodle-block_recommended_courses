@@ -55,8 +55,19 @@ class block_empfohlene_kurse extends block_base {
         // Die Kurse für den Slider holen.
         $courses = $this->get_recommended_courses();
 
+        // Darstellungsoptionen aus der Konfiguration holen
+        $displayoptions = [
+            'image_fit' => isset($this->config->image_fit) ? $this->config->image_fit : 'cover',
+            'image_height' => isset($this->config->image_height) ? $this->config->image_height : '200',
+            'border_radius' => isset($this->config->border_radius) ? $this->config->border_radius : '8',
+            'animation_speed' => isset($this->config->animation_speed) ? $this->config->animation_speed : '300',
+        ];
+
+        // Button-Text aus Konfiguration
+        $buttontext = isset($this->config->button_text) ? $this->config->button_text : null;
+
         // Renderable erstellen.
-        $renderable = new \block_empfohlene_kurse\output\main($courses);
+        $renderable = new \block_empfohlene_kurse\output\main($courses, $buttontext, $displayoptions);
         $renderer = $this->page->get_renderer('block_empfohlene_kurse');
 
         $this->content = new stdClass();

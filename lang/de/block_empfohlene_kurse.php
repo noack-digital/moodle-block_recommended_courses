@@ -40,3 +40,25 @@ $string['no_courses_to_display'] = 'Keine Kurse zum Anzeigen verfügbar';
 $string['privacy:metadata'] = 'Der Block "Empfohlene Kurse" speichert keine personenbezogenen Daten.';
 $string['next_course'] = 'Nächster Kurs';
 $string['previous_course'] = 'Vorheriger Kurs';
+
+// Darstellungsoptionen
+$string['display_settings'] = 'Darstellungsoptionen';
+$string['config_image_fit'] = 'Bildanpassungsmodus';
+$string['config_image_fit_help'] = 'Bestimmt, wie das Kursbild im Hauptbereich angezeigt wird:<br>
+<strong>Abdecken (Cover):</strong> Bild füllt den Bereich vollständig aus, wird ggf. oben/unten abgeschnitten<br>
+<strong>Enthalten (Contain):</strong> Bild wird vollständig angezeigt, es können Leerräume entstehen<br>
+<strong>Ausfüllen (Fill):</strong> Bild wird gestreckt, um den gesamten Bereich auszufüllen';
+$string['imagefit_cover'] = 'Abdecken (Cover) - Bild wird abgeschnitten';
+$string['imagefit_contain'] = 'Enthalten (Contain) - Bild vollständig sichtbar';
+$string['imagefit_fill'] = 'Ausfüllen (Fill) - Bild wird gestreckt';
+$string['config_image_height'] = 'Höhe des Hauptkursbildes';
+$string['config_border_radius'] = 'Eckenradius';
+$string['border_radius_none'] = 'Keine abgerundeten Ecken (0px)';
+$string['border_radius_small'] = 'Leicht abgerundet (4px)';
+$string['border_radius_medium'] = 'Mittel abgerundet (8px)';
+$string['border_radius_large'] = 'Stark abgerundet (12px)';
+$string['config_animation_speed'] = 'Animationsgeschwindigkeit';
+$string['animation_none'] = 'Keine Animation';
+$string['animation_fast'] = 'Schnell (200ms)';
+$string['animation_normal'] = 'Normal (300ms)';
+$string['animation_slow'] = 'Langsam (500ms)';
