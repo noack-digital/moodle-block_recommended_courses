@@ -72,7 +72,7 @@ class block_empfohlene_kurse extends block_base {
      * @return array Array mit Kursinformationen
      */
     private function get_recommended_courses() {
-        global $DB, $USER;
+        global $DB, $USER, $OUTPUT;
 
         // Die vom Admin ausgewählten Kurse aus den Einstellungen holen
         $configcourses = isset($this->config->courses) ? $this->config->courses : [];
@@ -83,8 +83,8 @@ class block_empfohlene_kurse extends block_base {
 
         // Kurse laden, in die der Benutzer eingeschrieben ist
         $sql = "SELECT c.id FROM {course} c
-                JOIN {user_enrolments} ue ON ue.enrolid = e.id
                 JOIN {enrol} e ON e.courseid = c.id
+                JOIN {user_enrolments} ue ON ue.enrolid = e.id
                 WHERE ue.userid = :userid";
         $enrolled = $DB->get_records_sql($sql, ['userid' => $USER->id]);
         $enrolledids = array_keys($enrolled);
@@ -94,12 +94,26 @@ class block_empfohlene_kurse extends block_base {
         foreach ($configcourses as $courseid) {
             if (!in_array($courseid, $enrolledids)) {
                 // Kursinformationen laden
-                $course = $DB->get_record('course', ['id' => $courseid], '*', MUST_EXIST);
+                $course = $DB->get_record('course', ['id' => $courseid], '*', IGNORE_MISSING);
+                if (!$course) {
+                    continue; // Kurs existiert nicht mehr, überspringen
+                }
+                
                 $courseobj = new \core_course_list_element($course);
                 
-                // Kursbild URL
-                $courseimage = \core_course\external\course_summary_exporter::get_course_image($courseobj);
+                // Kursbild URL - robuste Implementierung für verschiedene Moodle-Versionen
+                $courseimage = null;
+                if (class_exists('\core_course\external\course_summary_exporter')) {
+                    try {
+                        $courseimage = \core_course\external\course_summary_exporter::get_course_image($courseobj);
+                    } catch (\Exception $e) {
+                        // Fallback bei Fehler
+                        $courseimage = null;
+                    }
+                }
+                
                 if (!$courseimage) {
+                    // Fallback: generiertes Bild verwenden
                     $courseimage = $OUTPUT->get_generated_image_for_id($courseid);
                 }
                 
@@ -112,8 +126,8 @@ class block_empfohlene_kurse extends block_base {
                     'shortname' => $course->shortname,
                     'summary' => $coursesummary,
                     'courseimage' => $courseimage,
-                    'viewurl' => new \moodle_url('/course/view.php', ['id' => $courseid]),
-                    'enrollurl' => new \moodle_url('/enrol/index.php', ['id' => $courseid])
+                    'viewurl' => (new \moodle_url('/course/view.php', ['id' => $courseid]))->out(false),
+                    'enrollurl' => (new \moodle_url('/enrol/index.php', ['id' => $courseid]))->out(false)
                 ];
             }
         }

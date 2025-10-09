@@ -34,7 +34,7 @@ class block_empfohlene_kurse_edit_form extends block_edit_form {
      * @return void
      */
     protected function specific_definition($mform) {
-        global $DB, $CFG;
+        global $DB;
         
         // Abschnitt für die Titelkonfiguration
         $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
@@ -64,7 +64,6 @@ class block_empfohlene_kurse_edit_form extends block_edit_form {
         $mform->addElement('header', 'courseselectionheader', get_string('select_courses', 'block_empfohlene_kurse'));
         
         // Multiselect für die Kurse mit Suchfunktion
-        require_once($CFG->dirroot.'/course/lib.php');
         $courseslist = [];
         
         // Nur sichtbare Kurse verwenden

@@ -82,13 +82,18 @@
 require(['jquery'], function($) {
     var container = $('#block_empfohlene_kurse_{{uniqid}}');
     var allCourses = {{{coursesJson}}};
+    
+    if (!allCourses || allCourses.length === 0) {
+        return;
+    }
+    
     var coursesCount = allCourses.length;
     var currentIndex = 0;
-    var visibleCards = 3; // Anzahl der sichtbaren Kurskarten (außer dem Hauptkurs)
+    var visibleCards = 3;
     
-    // Aktualisierung des Sliders
     function updateSlider() {
-        // Hauptkurs aktualisieren
+        if (coursesCount === 0) return;
+        
         var mainCourse = allCourses[currentIndex];
         var $mainCourseWrapper = container.find('.main-course-wrapper');
         
@@ -98,11 +103,12 @@ require(['jquery'], function($) {
         $mainCourseWrapper.find('.main-course-description').text(mainCourse.summary);
         $mainCourseWrapper.find('.button-container a').attr('href', mainCourse.enrollurl);
         
-        // Kurskarten aktualisieren
         var $courseCards = container.find('.course-cards');
         $courseCards.empty();
         
-        for (var i = 1; i <= visibleCards; i++) {
+        var cardsToShow = Math.min(visibleCards, coursesCount - 1);
+        
+        for (var i = 1; i <= cardsToShow; i++) {
             var index = (currentIndex + i) % coursesCount;
             var course = allCourses[index];
             
@@ -114,38 +120,37 @@ require(['jquery'], function($) {
             $imageContainer.append($image);
             $card.append($imageContainer).append($title);
             $courseCards.append($card);
-            
-            // Event-Listener für Kurskarten
-            $card.on('click', function() {
-                var courseId = $(this).attr('data-course-id');
-                // Index des angeklickten Kurses finden
-                var clickedIndex = allCourses.findIndex(function(course) {
-                    return course.id == courseId;
-                });
-                if (clickedIndex !== -1) {
-                    currentIndex = clickedIndex;
-                    updateSlider();
-                }
-            });
         }
     }
     
-    // Event-Listener für die Navigationspfeile
-    container.find('.slider-nav.prev').on('click', function() {
+    container.on('click', '.course-card', function(e) {
+        e.preventDefault();
+        var courseId = $(this).attr('data-course-id');
+        
+        for (var i = 0; i < allCourses.length; i++) {
+            if (allCourses[i].id == courseId) {
+                currentIndex = i;
+                updateSlider();
+                break;
+            }
+        }
+    });
+    
+    container.on('click', '.slider-nav.prev', function(e) {
+        e.preventDefault();
         currentIndex = (currentIndex - 1 + coursesCount) % coursesCount;
         updateSlider();
     });
     
-    container.find('.slider-nav.next').on('click', function() {
+    container.on('click', '.slider-nav.next', function(e) {
+        e.preventDefault();
         currentIndex = (currentIndex + 1) % coursesCount;
         updateSlider();
     });
     
-    // Bei mehr als 1 Kurs die Karten und Navigationspfeile initialisieren
     if (coursesCount > 1) {
         updateSlider();
     } else {
-        // Bei nur einem Kurs die Navigationspfeile ausblenden
         container.find('.slider-nav').hide();
     }
 });

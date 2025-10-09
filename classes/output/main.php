@@ -85,6 +85,9 @@ class main implements renderable, templatable {
     public function export_for_template(renderer_base $output) {
         $data = new stdClass();
         
+        // Eindeutige ID für das Block-Template generieren
+        $data->uniqid = uniqid();
+        
         // Prüfen, ob Kurse vorhanden sind
         $data->hascourses = !empty($this->courses);
         $data->courses = [];
@@ -95,6 +98,7 @@ class main implements renderable, templatable {
         
         // Wenn keine Kurse vorhanden sind, leeres Objekt zurückgeben
         if (!$data->hascourses) {
+            $data->coursesJson = json_encode([]);
             return $data;
         }
         

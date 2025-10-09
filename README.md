@@ -28,7 +28,35 @@ Dieses Moodle-Plugin stellt einen Block zur Verfügung, der ausgewählte Kurse a
    - Kurse für den Slider auswählen
 
 ## Anforderungen
-- Moodle 4.3 oder höher
+- Moodle 4.5 oder höher (kompatibel mit Moodle 5.0)
+- PHP 7.4 oder höher
+
+## Changelog
+
+### Version 0.2.0 (2025-10-09)
+**Bug-Fixes und Verbesserungen:**
+- **KRITISCHER BUG BEHOBEN:** SQL-Query JOIN-Reihenfolge korrigiert
+- **KRITISCHER BUG BEHOBEN:** Fehlende coursesJson bei leeren Kursen (verhinderte Dashboard-Laden)
+- **KRITISCHER BUG BEHOBEN:** JavaScript AMD-Modul nicht kompiliert (Slider funktionierte nicht)
+- Fehlende globale Variable $OUTPUT hinzugefügt
+- Kompatibilität mit Moodle 4.5 und 5.0 verbessert
+- Fehlende uniqid für Block-Instanzen hinzugefügt
+- URL-Objekte werden nun korrekt in Strings konvertiert
+- JavaScript direkt im Template eingebettet (keine Build-Abhängigkeit mehr)
+- Robustere Kursbild-Generierung mit Fehlerbehandlung
+- Fehlerbehandlung für gelöschte Kurse hinzugefügt
+- Unnötige Abhängigkeiten in edit_form.php entfernt
+
+**Getestet auf:**
+- ✅ Moodle 5.0.2+ (Build: 20250923)
+- ✅ PHP 8.4.5
+- ✅ MariaDB 11.4.7
+- ✅ Slider-Funktionalität vollständig getestet
+
+Siehe [DEMO_KURSE.md](DEMO_KURSE.md) für Beispielkurse mit Nachhaltigkeitsthemen
+
+### Version 0.1.1
+- Initiale Veröffentlichung
 
 ## Autor
 - Alexander Noack - Hochschule für nachhaltige Entwicklung Eberswalde (HNEE)
