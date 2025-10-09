@@ -63,6 +63,16 @@ class block_empfohlene_kurse_edit_form extends block_edit_form {
         // Abschnitt für Darstellungsoptionen
         $mform->addElement('header', 'displayheader', get_string('display_settings', 'block_empfohlene_kurse'));
         
+        // Layout-Modus
+        $layoutmodes = [
+            'vertical' => get_string('layout_vertical', 'block_empfohlene_kurse'),
+            'horizontal' => get_string('layout_horizontal', 'block_empfohlene_kurse'),
+        ];
+        $mform->addElement('select', 'config_layout_mode', 
+            get_string('config_layout_mode', 'block_empfohlene_kurse'), $layoutmodes);
+        $mform->setDefault('config_layout_mode', 'vertical');
+        $mform->addHelpButton('config_layout_mode', 'config_layout_mode', 'block_empfohlene_kurse');
+        
         // Bilddarstellungsmodus
         $imagefitmodes = [
             'cover' => get_string('imagefit_cover', 'block_empfohlene_kurse'),

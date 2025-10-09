@@ -33,6 +33,14 @@ Dieses Moodle-Plugin stellt einen Block zur Verfügung, der ausgewählte Kurse a
 
 ## Changelog
 
+### Version 1.0.1 (2025-10-09) - STABLE RELEASE
+
+**Neue Features:**
+- 📐 **Zwei Layout-Modi:** Vertikal (Standard) oder Horizontal (Bild links, Inhalt rechts)
+- 📂 **Kursbereich-Anzeige:** Zeigt die Kurskategorie zwischen Titel und Beschreibung
+- 🖼️ **Größere Kachel-Bilder:** 180px statt 120px (wie in der Kursübersicht)
+- 📱 **Responsive Design:** Horizontales Layout wird auf mobil zu vertikal
+
 ### Version 1.0.0 (2025-10-09) - STABLE RELEASE
 
 **Neue Features:**

@@ -30,13 +30,16 @@
         <div class="slider-container">
             {{#courses}}
                 {{#first}}
-                    <div class="main-course-wrapper" data-course-id="{{id}}">
+                    <div class="main-course-wrapper layout-{{layout_mode}}" data-course-id="{{id}}">
                         <div class="main-course" style="border-radius: {{border_radius}}px;">
                             <div class="main-course-image image-fit-{{image_fit}}" style="height: {{image_height}}px;">
                                 <img src="{{courseimage}}" alt="{{fullname}}" style="object-fit: {{image_fit}};">
                             </div>
                             <div class="main-course-content">
-                                <div class="main-course-title">{{fullname}}</div>
+                                <h2 class="main-course-title">{{fullname}}</h2>
+                                {{#category}}
+                                <div class="main-course-category">{{category}}</div>
+                                {{/category}}
                                 <div class="main-course-description">{{summary}}</div>
                                 <div class="button-container">
                                     <a href="{{enrollurl}}" class="btn btn-primary">{{buttontext}}</a>
@@ -92,6 +95,7 @@ require(['jquery'], function($) {
     var visibleCards = 3;
     
     // Konfigurationsoptionen aus data-Attributen
+    var layoutMode = '{{layout_mode}}';
     var imageFit = container.attr('data-image-fit') || 'cover';
     var imageHeight = container.attr('data-image-height') || '200';
     var borderRadius = container.attr('data-border-radius') || '8';
@@ -117,6 +121,10 @@ require(['jquery'], function($) {
         function updateContent() {
             $mainCourseWrapper.attr('data-course-id', mainCourse.id);
             
+            // Layout-Klasse setzen
+            $mainCourseWrapper.removeClass('layout-vertical layout-horizontal')
+                              .addClass('layout-' + layoutMode);
+            
             // Bildeinstellungen dynamisch anwenden
             var $image = $mainCourseWrapper.find('.main-course-image img');
             $image.attr('src', mainCourse.courseimage)
@@ -132,6 +140,19 @@ require(['jquery'], function($) {
                   .css('border-radius', borderRadius + 'px');
             
             $mainCourseWrapper.find('.main-course-title').text(mainCourse.fullname);
+            
+            // Kategorie aktualisieren oder verbergen
+            var $category = $mainCourseWrapper.find('.main-course-category');
+            if (mainCourse.category) {
+                if ($category.length === 0) {
+                    $mainCourseWrapper.find('.main-course-title').after('<div class="main-course-category">' + mainCourse.category + '</div>');
+                } else {
+                    $category.text(mainCourse.category).show();
+                }
+            } else {
+                $category.hide();
+            }
+            
             $mainCourseWrapper.find('.main-course-description').text(mainCourse.summary);
             $mainCourseWrapper.find('.button-container a').attr('href', mainCourse.enrollurl);
         }

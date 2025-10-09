@@ -57,6 +57,7 @@ class block_empfohlene_kurse extends block_base {
 
         // Darstellungsoptionen aus der Konfiguration holen
         $displayoptions = [
+            'layout_mode' => isset($this->config->layout_mode) ? $this->config->layout_mode : 'vertical',
             'image_fit' => isset($this->config->image_fit) ? $this->config->image_fit : 'cover',
             'image_height' => isset($this->config->image_height) ? $this->config->image_height : '200',
             'border_radius' => isset($this->config->border_radius) ? $this->config->border_radius : '8',
@@ -131,11 +132,16 @@ class block_empfohlene_kurse extends block_base {
                 // Kursbeschreibung
                 $coursesummary = strip_tags($courseobj->summary);
                 
+                // Kursbereich holen
+                $category = \core_course_category::get($course->category, IGNORE_MISSING);
+                $categoryname = $category ? $category->get_formatted_name() : '';
+                
                 $recommendedcourses[] = [
                     'id' => $courseid,
                     'fullname' => $course->fullname,
                     'shortname' => $course->shortname,
                     'summary' => $coursesummary,
+                    'category' => $categoryname,
                     'courseimage' => $courseimage,
                     'viewurl' => (new \moodle_url('/course/view.php', ['id' => $courseid]))->out(false),
                     'enrollurl' => (new \moodle_url('/enrol/index.php', ['id' => $courseid]))->out(false)

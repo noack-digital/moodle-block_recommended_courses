@@ -43,6 +43,12 @@ $string['previous_course'] = 'Previous course';
 
 // Display options
 $string['display_settings'] = 'Display settings';
+$string['config_layout_mode'] = 'Main course layout';
+$string['config_layout_mode_help'] = 'Determines how the main course is displayed:<br>
+<strong>Vertical:</strong> Course image on top, content below (default)<br>
+<strong>Horizontal:</strong> Course image on left, title, category and description on the right';
+$string['layout_vertical'] = 'Vertical - Image top, content below';
+$string['layout_horizontal'] = 'Horizontal - Image left, content right';
 $string['config_image_fit'] = 'Image fit mode';
 $string['config_image_fit_help'] = 'Determines how the course image is displayed in the main area:<br>
 <strong>Cover:</strong> Image fills the area completely, may be cropped top/bottom<br>

@@ -73,6 +73,7 @@ class main implements renderable, templatable {
         
         // Darstellungsoptionen mit Standardwerten
         $this->displayoptions = array_merge([
+            'layout_mode' => 'vertical',
             'image_fit' => 'cover',
             'image_height' => '200',
             'border_radius' => '8',
@@ -111,6 +112,7 @@ class main implements renderable, templatable {
         $data->next_course = get_string('next_course', 'block_empfohlene_kurse');
         
         // Darstellungsoptionen an Template übergeben
+        $data->layout_mode = $this->displayoptions['layout_mode'];
         $data->image_fit = $this->displayoptions['image_fit'];
         $data->image_height = $this->displayoptions['image_height'];
         $data->border_radius = $this->displayoptions['border_radius'];
@@ -132,6 +134,7 @@ class main implements renderable, templatable {
             $coursedata->fullname = $course['fullname'];
             $coursedata->shortname = $course['shortname'];
             $coursedata->summary = $course['summary'];
+            $coursedata->category = isset($course['category']) ? $course['category'] : '';
             $coursedata->courseimage = $course['courseimage'];
             $coursedata->viewurl = $course['viewurl'];
             $coursedata->enrollurl = $course['enrollurl'];

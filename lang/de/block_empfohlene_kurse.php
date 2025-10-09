@@ -43,6 +43,12 @@ $string['previous_course'] = 'Vorheriger Kurs';
 
 // Darstellungsoptionen
 $string['display_settings'] = 'Darstellungsoptionen';
+$string['config_layout_mode'] = 'Layout des Hauptkurses';
+$string['config_layout_mode_help'] = 'Bestimmt, wie der Hauptkurs angezeigt wird:<br>
+<strong>Vertikal:</strong> Kursbild oben, Inhalt darunter (Standard)<br>
+<strong>Horizontal:</strong> Kursbild links, Titel, Kursbereich und Beschreibung rechts daneben';
+$string['layout_vertical'] = 'Vertikal - Bild oben, Inhalt unten';
+$string['layout_horizontal'] = 'Horizontal - Bild links, Inhalt rechts';
 $string['config_image_fit'] = 'Bildanpassungsmodus';
 $string['config_image_fit_help'] = 'Bestimmt, wie das Kursbild im Hauptbereich angezeigt wird:<br>
 <strong>Abdecken (Cover):</strong> Bild füllt den Bereich vollständig aus, wird ggf. oben/unten abgeschnitten<br>
