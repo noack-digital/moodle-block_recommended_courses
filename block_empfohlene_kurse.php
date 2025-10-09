@@ -62,6 +62,9 @@ class block_empfohlene_kurse extends block_base {
             'image_height' => isset($this->config->image_height) ? $this->config->image_height : '200',
             'border_radius' => isset($this->config->border_radius) ? $this->config->border_radius : '8',
             'animation_speed' => isset($this->config->animation_speed) ? $this->config->animation_speed : '300',
+            'autoslide' => isset($this->config->autoslide) ? $this->config->autoslide : '0',
+            'show_cards' => isset($this->config->show_cards) ? $this->config->show_cards : 1,
+            'show_button' => isset($this->config->show_button) ? $this->config->show_button : 1,
         ];
 
         // Button-Text aus Konfiguration

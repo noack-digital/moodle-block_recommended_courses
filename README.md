@@ -33,6 +33,15 @@ Dieses Moodle-Plugin stellt einen Block zur Verfügung, der ausgewählte Kurse a
 
 ## Changelog
 
+### Version 1.1.0 (2025-10-09) - STABLE RELEASE
+
+**Neue Features:**
+- 🎨 **4 Layout-Modi:** Vertikal, Horizontal, Karte (zentriert), Minimal (nur Bild+Titel)
+- ⏱️ **Automatisches Sliding:** 3-10 Sekunden konfigurierbar, pausiert bei Hover
+- 👁️ **Ein-/Ausblendbare Elemente:** Kurskacheln und Button einzeln konfigurierbar
+- 🎭 **Kein grauer Hintergrund:** Transparenter Hintergrund bei Contain-Modus
+- 🖼️ **Größere Kachel-Bilder:** 180px (wie in Kursübersicht)
+
 ### Version 1.0.1 (2025-10-09) - STABLE RELEASE
 
 **Neue Features:**

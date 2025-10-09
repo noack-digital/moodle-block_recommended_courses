@@ -67,6 +67,8 @@ class block_empfohlene_kurse_edit_form extends block_edit_form {
         $layoutmodes = [
             'vertical' => get_string('layout_vertical', 'block_empfohlene_kurse'),
             'horizontal' => get_string('layout_horizontal', 'block_empfohlene_kurse'),
+            'card' => get_string('layout_card', 'block_empfohlene_kurse'),
+            'minimal' => get_string('layout_minimal', 'block_empfohlene_kurse'),
         ];
         $mform->addElement('select', 'config_layout_mode', 
             get_string('config_layout_mode', 'block_empfohlene_kurse'), $layoutmodes);
@@ -117,6 +119,28 @@ class block_empfohlene_kurse_edit_form extends block_edit_form {
         $mform->addElement('select', 'config_animation_speed', 
             get_string('config_animation_speed', 'block_empfohlene_kurse'), $animationspeeds);
         $mform->setDefault('config_animation_speed', '300');
+        
+        // Automatisches Sliding
+        $autoslide_options = [
+            '0' => get_string('autoslide_off', 'block_empfohlene_kurse'),
+            '3000' => '3 ' . get_string('seconds', 'block_empfohlene_kurse'),
+            '5000' => '5 ' . get_string('seconds', 'block_empfohlene_kurse'),
+            '7000' => '7 ' . get_string('seconds', 'block_empfohlene_kurse'),
+            '10000' => '10 ' . get_string('seconds', 'block_empfohlene_kurse'),
+        ];
+        $mform->addElement('select', 'config_autoslide', 
+            get_string('config_autoslide', 'block_empfohlene_kurse'), $autoslide_options);
+        $mform->setDefault('config_autoslide', '0');
+        $mform->addHelpButton('config_autoslide', 'config_autoslide', 'block_empfohlene_kurse');
+        
+        // Sichtbarkeitsoptionen
+        $mform->addElement('advcheckbox', 'config_show_cards', 
+            get_string('config_show_cards', 'block_empfohlene_kurse'));
+        $mform->setDefault('config_show_cards', 1);
+        
+        $mform->addElement('advcheckbox', 'config_show_button', 
+            get_string('config_show_button', 'block_empfohlene_kurse'));
+        $mform->setDefault('config_show_button', 1);
         
         // Abschnitt für die Kursauswahl
         $mform->addElement('header', 'courseselectionheader', get_string('select_courses', 'block_empfohlene_kurse'));

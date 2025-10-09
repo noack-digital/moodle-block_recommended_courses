@@ -45,10 +45,20 @@ $string['previous_course'] = 'Vorheriger Kurs';
 $string['display_settings'] = 'Darstellungsoptionen';
 $string['config_layout_mode'] = 'Layout des Hauptkurses';
 $string['config_layout_mode_help'] = 'Bestimmt, wie der Hauptkurs angezeigt wird:<br>
-<strong>Vertikal:</strong> Kursbild oben, Inhalt darunter (Standard)<br>
-<strong>Horizontal:</strong> Kursbild links, Titel, Kursbereich und Beschreibung rechts daneben';
+<strong>Vertikal:</strong> Kursbild oben, Inhalt darunter (klassisch)<br>
+<strong>Horizontal:</strong> Kursbild links (40%), Inhalt rechts (60%)<br>
+<strong>Karte:</strong> Zentriert mit Schatten, modernes Design<br>
+<strong>Minimal:</strong> Kompakt, nur Bild und Titel, große Schrift';
 $string['layout_vertical'] = 'Vertikal - Bild oben, Inhalt unten';
 $string['layout_horizontal'] = 'Horizontal - Bild links, Inhalt rechts';
+$string['layout_card'] = 'Karte - Zentriert mit Schatten';
+$string['layout_minimal'] = 'Minimal - Nur Bild und Titel';
+$string['config_autoslide'] = 'Automatisches Sliding';
+$string['config_autoslide_help'] = 'Wenn aktiviert, wechselt der Slider automatisch zum nächsten Kurs nach der eingestellten Zeit';
+$string['autoslide_off'] = 'Aus';
+$string['seconds'] = 'Sekunden';
+$string['config_show_cards'] = 'Kurskacheln anzeigen';
+$string['config_show_button'] = 'Einschreibe-Button anzeigen';
 $string['config_image_fit'] = 'Bildanpassungsmodus';
 $string['config_image_fit_help'] = 'Bestimmt, wie das Kursbild im Hauptbereich angezeigt wird:<br>
 <strong>Abdecken (Cover):</strong> Bild füllt den Bereich vollständig aus, wird ggf. oben/unten abgeschnitten<br>

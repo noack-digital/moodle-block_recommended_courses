@@ -45,10 +45,20 @@ $string['previous_course'] = 'Previous course';
 $string['display_settings'] = 'Display settings';
 $string['config_layout_mode'] = 'Main course layout';
 $string['config_layout_mode_help'] = 'Determines how the main course is displayed:<br>
-<strong>Vertical:</strong> Course image on top, content below (default)<br>
-<strong>Horizontal:</strong> Course image on left, title, category and description on the right';
+<strong>Vertical:</strong> Course image on top, content below (classic)<br>
+<strong>Horizontal:</strong> Course image left (40%), content right (60%)<br>
+<strong>Card:</strong> Centered with shadow, modern design<br>
+<strong>Minimal:</strong> Compact, image and title only, large font';
 $string['layout_vertical'] = 'Vertical - Image top, content below';
 $string['layout_horizontal'] = 'Horizontal - Image left, content right';
+$string['layout_card'] = 'Card - Centered with shadow';
+$string['layout_minimal'] = 'Minimal - Image and title only';
+$string['config_autoslide'] = 'Auto-slide';
+$string['config_autoslide_help'] = 'When enabled, the slider automatically advances to the next course after the specified time';
+$string['autoslide_off'] = 'Off';
+$string['seconds'] = 'seconds';
+$string['config_show_cards'] = 'Show course cards';
+$string['config_show_button'] = 'Show enrollment button';
 $string['config_image_fit'] = 'Image fit mode';
 $string['config_image_fit_help'] = 'Determines how the course image is displayed in the main area:<br>
 <strong>Cover:</strong> Image fills the area completely, may be cropped top/bottom<br>

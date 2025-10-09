@@ -78,6 +78,9 @@ class main implements renderable, templatable {
             'image_height' => '200',
             'border_radius' => '8',
             'animation_speed' => '300',
+            'autoslide' => '0',
+            'show_cards' => 1,
+            'show_button' => 1,
         ], $displayoptions);
         
         // Falls der Button-Text nicht angegeben wurde, den Standardwert aus den Sprachdateien verwenden
@@ -117,6 +120,9 @@ class main implements renderable, templatable {
         $data->image_height = $this->displayoptions['image_height'];
         $data->border_radius = $this->displayoptions['border_radius'];
         $data->animation_speed = $this->displayoptions['animation_speed'];
+        $data->autoslide = $this->displayoptions['autoslide'];
+        $data->show_cards = $this->displayoptions['show_cards'];
+        $data->show_button = $this->displayoptions['show_button'];
         
         // Wenn keine Kurse vorhanden sind, leeres Objekt zurückgeben
         if (!$data->hascourses) {

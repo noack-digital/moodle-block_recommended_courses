@@ -55,6 +55,52 @@
     justify-content: center;
 }
 
+/* Card Layout - zentriert mit starkem Schatten */
+.block_empfohlene_kurse .layout-card .main-course {
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.block_empfohlene_kurse .layout-card .main-course-content {
+    text-align: center;
+}
+
+.block_empfohlene_kurse .layout-card .main-course-title {
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+}
+
+.block_empfohlene_kurse .layout-card .button-container {
+    margin-top: 20px;
+}
+
+/* Minimal Layout - nur Bild und Titel, große Schrift */
+.block_empfohlene_kurse .layout-minimal .main-course {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.block_empfohlene_kurse .layout-minimal .main-course-image {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.block_empfohlene_kurse .layout-minimal .main-course-content {
+    padding: 20px 10px;
+    text-align: center;
+}
+
+.block_empfohlene_kurse .layout-minimal .main-course-title {
+    font-size: 2rem;
+    margin-bottom: 0;
+}
+
+.block_empfohlene_kurse .layout-minimal .main-course-description,
+.block_empfohlene_kurse .layout-minimal .main-course-category {
+    display: none;
+}
+
 /* Hauptkursbild mit konfigurierbarer Höhe */
 .block_empfohlene_kurse .main-course-image {
     width: 100%;
@@ -75,7 +121,7 @@
 
 /* Spezielle Styles für verschiedene Bildanpassungsmodi */
 .block_empfohlene_kurse .main-course-image.image-fit-contain {
-    background-color: #f5f5f5; /* Hintergrundfarbe für Leerräume */
+    background-color: transparent; /* Kein grauer Hintergrund */
 }
 
 .block_empfohlene_kurse .main-course-image.image-fit-contain img {
@@ -297,5 +343,19 @@
     
     .block_empfohlene_kurse .layout-horizontal .main-course-content {
         width: 100%;
+    }
+    
+    /* Card Layout auf mobil */
+    .block_empfohlene_kurse .layout-card .main-course {
+        max-width: 100%;
+    }
+    
+    .block_empfohlene_kurse .layout-card .main-course-title {
+        font-size: 1.3rem;
+    }
+    
+    /* Minimal Layout Titel kleiner auf mobil */
+    .block_empfohlene_kurse .layout-minimal .main-course-title {
+        font-size: 1.5rem;
     }
 }

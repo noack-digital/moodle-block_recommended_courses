@@ -41,15 +41,18 @@
                                 <div class="main-course-category">{{category}}</div>
                                 {{/category}}
                                 <div class="main-course-description">{{summary}}</div>
+                                {{#show_button}}
                                 <div class="button-container">
                                     <a href="{{enrollurl}}" class="btn btn-primary">{{buttontext}}</a>
                                 </div>
+                                {{/show_button}}
                             </div>
                         </div>
                     </div>
                 {{/first}}
             {{/courses}}
             
+            {{#show_cards}}
             <div class="course-cards">
                 {{#courses}}
                     {{^first}}
@@ -64,6 +67,7 @@
                     {{/first}}
                 {{/courses}}
             </div>
+            {{/show_cards}}
             
             <div class="slider-nav prev" title="{{prev_course}}" style="top: calc({{image_height}}px / 2); margin-top: -20px;">
                 <i class="fa fa-chevron-left"></i>
@@ -100,6 +104,9 @@ require(['jquery'], function($) {
     var imageHeight = container.attr('data-image-height') || '200';
     var borderRadius = container.attr('data-border-radius') || '8';
     var animationSpeed = parseInt(container.attr('data-animation-speed')) || 300;
+    var autoslideInterval = parseInt('{{autoslide}}') || 0;
+    var showButton = {{show_button}} ? true : false;
+    var autoslideTimer = null;
     
     function updateSlider() {
         if (coursesCount === 0) return;
@@ -154,7 +161,11 @@ require(['jquery'], function($) {
             }
             
             $mainCourseWrapper.find('.main-course-description').text(mainCourse.summary);
-            $mainCourseWrapper.find('.button-container a').attr('href', mainCourse.enrollurl);
+            
+            // Button aktualisieren (falls sichtbar)
+            if (showButton) {
+                $mainCourseWrapper.find('.button-container a').attr('href', mainCourse.enrollurl);
+            }
         }
         
         var $courseCards = container.find('.course-cards');
@@ -177,6 +188,20 @@ require(['jquery'], function($) {
         }
     }
     
+    container.on('click', '.slider-nav.prev', function(e) {
+        e.preventDefault();
+        currentIndex = (currentIndex - 1 + coursesCount) % coursesCount;
+        updateSlider();
+        resetAutoslide();
+    });
+    
+    container.on('click', '.slider-nav.next', function(e) {
+        e.preventDefault();
+        currentIndex = (currentIndex + 1) % coursesCount;
+        updateSlider();
+        resetAutoslide();
+    });
+    
     container.on('click', '.course-card', function(e) {
         e.preventDefault();
         var courseId = $(this).attr('data-course-id');
@@ -185,27 +210,45 @@ require(['jquery'], function($) {
             if (allCourses[i].id == courseId) {
                 currentIndex = i;
                 updateSlider();
+                resetAutoslide();
                 break;
             }
         }
     });
     
-    container.on('click', '.slider-nav.prev', function(e) {
-        e.preventDefault();
-        currentIndex = (currentIndex - 1 + coursesCount) % coursesCount;
-        updateSlider();
-    });
+    // Auto-Slide Funktionen
+    function startAutoslide() {
+        if (autoslideInterval > 0) {
+            autoslideTimer = setInterval(function() {
+                currentIndex = (currentIndex + 1) % coursesCount;
+                updateSlider();
+            }, autoslideInterval);
+        }
+    }
     
-    container.on('click', '.slider-nav.next', function(e) {
-        e.preventDefault();
-        currentIndex = (currentIndex + 1) % coursesCount;
-        updateSlider();
-    });
+    function resetAutoslide() {
+        if (autoslideTimer) {
+            clearInterval(autoslideTimer);
+        }
+        startAutoslide();
+    }
     
     if (coursesCount > 1) {
         updateSlider();
+        startAutoslide();
     } else {
         container.find('.slider-nav').hide();
     }
+    
+    // Pausiere Auto-Slide beim Hover
+    container.on('mouseenter', '.main-course-wrapper', function() {
+        if (autoslideTimer) {
+            clearInterval(autoslideTimer);
+        }
+    });
+    
+    container.on('mouseleave', '.main-course-wrapper', function() {
+        startAutoslide();
+    });
 });
 {{/js}}
