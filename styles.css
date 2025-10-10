@@ -439,50 +439,50 @@
     .block_empfohlene_kurse .course-cards {
         flex-wrap: wrap;
     }
-    
+
     .block_empfohlene_kurse .course-card {
         flex: 0 0 100%;
         max-width: 100%;
         margin-bottom: 10px;
     }
-    
+
     /* Navigationspfeile auf mobilen Geräten näher ran */
     .block_empfohlene_kurse .slider-nav.prev {
         left: 10px;
     }
-    
+
     .block_empfohlene_kurse .slider-nav.next {
         right: 10px;
     }
-    
+
     /* Horizontales Layout wird auf mobilen Geräten vertikal */
     .block_empfohlene_kurse .layout-horizontal .main-course {
         flex-direction: column;
     }
-    
+
     .block_empfohlene_kurse .layout-horizontal .main-course-image {
         width: 100%;
         height: auto;
     }
-    
+
     .block_empfohlene_kurse .layout-horizontal .main-course-image img {
         height: auto;
         object-fit: none;
     }
-    
+
     .block_empfohlene_kurse .layout-horizontal .main-course-content {
         width: 100%;
     }
-    
+
     /* Card Layout auf mobil */
     .block_empfohlene_kurse .layout-card .main-course {
         max-width: 100%;
     }
-    
+
     .block_empfohlene_kurse .layout-card .main-course-title {
         font-size: 1.3rem;
     }
-    
+
     /* Minimal Layout Titel kleiner auf mobil */
     .block_empfohlene_kurse .layout-minimal .main-course-title {
         font-size: 1.5rem;

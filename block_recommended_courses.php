@@ -15,29 +15,26 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Contains the class for the "Empfohlene Kurse" block.
+ * Contains the class for the "Recommended Courses" block.
  *
- * @package    block_empfohlene_kurse
+ * @package    block_recommended_courses
  * @copyright  2025 Moodle Developer
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-defined('MOODLE_INTERNAL') || die();
 
 /**
- * Empfohlene Kurse block class.
+ * Recommended Courses block class.
  *
- * @package    block_empfohlene_kurse
+ * @package    block_recommended_courses
  * @copyright  2025 Moodle Developer
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class block_empfohlene_kurse extends block_base {
-
+class block_recommended_courses extends block_base {
     /**
      * Init.
      */
     public function init() {
-        $this->title = get_string('pluginname', 'block_empfohlene_kurse');
+        $this->title = get_string('pluginname', 'block_recommended_courses');
     }
 
     /**
@@ -55,7 +52,7 @@ class block_empfohlene_kurse extends block_base {
         // Die Kurse für den Slider holen.
         $courses = $this->get_recommended_courses();
 
-        // Darstellungsoptionen aus der Konfiguration holen
+        // Darstellungsoptionen aus der Konfiguration holen.
         $displayoptions = [
             'layout_mode' => isset($this->config->layout_mode) ? $this->config->layout_mode : 'vertical',
             'image_fit' => isset($this->config->image_fit) ? $this->config->image_fit : 'cover',
@@ -71,12 +68,12 @@ class block_empfohlene_kurse extends block_base {
             'show_lastmodified' => isset($this->config->show_lastmodified) ? $this->config->show_lastmodified : 1,
         ];
 
-        // Button-Text aus Konfiguration
+        // Button-Text aus Konfiguration.
         $buttontext = isset($this->config->button_text) ? $this->config->button_text : null;
 
         // Renderable erstellen.
-        $renderable = new \block_empfohlene_kurse\output\main($courses, $buttontext, $displayoptions);
-        $renderer = $this->page->get_renderer('block_empfohlene_kurse');
+        $renderable = new \block_recommended_courses\output\main($courses, $buttontext, $displayoptions);
+        $renderer = $this->page->get_renderer('block_recommended_courses');
 
         $this->content = new stdClass();
         $this->content->text = $renderer->render($renderable);
@@ -93,14 +90,14 @@ class block_empfohlene_kurse extends block_base {
     private function get_recommended_courses() {
         global $DB, $USER, $OUTPUT;
 
-        // Die vom Admin ausgewählten Kurse aus den Einstellungen holen
+        // Die vom Admin ausgewählten Kurse aus den Einstellungen holen.
         $configcourses = isset($this->config->courses) ? $this->config->courses : [];
-        
+
         if (empty($configcourses)) {
             return [];
         }
 
-        // Kurse laden, in die der Benutzer eingeschrieben ist
+        // Kurse laden, in die der Benutzer eingeschrieben ist.
         $sql = "SELECT c.id FROM {course} c
                 JOIN {enrol} e ON e.courseid = c.id
                 JOIN {user_enrolments} ue ON ue.enrolid = e.id
@@ -108,51 +105,51 @@ class block_empfohlene_kurse extends block_base {
         $enrolled = $DB->get_records_sql($sql, ['userid' => $USER->id]);
         $enrolledids = array_keys($enrolled);
 
-        // Nur Kurse zurückgeben, in die der Benutzer noch nicht eingeschrieben ist
+        // Nur Kurse zurückgeben, in die der Benutzer noch nicht eingeschrieben ist.
         $recommendedcourses = [];
         foreach ($configcourses as $courseid) {
             if (!in_array($courseid, $enrolledids)) {
-                // Kursinformationen laden
+                // Kursinformationen laden.
                 $course = $DB->get_record('course', ['id' => $courseid], '*', IGNORE_MISSING);
                 if (!$course) {
-                    continue; // Kurs existiert nicht mehr, überspringen
+                    continue; // Kurs existiert nicht mehr, überspringen.
                 }
-                
+
                 $courseobj = new \core_course_list_element($course);
-                
-                // Kursbild URL - robuste Implementierung für verschiedene Moodle-Versionen
+
+                // Kursbild URL - robuste Implementierung für verschiedene Moodle-Versionen.
                 $courseimage = null;
                 if (class_exists('\core_course\external\course_summary_exporter')) {
                     try {
                         $courseimage = \core_course\external\course_summary_exporter::get_course_image($courseobj);
                     } catch (\Exception $e) {
-                        // Fallback bei Fehler
+                        // Fallback bei Fehler.
                         $courseimage = null;
                     }
                 }
-                
+
                 if (!$courseimage) {
-                    // Fallback: generiertes Bild verwenden
+                    // Fallback: generiertes Bild verwenden.
                     $courseimage = $OUTPUT->get_generated_image_for_id($courseid);
                 }
-                
-                // Kursbeschreibung
+
+                // Kursbeschreibung.
                 $coursesummary = strip_tags($courseobj->summary);
-                
-                // Kursbereich holen
+
+                // Kursbereich holen.
                 $category = \core_course_category::get($course->category, IGNORE_MISSING);
                 $categoryname = $category ? $category->get_formatted_name() : '';
-                
-                // Hauptansprechpartner (Course Contact) ermitteln
+
+                // Hauptansprechpartner (Course Contact) ermitteln.
                 $contact = $this->get_course_contact($courseid);
-                
-                // Datum der letzten Bearbeitung mit führenden Nullen
+
+                // Datum der letzten Bearbeitung mit führenden Nullen.
                 $lastmodified = '';
                 if ($course->timemodified > 0) {
-                    // Format: 09.10.25 (mit führenden Nullen, Jahr zweistellig)
+                    // Format: 09.10.25 (mit führenden Nullen, Jahr zweistellig).
                     $lastmodified = date('d.m.y', $course->timemodified);
                 }
-                
+
                 $recommendedcourses[] = [
                     'id' => $courseid,
                     'fullname' => $course->fullname,
@@ -167,7 +164,7 @@ class block_empfohlene_kurse extends block_base {
                 ];
             }
         }
-        
+
         return $recommendedcourses;
     }
 
@@ -178,54 +175,54 @@ class block_empfohlene_kurse extends block_base {
      * @return array|null Array mit Name, Profilbild-URL und Profil-URL oder null
      */
     private function get_course_contact($courseid) {
-        global $DB, $OUTPUT, $PAGE;
-        
-        // Kontext des Kurses holen
+        global $DB, $OUTPUT;
+
+        // Kontext des Kurses holen.
         $context = \context_course::instance($courseid);
-        
-        // Rollen definieren, die als Kursleiter gelten (editingteacher, teacher)
+
+        // Rollen definieren, die als Kursleiter gelten (editingteacher, teacher).
         $teacherroles = $DB->get_records_sql(
-            "SELECT DISTINCT r.id 
-             FROM {role} r 
-             WHERE r.shortname IN ('editingteacher', 'teacher') 
+            "SELECT DISTINCT r.id
+             FROM {role} r
+             WHERE r.shortname IN ('editingteacher', 'teacher')
              ORDER BY r.sortorder ASC"
         );
-        
+
         if (empty($teacherroles)) {
             return null;
         }
-        
+
         $roleids = array_keys($teacherroles);
-        list($insql, $params) = $DB->get_in_or_equal($roleids, SQL_PARAMS_NAMED);
+        [$insql, $params] = $DB->get_in_or_equal($roleids, SQL_PARAMS_NAMED);
         $params['contextid'] = $context->id;
-        
-        // Ersten Benutzer mit Kursleiter-Rolle holen
-        $sql = "SELECT DISTINCT u.id, u.firstname, u.lastname, u.email, u.picture, u.imagealt, 
+
+        // Ersten Benutzer mit Kursleiter-Rolle holen.
+        $sql = "SELECT DISTINCT u.id, u.firstname, u.lastname, u.email, u.picture, u.imagealt,
                        u.firstnamephonetic, u.lastnamephonetic, u.middlename, u.alternatename
                 FROM {role_assignments} ra
                 JOIN {user} u ON u.id = ra.userid
                 WHERE ra.contextid = :contextid AND ra.roleid $insql
                 ORDER BY ra.id ASC";
-        
+
         $teachers = $DB->get_records_sql($sql, $params, 0, 1);
-        
+
         if (empty($teachers)) {
             return null;
         }
-        
+
         $teacher = reset($teachers);
-        
-        // Profilbild-URL generieren
+
+        // Profilbild-URL generieren.
         $userpicture = new \user_picture($teacher);
-        $userpicture->size = 50; // Kleine Bildgröße (50x50px)
-        $pictureurl = $userpicture->get_url($PAGE)->out(false);
-        
-        // Vollständigen Namen generieren
+        $userpicture->size = 50; // Kleine Bildgröße (50x50px).
+        $pictureurl = $userpicture->get_url($this->page)->out(false);
+
+        // Vollständigen Namen generieren.
         $fullname = fullname($teacher);
-        
-        // Profil-URL
+
+        // Profil-URL.
         $profileurl = (new \moodle_url('/user/profile.php', ['id' => $teacher->id]))->out(false);
-        
+
         return [
             'name' => $fullname,
             'pictureurl' => $pictureurl,
@@ -241,7 +238,7 @@ class block_empfohlene_kurse extends block_base {
     public function applicable_formats() {
         return [
             'my' => true,
-            'site' => true
+            'site' => true,
         ];
     }
 
@@ -253,7 +250,7 @@ class block_empfohlene_kurse extends block_base {
     public function has_config() {
         return true;
     }
-    
+
     /**
      * Allow instance configuration
      *
@@ -262,7 +259,7 @@ class block_empfohlene_kurse extends block_base {
     public function instance_allow_config() {
         return true;
     }
-    
+
     /**
      * Allow multiple instances of the block.
      *
@@ -271,7 +268,7 @@ class block_empfohlene_kurse extends block_base {
     public function instance_allow_multiple() {
         return true;
     }
-    
+
     /**
      * Custom function to set defaults.
      *
@@ -280,7 +277,7 @@ class block_empfohlene_kurse extends block_base {
     public function specialization() {
         if (isset($this->config)) {
             if (empty($this->config->title)) {
-                $this->title = get_string('pluginname', 'block_empfohlene_kurse');
+                $this->title = get_string('pluginname', 'block_recommended_courses');
             } else {
                 $this->title = $this->config->title;
             }

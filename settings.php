@@ -15,17 +15,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Settings for the empfohlene_kurse block.
+ * Block recommended_courses settings.
  *
- * @package    block_empfohlene_kurse
+ * @package    block_recommended_courses
  * @copyright  2025 Moodle Developer
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die;
-
-if ($ADMIN->fulltree) {
-    // Da die meisten Einstellungen individuell pro Block-Instanz gesetzt werden können,
-    // sind hier keine globalen Einstellungen notwendig. Bei Bedarf könnten hier
-    // zusätzliche globale Einstellungen hinzugefügt werden.
-}
+// This block intentionally left empty.
+// Block-specific settings can be configured per-instance.

@@ -1,125 +1,92 @@
-# Empfohlene Kurse Block
+# Recommended Courses Block
 
-## Beschreibung
-Dieses Moodle-Plugin stellt einen Block zur Verfügung, der ausgewählte Kurse anzeigt, in die der Benutzer noch nicht eingeschrieben ist. Der Block kann zum Moodle-Dashboard hinzugefügt werden und zeigt empfohlene Kurse in einem interaktiven Slider an.
+## Description
+This Moodle plugin provides a block that displays selected courses in which the user is not yet enrolled. The block can be added to the Moodle Dashboard and shows recommended courses in an interactive slider.
 
 ## Features
-- Anzeige von ausgewählten Kursen in einem Slider
-- Der Hauptkurs wird mit Bild, Titel, Beschreibung und Einschreibe-Button angezeigt
-- Zusätzlich werden drei weitere Kurse als Kurskarten angezeigt
-- Navigation über Pfeile links und rechts
-- Konfigurierbar durch Administratoren:
-  - Auswahl der anzuzeigenden Kurse über eine Suchfunktion
-  - Anpassung des Block-Titels
-  - Auswahl der Titelausrichtung (links, rechts, zentriert)
-  - Anpassung des Button-Textes
+- Display of selected courses in a slider
+- Main course displayed with image, title, description, and enrollment button
+- Additional three courses displayed as course cards
+- Navigation via left and right arrows
+- Configurable by administrators:
+  - Selection of courses to display via search function
+  - Customization of block title
+  - Selection of title alignment (left, right, centered)
+  - Customization of button text
+  - 4 layout modes (Vertical, Horizontal, Card, Minimal)
+  - Automatic sliding functionality
+  - Show/hide course cards and enrollment button
+  - Course information (category, contact person, last modified date)
+- Multilingual support (German, English, Ukrainian)
 
 ## Installation
-1. Laden Sie den Inhalt des Repositories in das Verzeichnis `/blocks/empfohlene_kurse/` Ihrer Moodle-Installation.
-2. Besuchen Sie als Administrator die Seite "Website-Administration" > "Benachrichtigungen", um die Installation abzuschließen.
-3. Fügen Sie den Block zu Ihrem Dashboard oder einer anderen Seite hinzu.
+1. Upload the contents of the repository to the directory `/blocks/recommended_courses/` of your Moodle installation.
+2. As an administrator, visit the "Site Administration" > "Notifications" page to complete the installation.
+3. Add the block to your dashboard or another page.
 
-## Konfiguration
-1. Als Administrator können Sie den Block zu Ihrem Dashboard hinzufügen und dann auf das Zahnrad-Symbol klicken, um die Blockeinstellungen zu öffnen.
-2. Im Konfigurationsmenü können Sie:
-   - Den Titel des Blocks anpassen
-   - Die Ausrichtung des Titels auswählen
-   - Den Text für den Einschreibe-Button ändern
-   - Kurse für den Slider auswählen
+## Configuration
+1. As an administrator, you can add the block to your dashboard and then click on the gear icon to open the block settings.
+2. In the configuration menu, you can:
+   - Customize the block title
+   - Select the title alignment
+   - Change the text for the enrollment button
+   - Select courses for the slider
+   - Choose layout mode
+   - Configure auto-slide interval
+   - Toggle visibility of course cards and buttons
+   - Configure course information display (category, contact, date)
 
-## Anforderungen
-- Moodle 4.5 oder höher (kompatibel mit Moodle 5.0)
-- PHP 7.4 oder höher
+## Requirements
+- Moodle 4.5 or higher (compatible with Moodle 5.0)
+- PHP 7.4 or higher
 
 ## Changelog
 
-### Version 1.3.1 (2025-10-10) - STABLE RELEASE
+### Version 2.0.0 (2025-10-10) - STABLE RELEASE - RENAMED PLUGIN
 
-**Neue Features:**
-- 👤 **Hauptansprechpartner:** Zeigt den Kursleiter mit Profilbild an
-- 📅 **Datum der letzten Bearbeitung:** Zeigt wann der Kurs zuletzt aktualisiert wurde
-- ⚙️ **Flexible Kursinformationen:** Kategorie, Ansprechpartner und Datum einzeln ein-/ausblendbar
-- 🖼️ **Profilbild-Option:** Profilbild des Ansprechpartners optional anzeigbar
-- 🎨 **Moderne Meta-Tags:** Informationen in übersichtlichen Badges mit Icons
-- 💡 **Tooltips:** Bei Mouseover über Meta-Informationen werden Erklärungen angezeigt
+**Major Changes:**
+- 🔄 **Plugin renamed:** from `block_empfohlene_kurse` to `block_recommended_courses`
+- 🌍 **Multilingual:** German, English, Ukrainian language support
+- 🆔 **Component name:** Changed to `block_recommended_courses`
 
-**Verbesserungen:**
-- Automatische Ermittlung des Hauptansprechpartners (editingteacher/teacher)
-- Flexgroup-Layout für Meta-Informationen mit automatischem Umbruch
-- Klickbare Kontaktnamen führen zum Benutzerprofil
-- Hover-Effekte auf Meta-Badges (Hintergrundfarbe ändert sich)
-- Cursor: help bei Tooltips für bessere UX
-- Responsive Darstellung auf mobilen Geräten
+**Features from v1.3.1:**
+- 👤 **Main contact person:** Shows course teacher with profile picture
+- 📅 **Last modification date:** Shows when the course was last updated (format: 09.10.25)
+- ⚙️ **Flexible course information:** Category, contact person, and date individually toggleable
+- 🖼️ **Profile picture option:** Contact person profile picture optionally displayable
+- 🎨 **Modern meta tags:** Information in clear badges with icons
+- 💡 **Tooltips:** Explanations displayed on mouseover of meta information
 
-### Version 1.2.1 (2025-10-10) - STABLE RELEASE
+**Previous Features:**
+- 🎯 **Indicator dots:** Dots below main course show number and position of slides
+- 💡 **Course name tooltips:** Hover over indicator dot displays course name
+- 🖱️ **Direct navigation:** Click on indicator dot jumps directly to course
+- 🎨 **Optimized navigation arrows:** Outside of content at edge, Moodle blue with white icons
+- 🖼️ **Full image width:** Main course images use full width with proportional height
+- 🔗 **Clickable course titles:** Titles in main slider lead directly to course
+- 🎨 **4 layout modes:** Vertical, Horizontal, Card (centered), Minimal (image + title only)
+- ⏱️ **Automatic sliding:** 3-10 seconds configurable, pauses on hover
+- 👁️ **Toggleable elements:** Course cards and button individually configurable
+- 📱 **Responsive:** Navigation arrows adjust on mobile devices
 
-**Neue Features:**
-- 🎯 **Indikator-Punkte:** Dots unter dem Hauptkurs zeigen Anzahl und Position der Slides
-- 💡 **Kursname-Tooltips:** Bei Hover über Indikator-Punkt wird Kursname angezeigt
-- 🖱️ **Direkte Navigation:** Click auf Indikator-Punkt springt direkt zum Kurs
-- 🎨 **Optimierte Navigationspfeile:** Außerhalb des Contents am Rand, Moodle-Blau mit weißen Icons
-- 🖼️ **Volle Bildbreite:** Hauptkurs-Bilder nutzen volle Breite mit proportionaler Höhe
-- 🔗 **Klickbare Kurstitel:** Titel im Haupt-Slider führen direkt zum Kurs
-- 📱 **Responsive:** Navigationspfeile passen sich auf mobilen Geräten an
+**Improvements:**
+- Automatic detection of main contact person (editingteacher/teacher)
+- Flexgroup layout for meta information with automatic wrapping
+- Clickable contact names lead to user profile
+- Hover effects on meta badges (background color changes)
+- Cursor: help for tooltips for better UX
+- Responsive display on mobile devices
 
-**Verbesserungen:**
-- Hover-Effekt für Kurstitel (Unterstreichung + dunkleres Blau)
-- Focus-Outline für Barrierefreiheit
-- Dynamische Link-Updates beim Slider-Wechsel
-
-### Version 1.1.0 (2025-10-09) - STABLE RELEASE
-
-**Neue Features:**
-- 🎨 **4 Layout-Modi:** Vertikal, Horizontal, Karte (zentriert), Minimal (nur Bild+Titel)
-- ⏱️ **Automatisches Sliding:** 3-10 Sekunden konfigurierbar, pausiert bei Hover
-- 👁️ **Ein-/Ausblendbare Elemente:** Kurskacheln und Button einzeln konfigurierbar
-- 🎭 **Kein grauer Hintergrund:** Transparenter Hintergrund bei Contain-Modus
-- 🖼️ **Größere Kachel-Bilder:** 180px (wie in Kursübersicht)
-
-### Version 1.0.1 (2025-10-09) - STABLE RELEASE
-
-**Neue Features:**
-- 📐 **Zwei Layout-Modi:** Vertikal (Standard) oder Horizontal (Bild links, Inhalt rechts)
-- 📂 **Kursbereich-Anzeige:** Zeigt die Kurskategorie zwischen Titel und Beschreibung
-- 🖼️ **Größere Kachel-Bilder:** 180px statt 120px (wie in der Kursübersicht)
-- 📱 **Responsive Design:** Horizontales Layout wird auf mobil zu vertikal
-
-### Version 1.0.0 (2025-10-09) - STABLE RELEASE
-
-**Neue Features:**
-- 🎨 **Bildanpassungsmodus:** Cover / Contain / Fill
-- 📏 **Konfigurierbare Bildhöhe:** 150-350px
-- 🔲 **Anpassbarer Eckenradius:** 0-12px  
-- ⚡ **Animationsgeschwindigkeit:** Keine bis Langsam
-- ✨ Vollständig anpassbare Darstellung über Block-Einstellungen
-
-### Version 0.2.0 (2025-10-09)
-**Bug-Fixes und Verbesserungen:**
-- **KRITISCHER BUG BEHOBEN:** SQL-Query JOIN-Reihenfolge korrigiert
-- **KRITISCHER BUG BEHOBEN:** Fehlende coursesJson bei leeren Kursen (verhinderte Dashboard-Laden)
-- **KRITISCHER BUG BEHOBEN:** JavaScript AMD-Modul nicht kompiliert (Slider funktionierte nicht)
-- Fehlende globale Variable $OUTPUT hinzugefügt
-- Kompatibilität mit Moodle 4.5 und 5.0 verbessert
-- Fehlende uniqid für Block-Instanzen hinzugefügt
-- URL-Objekte werden nun korrekt in Strings konvertiert
-- JavaScript direkt im Template eingebettet (keine Build-Abhängigkeit mehr)
-- Robustere Kursbild-Generierung mit Fehlerbehandlung
-- Fehlerbehandlung für gelöschte Kurse hinzugefügt
-- Unnötige Abhängigkeiten in edit_form.php entfernt
-
-**Getestet auf:**
+**Tested on:**
 - ✅ Moodle 5.0.2+ (Build: 20250923)
+- ✅ Moodle 4.5+
 - ✅ PHP 8.4.5
 - ✅ MariaDB 11.4.7
-- ✅ Slider-Funktionalität vollständig getestet
 
-Siehe [DEMO_KURSE.md](DEMO_KURSE.md) für Beispielkurse mit Nachhaltigkeitsthemen
+See [DEMO_KURSE.md](DEMO_KURSE.md) for example courses with sustainability themes
 
-### Version 0.1.1
-- Initiale Veröffentlichung
-
-## Autor
+## Author
 - Alexander Noack - Hochschule für nachhaltige Entwicklung Eberswalde (HNEE)
 
-## Lizenz
-MIT - Siehe [LICENSE](LICENSE) für weitere Informationen
+## License
+MIT - See [LICENSE](LICENSE) for more information

@@ -15,15 +15,13 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Class containing data for the empfohlene_kurse block.
+ * Class containing data for the recommended courses block.
  *
- * @package    block_empfohlene_kurse
+ * @package    block_recommended_courses
  * @copyright  2025 Moodle Developer
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-namespace block_empfohlene_kurse\output;
-
-defined('MOODLE_INTERNAL') || die();
+namespace block_recommended_courses\output;
 
 use renderable;
 use renderer_base;
@@ -31,47 +29,44 @@ use templatable;
 use stdClass;
 
 /**
- * Class containing data for the empfohlene_kurse block.
+ * Class containing data for the recommended courses block.
  *
- * @package    block_empfohlene_kurse
+ * @package    block_recommended_courses
  * @copyright  2025 Moodle Developer
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class main implements renderable, templatable {
-
     /**
-     * @var array Liste der Kurse für den Slider
+     * @var array Liste der Kurse für den Slider.
      */
     protected $courses;
-    
+
     /**
-     * @var string Text für den Einschreibe-Button
+     * @var string Text für den Einschreibe-Button.
      */
     protected $buttontext;
-    
+
     /**
-     * @var string Text, wenn keine Kurse vorhanden sind
+     * @var string Text, wenn keine Kurse vorhanden sind.
      */
     protected $nocoursesmessage;
-    
+
     /**
-     * @var array Darstellungsoptionen
+     * @var array Darstellungsoptionen.
      */
     protected $displayoptions;
-    
+
     /**
      * Konstruktor.
      *
-     * @param array $courses Liste der Kurse für den Slider
-     * @param string $buttontext Text für den Einschreibe-Button
-     * @param array $displayoptions Darstellungsoptionen für den Slider
+     * @param array $courses Liste der Kurse für den Slider.
+     * @param string $buttontext Text für den Einschreibe-Button.
+     * @param array $displayoptions Darstellungsoptionen für den Slider.
      */
     public function __construct($courses, $buttontext = null, $displayoptions = []) {
-        global $PAGE;
-        
         $this->courses = $courses;
-        
-        // Darstellungsoptionen mit Standardwerten
+
+        // Darstellungsoptionen mit Standardwerten.
         $this->displayoptions = array_merge([
             'layout_mode' => 'vertical',
             'image_fit' => 'cover',
@@ -86,16 +81,16 @@ class main implements renderable, templatable {
             'show_contact_picture' => 1,
             'show_lastmodified' => 1,
         ], $displayoptions);
-        
-        // Falls der Button-Text nicht angegeben wurde, den Standardwert aus den Sprachdateien verwenden
+
+        // Falls der Button-Text nicht angegeben wurde, den Standardwert aus den Sprachdateien verwenden.
         if ($buttontext === null) {
-            $this->buttontext = get_string('enrollbutton', 'block_empfohlene_kurse');
+            $this->buttontext = get_string('enrollbutton', 'block_recommended_courses');
         } else {
             $this->buttontext = $buttontext;
         }
-        
-        // Meldung, wenn keine Kurse vorhanden sind
-        $this->nocoursesmessage = get_string('no_courses_to_display', 'block_empfohlene_kurse');
+
+        // Meldung, wenn keine Kurse vorhanden sind.
+        $this->nocoursesmessage = get_string('no_courses_to_display', 'block_recommended_courses');
     }
 
     /**
@@ -106,19 +101,19 @@ class main implements renderable, templatable {
      */
     public function export_for_template(renderer_base $output) {
         $data = new stdClass();
-        
-        // Eindeutige ID für das Block-Template generieren
+
+        // Eindeutige ID für das Block-Template generieren.
         $data->uniqid = uniqid();
-        
-        // Prüfen, ob Kurse vorhanden sind
+
+        // Prüfen, ob Kurse vorhanden sind.
         $data->hascourses = !empty($this->courses);
         $data->courses = [];
         $data->buttontext = $this->buttontext;
         $data->no_courses_message = $this->nocoursesmessage;
-        $data->prev_course = get_string('previous_course', 'block_empfohlene_kurse');
-        $data->next_course = get_string('next_course', 'block_empfohlene_kurse');
-        
-        // Darstellungsoptionen an Template übergeben
+        $data->prev_course = get_string('previous_course', 'block_recommended_courses');
+        $data->next_course = get_string('next_course', 'block_recommended_courses');
+
+        // Darstellungsoptionen an Template übergeben.
         $data->layout_mode = $this->displayoptions['layout_mode'];
         $data->image_fit = $this->displayoptions['image_fit'];
         $data->image_height = $this->displayoptions['image_height'];
@@ -131,17 +126,17 @@ class main implements renderable, templatable {
         $data->show_contact = $this->displayoptions['show_contact'];
         $data->show_contact_picture = $this->displayoptions['show_contact_picture'];
         $data->show_lastmodified = $this->displayoptions['show_lastmodified'];
-        
-        // Wenn keine Kurse vorhanden sind, leeres Objekt zurückgeben
+
+        // Wenn keine Kurse vorhanden sind, leeres Objekt zurückgeben.
         if (!$data->hascourses) {
             $data->coursesJson = json_encode([]);
             return $data;
         }
-        
-        // Sonst die Kurse für das Template vorbereiten
+
+        // Sonst die Kurse für das Template vorbereiten.
         $first = true;
-        $visibleCount = 0;
-        
+        $visiblecount = 0;
+
         foreach ($this->courses as $index => $course) {
             $coursedata = new stdClass();
             $coursedata->id = $course['id'];
@@ -152,8 +147,8 @@ class main implements renderable, templatable {
             $coursedata->courseimage = $course['courseimage'];
             $coursedata->viewurl = $course['viewurl'];
             $coursedata->enrollurl = $course['enrollurl'];
-            
-            // Kontakt-Informationen
+
+            // Kontakt-Informationen.
             if (isset($course['contact']) && !empty($course['contact'])) {
                 $coursedata->has_contact = true;
                 $coursedata->contact_name = $course['contact']['name'];
@@ -162,27 +157,27 @@ class main implements renderable, templatable {
             } else {
                 $coursedata->has_contact = false;
             }
-            
-            // Datum der letzten Bearbeitung
+
+            // Datum der letzten Bearbeitung.
             $coursedata->lastmodified = isset($course['lastmodified']) ? $course['lastmodified'] : '';
-            
-            // Erster Kurs wird groß angezeigt
+
+            // Erster Kurs wird groß angezeigt.
             $coursedata->first = $first;
-            
-            // Nur die ersten 4 Kurse sichtbar (1 Hauptkurs + 3 Karten)
-            $coursedata->visible = $visibleCount < 4;
-            
+
+            // Nur die ersten 4 Kurse sichtbar (1 Hauptkurs + 3 Karten).
+            $coursedata->visible = $visiblecount < 4;
+
             $data->courses[] = $coursedata;
-            
+
             if ($first) {
                 $first = false;
             }
-            $visibleCount++;
+            $visiblecount++;
         }
-        
-        // JSON-Daten für JavaScript
+
+        // JSON-Daten für JavaScript.
         $data->coursesJson = json_encode($this->courses);
-        
+
         return $data;
     }
 }
