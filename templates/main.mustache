@@ -36,10 +36,43 @@
                                 <img src="{{courseimage}}" alt="{{fullname}}" style="object-fit: {{image_fit}};">
                             </div>
                             <div class="main-course-content">
-                                <h2 class="main-course-title">{{fullname}}</h2>
-                                {{#category}}
-                                <div class="main-course-category">{{category}}</div>
-                                {{/category}}
+                                <h2 class="main-course-title">
+                                    <a href="{{viewurl}}" class="course-title-link">{{fullname}}</a>
+                                </h2>
+                                
+                                <!-- Kurs-Meta-Informationen -->
+                                <div class="course-meta-info">
+                                    {{#show_category}}
+                                    {{#category}}
+                                    <div class="meta-item meta-category" title="Kursbereich">
+                                        <i class="fa fa-folder-open"></i>
+                                        <span>{{category}}</span>
+                                    </div>
+                                    {{/category}}
+                                    {{/show_category}}
+                                    
+                                    {{#show_contact}}
+                                    {{#has_contact}}
+                                    <div class="meta-item meta-contact" title="Ansprechpartner">
+                                        <i class="fa fa-user"></i>
+                                        {{#show_contact_picture}}
+                                        <img src="{{contact_pictureurl}}" alt="{{contact_name}}" class="contact-picture">
+                                        {{/show_contact_picture}}
+                                        <a href="{{contact_profileurl}}" class="contact-name">{{contact_name}}</a>
+                                    </div>
+                                    {{/has_contact}}
+                                    {{/show_contact}}
+                                    
+                                    {{#show_lastmodified}}
+                                    {{#lastmodified}}
+                                    <div class="meta-item meta-lastmodified" title="Datum der letzten Aktualisierung">
+                                        <i class="fa fa-calendar"></i>
+                                        <span>{{lastmodified}}</span>
+                                    </div>
+                                    {{/lastmodified}}
+                                    {{/show_lastmodified}}
+                                </div>
+                                
                                 <div class="main-course-description">{{summary}}</div>
                                 {{#show_button}}
                                 <div class="button-container">
@@ -51,6 +84,9 @@
                     </div>
                 {{/first}}
             {{/courses}}
+            
+            <!-- Indikator-Punkte unter dem Hauptkurs -->
+            <div class="slider-indicators"></div>
             
             {{#show_cards}}
             <div class="course-cards">
@@ -69,10 +105,10 @@
             </div>
             {{/show_cards}}
             
-            <div class="slider-nav prev" title="{{prev_course}}" style="top: calc({{image_height}}px / 2); margin-top: -20px;">
+            <div class="slider-nav prev" title="{{prev_course}}">
                 <i class="fa fa-chevron-left"></i>
             </div>
-            <div class="slider-nav next" title="{{next_course}}" style="top: calc({{image_height}}px / 2); margin-top: -20px;">
+            <div class="slider-nav next" title="{{next_course}}">
                 <i class="fa fa-chevron-right"></i>
             </div>
         </div>
@@ -106,13 +142,45 @@ require(['jquery'], function($) {
     var animationSpeed = parseInt(container.attr('data-animation-speed')) || 300;
     var autoslideInterval = parseInt('{{autoslide}}') || 0;
     var showButton = {{show_button}} ? true : false;
+    var showCategory = {{show_category}} ? true : false;
+    var showContact = {{show_contact}} ? true : false;
+    var showContactPicture = {{show_contact_picture}} ? true : false;
+    var showLastmodified = {{show_lastmodified}} ? true : false;
     var autoslideTimer = null;
+    
+    // Indikator-Punkte initialisieren
+    function initializeIndicators() {
+        var $indicators = container.find('.slider-indicators');
+        $indicators.empty();
+        
+        for (var i = 0; i < coursesCount; i++) {
+            var $dot = $('<div>')
+                .addClass('dot')
+                .attr('data-index', i)
+                .append($('<span>').addClass('tooltip').text(allCourses[i].fullname));
+            
+            if (i === currentIndex) {
+                $dot.addClass('active');
+            }
+            
+            $indicators.append($dot);
+        }
+    }
+    
+    // Indikator-Punkte aktualisieren
+    function updateIndicators() {
+        container.find('.slider-indicators .dot').removeClass('active');
+        container.find('.slider-indicators .dot[data-index="' + currentIndex + '"]').addClass('active');
+    }
     
     function updateSlider() {
         if (coursesCount === 0) return;
         
         var mainCourse = allCourses[currentIndex];
         var $mainCourseWrapper = container.find('.main-course-wrapper');
+        
+        // Indikatoren aktualisieren
+        updateIndicators();
         
         // Mit Animation aktualisieren (falls aktiviert)
         if (animationSpeed > 0) {
@@ -135,29 +203,51 @@ require(['jquery'], function($) {
             // Bildeinstellungen dynamisch anwenden
             var $image = $mainCourseWrapper.find('.main-course-image img');
             $image.attr('src', mainCourse.courseimage)
-                  .attr('alt', mainCourse.fullname)
-                  .css('object-fit', imageFit);
-            
-            $mainCourseWrapper.find('.main-course-image')
-                  .css('height', imageHeight + 'px')
-                  .removeClass('image-fit-cover image-fit-contain image-fit-fill')
-                  .addClass('image-fit-' + imageFit);
+                  .attr('alt', mainCourse.fullname);
             
             $mainCourseWrapper.find('.main-course')
                   .css('border-radius', borderRadius + 'px');
             
-            $mainCourseWrapper.find('.main-course-title').text(mainCourse.fullname);
-            
-            // Kategorie aktualisieren oder verbergen
-            var $category = $mainCourseWrapper.find('.main-course-category');
-            if (mainCourse.category) {
-                if ($category.length === 0) {
-                    $mainCourseWrapper.find('.main-course-title').after('<div class="main-course-category">' + mainCourse.category + '</div>');
-                } else {
-                    $category.text(mainCourse.category).show();
-                }
+            // Titel-Link aktualisieren
+            var $titleLink = $mainCourseWrapper.find('.main-course-title a.course-title-link');
+            if ($titleLink.length > 0) {
+                $titleLink.attr('href', mainCourse.viewurl).text(mainCourse.fullname);
             } else {
-                $category.hide();
+                $mainCourseWrapper.find('.main-course-title').text(mainCourse.fullname);
+            }
+            
+            // Meta-Informationen aktualisieren
+            var $metaInfo = $mainCourseWrapper.find('.course-meta-info');
+            $metaInfo.empty();
+            
+            // Kategorie
+            if (showCategory && mainCourse.category) {
+                $metaInfo.append(
+                    '<div class="meta-item meta-category" title="Kursbereich">' +
+                    '<i class="fa fa-folder-open"></i>' +
+                    '<span>' + mainCourse.category + '</span>' +
+                    '</div>'
+                );
+            }
+            
+            // Kontakt
+            if (showContact && mainCourse.contact && mainCourse.contact.name) {
+                var contactHtml = '<div class="meta-item meta-contact" title="Ansprechpartner"><i class="fa fa-user"></i>';
+                if (showContactPicture) {
+                    contactHtml += '<img src="' + mainCourse.contact.pictureurl + '" alt="' + mainCourse.contact.name + '" class="contact-picture">';
+                }
+                contactHtml += '<a href="' + mainCourse.contact.profileurl + '" class="contact-name">' + mainCourse.contact.name + '</a></div>';
+                $metaInfo.append(contactHtml);
+            }
+            
+            // Datum der letzten Bearbeitung
+            if (showLastmodified && mainCourse.lastmodified) {
+                $metaInfo.append(
+                    '<div class="meta-item meta-lastmodified" title="Datum der letzten Aktualisierung">' +
+                    '<i class="fa fa-calendar"></i>' +
+                    '<span>' + mainCourse.lastmodified + '</span>' +
+                    '</div>'
+                );
             }
             
             $mainCourseWrapper.find('.main-course-description').text(mainCourse.summary);
@@ -216,6 +306,17 @@ require(['jquery'], function($) {
         }
     });
     
+    // Click-Handler für Indikator-Punkte
+    container.on('click', '.slider-indicators .dot', function(e) {
+        e.preventDefault();
+        var index = parseInt($(this).attr('data-index'));
+        if (index !== currentIndex) {
+            currentIndex = index;
+            updateSlider();
+            resetAutoslide();
+        }
+    });
+    
     // Auto-Slide Funktionen
     function startAutoslide() {
         if (autoslideInterval > 0) {
@@ -234,10 +335,12 @@ require(['jquery'], function($) {
     }
     
     if (coursesCount > 1) {
+        initializeIndicators();
         updateSlider();
         startAutoslide();
     } else {
         container.find('.slider-nav').hide();
+        container.find('.slider-indicators').hide();
     }
     
     // Pausiere Auto-Slide beim Hover

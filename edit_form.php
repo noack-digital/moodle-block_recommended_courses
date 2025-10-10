@@ -142,6 +142,29 @@ class block_empfohlene_kurse_edit_form extends block_edit_form {
             get_string('config_show_button', 'block_empfohlene_kurse'));
         $mform->setDefault('config_show_button', 1);
         
+        // Abschnitt für Kursinformationen
+        $mform->addElement('header', 'courseinfoheader', get_string('course_info_settings', 'block_empfohlene_kurse'));
+        
+        $mform->addElement('advcheckbox', 'config_show_category', 
+            get_string('config_show_category', 'block_empfohlene_kurse'));
+        $mform->setDefault('config_show_category', 1);
+        $mform->addHelpButton('config_show_category', 'config_show_category', 'block_empfohlene_kurse');
+        
+        $mform->addElement('advcheckbox', 'config_show_contact', 
+            get_string('config_show_contact', 'block_empfohlene_kurse'));
+        $mform->setDefault('config_show_contact', 1);
+        $mform->addHelpButton('config_show_contact', 'config_show_contact', 'block_empfohlene_kurse');
+        
+        $mform->addElement('advcheckbox', 'config_show_contact_picture', 
+            get_string('config_show_contact_picture', 'block_empfohlene_kurse'));
+        $mform->setDefault('config_show_contact_picture', 1);
+        $mform->disabledIf('config_show_contact_picture', 'config_show_contact');
+        
+        $mform->addElement('advcheckbox', 'config_show_lastmodified', 
+            get_string('config_show_lastmodified', 'block_empfohlene_kurse'));
+        $mform->setDefault('config_show_lastmodified', 1);
+        $mform->addHelpButton('config_show_lastmodified', 'config_show_lastmodified', 'block_empfohlene_kurse');
+        
         // Abschnitt für die Kursauswahl
         $mform->addElement('header', 'courseselectionheader', get_string('select_courses', 'block_empfohlene_kurse'));
         

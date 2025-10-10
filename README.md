@@ -33,6 +33,40 @@ Dieses Moodle-Plugin stellt einen Block zur Verfügung, der ausgewählte Kurse a
 
 ## Changelog
 
+### Version 1.3.1 (2025-10-10) - STABLE RELEASE
+
+**Neue Features:**
+- 👤 **Hauptansprechpartner:** Zeigt den Kursleiter mit Profilbild an
+- 📅 **Datum der letzten Bearbeitung:** Zeigt wann der Kurs zuletzt aktualisiert wurde
+- ⚙️ **Flexible Kursinformationen:** Kategorie, Ansprechpartner und Datum einzeln ein-/ausblendbar
+- 🖼️ **Profilbild-Option:** Profilbild des Ansprechpartners optional anzeigbar
+- 🎨 **Moderne Meta-Tags:** Informationen in übersichtlichen Badges mit Icons
+- 💡 **Tooltips:** Bei Mouseover über Meta-Informationen werden Erklärungen angezeigt
+
+**Verbesserungen:**
+- Automatische Ermittlung des Hauptansprechpartners (editingteacher/teacher)
+- Flexgroup-Layout für Meta-Informationen mit automatischem Umbruch
+- Klickbare Kontaktnamen führen zum Benutzerprofil
+- Hover-Effekte auf Meta-Badges (Hintergrundfarbe ändert sich)
+- Cursor: help bei Tooltips für bessere UX
+- Responsive Darstellung auf mobilen Geräten
+
+### Version 1.2.1 (2025-10-10) - STABLE RELEASE
+
+**Neue Features:**
+- 🎯 **Indikator-Punkte:** Dots unter dem Hauptkurs zeigen Anzahl und Position der Slides
+- 💡 **Kursname-Tooltips:** Bei Hover über Indikator-Punkt wird Kursname angezeigt
+- 🖱️ **Direkte Navigation:** Click auf Indikator-Punkt springt direkt zum Kurs
+- 🎨 **Optimierte Navigationspfeile:** Außerhalb des Contents am Rand, Moodle-Blau mit weißen Icons
+- 🖼️ **Volle Bildbreite:** Hauptkurs-Bilder nutzen volle Breite mit proportionaler Höhe
+- 🔗 **Klickbare Kurstitel:** Titel im Haupt-Slider führen direkt zum Kurs
+- 📱 **Responsive:** Navigationspfeile passen sich auf mobilen Geräten an
+
+**Verbesserungen:**
+- Hover-Effekt für Kurstitel (Unterstreichung + dunkleres Blau)
+- Focus-Outline für Barrierefreiheit
+- Dynamische Link-Updates beim Slider-Wechsel
+
 ### Version 1.1.0 (2025-10-09) - STABLE RELEASE
 
 **Neue Features:**

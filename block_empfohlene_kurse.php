@@ -65,6 +65,10 @@ class block_empfohlene_kurse extends block_base {
             'autoslide' => isset($this->config->autoslide) ? $this->config->autoslide : '0',
             'show_cards' => isset($this->config->show_cards) ? $this->config->show_cards : 1,
             'show_button' => isset($this->config->show_button) ? $this->config->show_button : 1,
+            'show_category' => isset($this->config->show_category) ? $this->config->show_category : 1,
+            'show_contact' => isset($this->config->show_contact) ? $this->config->show_contact : 1,
+            'show_contact_picture' => isset($this->config->show_contact_picture) ? $this->config->show_contact_picture : 1,
+            'show_lastmodified' => isset($this->config->show_lastmodified) ? $this->config->show_lastmodified : 1,
         ];
 
         // Button-Text aus Konfiguration
@@ -139,6 +143,16 @@ class block_empfohlene_kurse extends block_base {
                 $category = \core_course_category::get($course->category, IGNORE_MISSING);
                 $categoryname = $category ? $category->get_formatted_name() : '';
                 
+                // Hauptansprechpartner (Course Contact) ermitteln
+                $contact = $this->get_course_contact($courseid);
+                
+                // Datum der letzten Bearbeitung mit führenden Nullen
+                $lastmodified = '';
+                if ($course->timemodified > 0) {
+                    // Format: 09.10.25 (mit führenden Nullen, Jahr zweistellig)
+                    $lastmodified = date('d.m.y', $course->timemodified);
+                }
+                
                 $recommendedcourses[] = [
                     'id' => $courseid,
                     'fullname' => $course->fullname,
@@ -147,12 +161,76 @@ class block_empfohlene_kurse extends block_base {
                     'category' => $categoryname,
                     'courseimage' => $courseimage,
                     'viewurl' => (new \moodle_url('/course/view.php', ['id' => $courseid]))->out(false),
-                    'enrollurl' => (new \moodle_url('/enrol/index.php', ['id' => $courseid]))->out(false)
+                    'enrollurl' => (new \moodle_url('/enrol/index.php', ['id' => $courseid]))->out(false),
+                    'contact' => $contact,
+                    'lastmodified' => $lastmodified,
                 ];
             }
         }
         
         return $recommendedcourses;
+    }
+
+    /**
+     * Ermittelt den Hauptansprechpartner eines Kurses (erster Kursleiter).
+     *
+     * @param int $courseid ID des Kurses
+     * @return array|null Array mit Name, Profilbild-URL und Profil-URL oder null
+     */
+    private function get_course_contact($courseid) {
+        global $DB, $OUTPUT, $PAGE;
+        
+        // Kontext des Kurses holen
+        $context = \context_course::instance($courseid);
+        
+        // Rollen definieren, die als Kursleiter gelten (editingteacher, teacher)
+        $teacherroles = $DB->get_records_sql(
+            "SELECT DISTINCT r.id 
+             FROM {role} r 
+             WHERE r.shortname IN ('editingteacher', 'teacher') 
+             ORDER BY r.sortorder ASC"
+        );
+        
+        if (empty($teacherroles)) {
+            return null;
+        }
+        
+        $roleids = array_keys($teacherroles);
+        list($insql, $params) = $DB->get_in_or_equal($roleids, SQL_PARAMS_NAMED);
+        $params['contextid'] = $context->id;
+        
+        // Ersten Benutzer mit Kursleiter-Rolle holen
+        $sql = "SELECT DISTINCT u.id, u.firstname, u.lastname, u.email, u.picture, u.imagealt, 
+                       u.firstnamephonetic, u.lastnamephonetic, u.middlename, u.alternatename
+                FROM {role_assignments} ra
+                JOIN {user} u ON u.id = ra.userid
+                WHERE ra.contextid = :contextid AND ra.roleid $insql
+                ORDER BY ra.id ASC";
+        
+        $teachers = $DB->get_records_sql($sql, $params, 0, 1);
+        
+        if (empty($teachers)) {
+            return null;
+        }
+        
+        $teacher = reset($teachers);
+        
+        // Profilbild-URL generieren
+        $userpicture = new \user_picture($teacher);
+        $userpicture->size = 50; // Kleine Bildgröße (50x50px)
+        $pictureurl = $userpicture->get_url($PAGE)->out(false);
+        
+        // Vollständigen Namen generieren
+        $fullname = fullname($teacher);
+        
+        // Profil-URL
+        $profileurl = (new \moodle_url('/user/profile.php', ['id' => $teacher->id]))->out(false);
+        
+        return [
+            'name' => $fullname,
+            'pictureurl' => $pictureurl,
+            'profileurl' => $profileurl,
+        ];
     }
 
     /**

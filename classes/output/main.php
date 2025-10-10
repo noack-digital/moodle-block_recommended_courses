@@ -81,6 +81,10 @@ class main implements renderable, templatable {
             'autoslide' => '0',
             'show_cards' => 1,
             'show_button' => 1,
+            'show_category' => 1,
+            'show_contact' => 1,
+            'show_contact_picture' => 1,
+            'show_lastmodified' => 1,
         ], $displayoptions);
         
         // Falls der Button-Text nicht angegeben wurde, den Standardwert aus den Sprachdateien verwenden
@@ -123,6 +127,10 @@ class main implements renderable, templatable {
         $data->autoslide = $this->displayoptions['autoslide'];
         $data->show_cards = $this->displayoptions['show_cards'];
         $data->show_button = $this->displayoptions['show_button'];
+        $data->show_category = $this->displayoptions['show_category'];
+        $data->show_contact = $this->displayoptions['show_contact'];
+        $data->show_contact_picture = $this->displayoptions['show_contact_picture'];
+        $data->show_lastmodified = $this->displayoptions['show_lastmodified'];
         
         // Wenn keine Kurse vorhanden sind, leeres Objekt zurückgeben
         if (!$data->hascourses) {
@@ -144,6 +152,19 @@ class main implements renderable, templatable {
             $coursedata->courseimage = $course['courseimage'];
             $coursedata->viewurl = $course['viewurl'];
             $coursedata->enrollurl = $course['enrollurl'];
+            
+            // Kontakt-Informationen
+            if (isset($course['contact']) && !empty($course['contact'])) {
+                $coursedata->has_contact = true;
+                $coursedata->contact_name = $course['contact']['name'];
+                $coursedata->contact_pictureurl = $course['contact']['pictureurl'];
+                $coursedata->contact_profileurl = $course['contact']['profileurl'];
+            } else {
+                $coursedata->has_contact = false;
+            }
+            
+            // Datum der letzten Bearbeitung
+            $coursedata->lastmodified = isset($course['lastmodified']) ? $course['lastmodified'] : '';
             
             // Erster Kurs wird groß angezeigt
             $coursedata->first = $first;

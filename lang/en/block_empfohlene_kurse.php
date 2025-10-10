@@ -78,3 +78,13 @@ $string['animation_none'] = 'No animation';
 $string['animation_fast'] = 'Fast (200ms)';
 $string['animation_normal'] = 'Normal (300ms)';
 $string['animation_slow'] = 'Slow (500ms)';
+
+// Course information
+$string['course_info_settings'] = 'Course information settings';
+$string['config_show_category'] = 'Show course category';
+$string['config_show_category_help'] = 'Displays the course category below the course title';
+$string['config_show_contact'] = 'Show contact person';
+$string['config_show_contact_help'] = 'Displays the main contact person (course teacher) of the course';
+$string['config_show_contact_picture'] = 'Show contact person profile picture';
+$string['config_show_lastmodified'] = 'Show last modification date';
+$string['config_show_lastmodified_help'] = 'Displays the date when the course was last modified';

@@ -78,3 +78,13 @@ $string['animation_none'] = 'Keine Animation';
 $string['animation_fast'] = 'Schnell (200ms)';
 $string['animation_normal'] = 'Normal (300ms)';
 $string['animation_slow'] = 'Langsam (500ms)';
+
+// Kursinformationen
+$string['course_info_settings'] = 'Kursinformations-Einstellungen';
+$string['config_show_category'] = 'Kursbereich anzeigen';
+$string['config_show_category_help'] = 'Zeigt den Kursbereich/die Kategorie unter dem Kurstitel an';
+$string['config_show_contact'] = 'Ansprechpartner anzeigen';
+$string['config_show_contact_help'] = 'Zeigt den Hauptansprechpartner (Kursleiter) des Kurses an';
+$string['config_show_contact_picture'] = 'Profilbild des Ansprechpartners anzeigen';
+$string['config_show_lastmodified'] = 'Datum der letzten Bearbeitung anzeigen';
+$string['config_show_lastmodified_help'] = 'Zeigt das Datum an, wann der Kurs zuletzt geändert wurde';
