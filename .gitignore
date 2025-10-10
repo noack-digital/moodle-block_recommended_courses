@@ -1,23 +1,17 @@
-# Moodle specific ignores
-config.php
-*.log
-
-# Build packages
-*.zip
-*.tar.gz
-
-# OS specific ignores
+# Moodle
 .DS_Store
 Thumbs.db
-desktop.ini
-
-# Editor and IDE specific files
-.idea/
-.vscode/
+*~
 *.swp
 *.swo
-*~
+.idea/
+.vscode/
 
-# Node.js specific
+# Local development
 node_modules/
-package-lock.json
+npm-debug.log
+yarn-error.log
+
+# Backup files
+*.bak
+*.tmp
