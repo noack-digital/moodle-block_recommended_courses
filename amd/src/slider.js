@@ -43,7 +43,9 @@ define(['jquery'], function($) {
         var currentIndex = 0;
         var visibleCards = 3; // Maximale Anzahl der Karten
 
-        // Funktion zum Aktualisieren des Sliders
+        /**
+         * Update slider display with current course
+         */
         function updateSlider() {
             try {
                 // Hauptkurs aktualisieren
@@ -53,7 +55,9 @@ define(['jquery'], function($) {
 
                 if ($mainCourseWrapper.length && mainCourse) {
                     $mainCourseWrapper.attr('data-course-id', mainCourse.id);
-                    $mainCourseWrapper.find('.main-course-image img').attr('src', mainCourse.courseimage).attr('alt', mainCourse.fullname);
+                    $mainCourseWrapper.find('.main-course-image img')
+                        .attr('src', mainCourse.courseimage)
+                        .attr('alt', mainCourse.fullname);
                     $mainCourseWrapper.find('.main-course-title').text(mainCourse.fullname);
                     $mainCourseWrapper.find('.main-course-description').text(mainCourse.summary);
                     $mainCourseWrapper.find('.button-container a').attr('href', mainCourse.enrollurl);
@@ -83,7 +87,8 @@ define(['jquery'], function($) {
                     }
                 }
             } catch (e) {
-                console.error('Fehler beim Aktualisieren des Sliders: ', e);
+                // Fehler beim Aktualisieren des Sliders.
+                window.console.error('Slider update error: ', e);
             }
         }
 
