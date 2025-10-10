@@ -17,11 +17,11 @@
 /**
  * Class containing data for the empfohlene_kurse block.
  *
- * @package    block_empfohlene_kurse
+ * @package    block_recommended_courses
  * @copyright  2025 Moodle Developer
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-namespace block_empfohlene_kurse\output;
+namespace block_recommended_courses\output;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -33,7 +33,7 @@ use stdClass;
 /**
  * Class containing data for the empfohlene_kurse block.
  *
- * @package    block_empfohlene_kurse
+ * @package    block_recommended_courses
  * @copyright  2025 Moodle Developer
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -89,13 +89,13 @@ class main implements renderable, templatable {
         
         // Falls der Button-Text nicht angegeben wurde, den Standardwert aus den Sprachdateien verwenden
         if ($buttontext === null) {
-            $this->buttontext = get_string('enrollbutton', 'block_empfohlene_kurse');
+            $this->buttontext = get_string('enrollbutton', 'block_recommended_courses');
         } else {
             $this->buttontext = $buttontext;
         }
         
         // Meldung, wenn keine Kurse vorhanden sind
-        $this->nocoursesmessage = get_string('no_courses_to_display', 'block_empfohlene_kurse');
+        $this->nocoursesmessage = get_string('no_courses_to_display', 'block_recommended_courses');
     }
 
     /**
@@ -115,8 +115,8 @@ class main implements renderable, templatable {
         $data->courses = [];
         $data->buttontext = $this->buttontext;
         $data->no_courses_message = $this->nocoursesmessage;
-        $data->prev_course = get_string('previous_course', 'block_empfohlene_kurse');
-        $data->next_course = get_string('next_course', 'block_empfohlene_kurse');
+        $data->prev_course = get_string('previous_course', 'block_recommended_courses');
+        $data->next_course = get_string('next_course', 'block_recommended_courses');
         
         // Darstellungsoptionen an Template übergeben
         $data->layout_mode = $this->displayoptions['layout_mode'];

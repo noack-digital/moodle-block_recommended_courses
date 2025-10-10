@@ -15,19 +15,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Language strings for block_empfohlene_kurse.
+ * Language strings for block_recommended_courses.
  *
- * @package    block_empfohlene_kurse
+ * @package    block_recommended_courses
  * @copyright  2025 Moodle Developer
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Empfohlene Kurse';
-$string['empfohlene_kurse:addinstance'] = 'Neuen Block "Empfohlene Kurse" hinzufügen';
-$string['empfohlene_kurse:myaddinstance'] = 'Neuen Block "Empfohlene Kurse" zum Dashboard hinzufügen';
+$string['pluginname'] = 'Recommended Courses';
+$string['recommended_courses:addinstance'] = 'Neuen Block "Recommended Courses" hinzufügen';
+$string['recommended_courses:myaddinstance'] = 'Neuen Block "Recommended Courses" zum Dashboard hinzufügen';
 $string['enrollbutton'] = 'In den Kurs einschreiben';
 $string['config_title'] = 'Titel des Blocks';
-$string['config_title_default'] = 'Empfohlene Kurse';
+$string['config_title_default'] = 'Recommended Courses';
 $string['config_title_alignment'] = 'Titel-Ausrichtung';
 $string['alignment_left'] = 'Links';
 $string['alignment_center'] = 'Zentriert';
@@ -37,7 +37,7 @@ $string['select_courses'] = 'Kurse für den Slider auswählen';
 $string['search_courses'] = 'Kurse suchen';
 $string['no_courses_selected'] = 'Keine Kurse ausgewählt';
 $string['no_courses_to_display'] = 'Keine Kurse zum Anzeigen verfügbar';
-$string['privacy:metadata'] = 'Der Block "Empfohlene Kurse" speichert keine personenbezogenen Daten.';
+$string['privacy:metadata'] = 'Der Block "Recommended Courses" speichert keine personenbezogenen Daten.';
 $string['next_course'] = 'Nächster Kurs';
 $string['previous_course'] = 'Vorheriger Kurs';
 

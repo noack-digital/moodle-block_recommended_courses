@@ -17,19 +17,19 @@
 /**
  * Privacy API implementation for the empfohlene_kurse block.
  *
- * @package    block_empfohlene_kurse
+ * @package    block_recommended_courses
  * @copyright  2025 Moodle Developer
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace block_empfohlene_kurse\privacy;
+namespace block_recommended_courses\privacy;
 
 defined('MOODLE_INTERNAL') || die();
 
 /**
  * Privacy API implementation for the empfohlene_kurse block.
  *
- * @package    block_empfohlene_kurse
+ * @package    block_recommended_courses
  * @copyright  2025 Moodle Developer
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

@@ -17,15 +17,15 @@
 /**
  * Version details
  *
- * @package    block_empfohlene_kurse
+ * @package    block_recommended_courses
  * @copyright  2025 Moodle Developer
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2025101004;        // The current plugin version (Date: YYYYMMDDXX).
+$plugin->version   = 2025101005;        // The current plugin version (Date: YYYYMMDDXX).
 $plugin->requires  = 2024042200;        // Requires this Moodle version (4.5+).
-$plugin->component = 'block_empfohlene_kurse'; // Full name of the plugin (used for diagnostics).
+$plugin->component = 'block_recommended_courses'; // Full name of the plugin (used for diagnostics).
 $plugin->maturity  = MATURITY_STABLE;   // How stable the plugin is.
-$plugin->release   = '1.3.1';           // Human-readable version name.
+$plugin->release   = '2.0.0';           // Human-readable version name - major change (renamed plugin).

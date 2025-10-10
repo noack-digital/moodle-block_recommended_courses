@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Contains the class for the "Empfohlene Kurse" block.
+ * Contains the class for the "Recommended Courses" block.
  *
- * @package    block_empfohlene_kurse
+ * @package    block_recommended_courses
  * @copyright  2025 Moodle Developer
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -25,19 +25,19 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * Empfohlene Kurse block class.
+ * Recommended Courses block class.
  *
- * @package    block_empfohlene_kurse
+ * @package    block_recommended_courses
  * @copyright  2025 Moodle Developer
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class block_empfohlene_kurse extends block_base {
+class block_recommended_courses extends block_base {
 
     /**
      * Init.
      */
     public function init() {
-        $this->title = get_string('pluginname', 'block_empfohlene_kurse');
+        $this->title = get_string('pluginname', 'block_recommended_courses');
     }
 
     /**
@@ -75,8 +75,8 @@ class block_empfohlene_kurse extends block_base {
         $buttontext = isset($this->config->button_text) ? $this->config->button_text : null;
 
         // Renderable erstellen.
-        $renderable = new \block_empfohlene_kurse\output\main($courses, $buttontext, $displayoptions);
-        $renderer = $this->page->get_renderer('block_empfohlene_kurse');
+        $renderable = new \block_recommended_courses\output\main($courses, $buttontext, $displayoptions);
+        $renderer = $this->page->get_renderer('block_recommended_courses');
 
         $this->content = new stdClass();
         $this->content->text = $renderer->render($renderable);
@@ -280,7 +280,7 @@ class block_empfohlene_kurse extends block_base {
     public function specialization() {
         if (isset($this->config)) {
             if (empty($this->config->title)) {
-                $this->title = get_string('pluginname', 'block_empfohlene_kurse');
+                $this->title = get_string('pluginname', 'block_recommended_courses');
             } else {
                 $this->title = $this->config->title;
             }

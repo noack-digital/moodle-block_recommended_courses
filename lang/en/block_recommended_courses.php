@@ -15,16 +15,16 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Language strings for block_empfohlene_kurse.
+ * Language strings for block_recommended_courses.
  *
- * @package    block_empfohlene_kurse
+ * @package    block_recommended_courses
  * @copyright  2025 Moodle Developer
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 $string['pluginname'] = 'Recommended Courses';
-$string['empfohlene_kurse:addinstance'] = 'Add a new Recommended Courses block';
-$string['empfohlene_kurse:myaddinstance'] = 'Add a new Recommended Courses block to Dashboard';
+$string['recommended_courses:addinstance'] = 'Add a new Recommended Courses block';
+$string['recommended_courses:myaddinstance'] = 'Add a new Recommended Courses block to Dashboard';
 $string['enrollbutton'] = 'Enroll in course';
 $string['config_title'] = 'Block title';
 $string['config_title_default'] = 'Recommended Courses';

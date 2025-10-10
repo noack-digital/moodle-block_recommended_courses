@@ -17,11 +17,11 @@
 /**
  * Renderer for the empfohlene_kurse block.
  *
- * @package    block_empfohlene_kurse
+ * @package    block_recommended_courses
  * @copyright  2025 Moodle Developer
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-namespace block_empfohlene_kurse\output;
+namespace block_recommended_courses\output;
 
 defined('MOODLE_INTERNAL') || die();
 
@@ -30,7 +30,7 @@ use plugin_renderer_base;
 /**
  * Renderer for the empfohlene_kurse block.
  *
- * @package    block_empfohlene_kurse
+ * @package    block_recommended_courses
  * @copyright  2025 Moodle Developer
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -43,6 +43,6 @@ class renderer extends plugin_renderer_base {
      * @return string HTML string
      */
     public function render_main(main $main) {
-        return $this->render_from_template('block_empfohlene_kurse/main', $main->export_for_template($this));
+        return $this->render_from_template('block_recommended_courses/main', $main->export_for_template($this));
     }
 }
