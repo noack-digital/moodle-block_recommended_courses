@@ -64,7 +64,7 @@ class block_recommended_courses_edit_form extends block_edit_form {
             get_string('config_button_text', 'block_recommended_courses')
         );
         $mform->setDefault('config_button_text', get_string('enrollbutton', 'block_recommended_courses'));
-        $mform->setType('config_button_text', PARAM_TEXT');
+        $mform->setType('config_button_text', PARAM_TEXT);
 
         // Darstellungsoptionen.
         $mform->addElement('header', 'displayheader', get_string('display_settings', 'block_recommended_courses'));
