@@ -14,13 +14,47 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * JavaScript for the empfohlene_kurse block.
+ * JavaScript for the recommended_courses block with Multi-Language Filter support.
  *
- * @module     block_empfohlene_kurse/slider
+ * @module     block_recommended_courses/slider
  * @copyright  2025 Moodle Developer
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 define(['jquery'], function($) {
+
+    /**
+     * Process Multi-Language Filter tags in text content
+     * Supports {mlang} tags for dynamic language switching
+     *
+     * @param {string} text Text content that may contain {mlang} tags
+     * @return {string} Processed text with current language content
+     */
+    function processMultilangText(text) {
+        if (!text || typeof text !== 'string') {
+            return text || '';
+        }
+        
+        // Get current language from Moodle
+        var currentLang = window.M && window.M.cfg && window.M.cfg.lang ? window.M.cfg.lang : 'en';
+        
+        // Regex to match {mlang langcode}content{mlang} patterns
+        var multilangPattern = /\{mlang\s+([^}]+)\}([^{]*(?:\{[^{]*\}[^{]*)*?)\{mlang\}/g;
+        
+        var result = text.replace(multilangPattern, function(match, langCode, content) {
+            // Clean language code (remove whitespace)
+            langCode = langCode.trim();
+            
+            // If this is the current language, return the content
+            if (langCode === currentLang) {
+                return content;
+            }
+            
+            // Otherwise, return empty string
+            return '';
+        });
+        
+        return result;
+    }
 
     /**
      * Initialize the slider functionality
@@ -57,9 +91,9 @@ define(['jquery'], function($) {
                     $mainCourseWrapper.attr('data-course-id', mainCourse.id);
                     $mainCourseWrapper.find('.main-course-image img')
                         .attr('src', mainCourse.courseimage)
-                        .attr('alt', mainCourse.fullname);
-                    $mainCourseWrapper.find('.main-course-title').text(mainCourse.fullname);
-                    $mainCourseWrapper.find('.main-course-description').text(mainCourse.summary);
+                        .attr('alt', processMultilangText(mainCourse.fullname));
+                    $mainCourseWrapper.find('.main-course-title').text(processMultilangText(mainCourse.fullname));
+                    $mainCourseWrapper.find('.main-course-description').text(processMultilangText(mainCourse.summary));
                     $mainCourseWrapper.find('.button-container a').attr('href', mainCourse.enrollurl);
 
                     // Kurskarten aktualisieren
@@ -77,8 +111,8 @@ define(['jquery'], function($) {
                         if (course) {
                             var $card = $('<div>').addClass('course-card').attr('data-course-id', course.id);
                             var $imageContainer = $('<div>').addClass('course-card-image');
-                            var $image = $('<img>').attr('src', course.courseimage).attr('alt', course.fullname);
-                            var $title = $('<div>').addClass('course-card-title').text(course.fullname);
+                            var $image = $('<img>').attr('src', course.courseimage).attr('alt', processMultilangText(course.fullname));
+                            var $title = $('<div>').addClass('course-card-title').text(processMultilangText(course.fullname));
 
                             $imageContainer.append($image);
                             $card.append($imageContainer).append($title);

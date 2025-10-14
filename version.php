@@ -24,8 +24,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2025101008;        // The current plugin version (Date: YYYYMMDDXX).
+$plugin->version   = 2025101009;        // The current plugin version (Date: YYYYMMDDXX).
 $plugin->requires  = 2024042200;        // Requires this Moodle version (4.5+).
 $plugin->component = 'block_recommended_courses'; // Full name of the plugin (used for diagnostics).
 $plugin->maturity  = MATURITY_STABLE;   // How stable the plugin is.
-$plugin->release   = '2.0.3';           // Human-readable version name - syntax fix.
+$plugin->release   = '2.0.4';           // Human-readable version name - Multi-Language Filter support.

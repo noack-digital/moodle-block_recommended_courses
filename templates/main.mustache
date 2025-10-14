@@ -15,9 +15,9 @@
     along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 }}
 {{!
-    @template block_empfohlene_kurse/main
+    @template block_recommended_courses/main
 
-    Haupttemplate für den Block "Empfohlene Kurse"
+    Main template for the "Recommended Courses" block with Multi-Language Filter support
 
     Classes required for JS:
     * slider-container
@@ -25,7 +25,7 @@
     * course-cards
     * slider-nav
 }}
-<div class="block_empfohlene_kurse" id="block_empfohlene_kurse_{{uniqid}}" data-image-fit="{{image_fit}}" data-image-height="{{image_height}}" data-border-radius="{{border_radius}}" data-animation-speed="{{animation_speed}}">
+<div class="block_recommended_courses" id="block_recommended_courses_{{uniqid}}" data-image-fit="{{image_fit}}" data-image-height="{{image_height}}" data-border-radius="{{border_radius}}" data-animation-speed="{{animation_speed}}">
     {{#hascourses}}
         <div class="slider-container">
             {{#courses}}
@@ -123,7 +123,7 @@
 
 {{#js}}
 require(['jquery'], function($) {
-    var container = $('#block_empfohlene_kurse_{{uniqid}}');
+    var container = $('#block_recommended_courses_{{uniqid}}');
     var allCourses = {{{coursesJson}}};
     
     if (!allCourses || allCourses.length === 0) {
