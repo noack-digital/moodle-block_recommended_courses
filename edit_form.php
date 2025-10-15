@@ -217,7 +217,26 @@ class block_recommended_courses_edit_form extends block_edit_form {
         );
         $mform->setDefault('config_show_lastmodified', 1);
         $mform->addHelpButton('config_show_lastmodified', 'config_show_lastmodified', 'block_recommended_courses');
-
+        
+        // Eingeschriebene Kurse anzeigen.
+        $mform->addElement(
+            'advcheckbox',
+            'config_show_enrolled',
+            get_string('config_show_enrolled', 'block_recommended_courses')
+        );
+        $mform->setDefault('config_show_enrolled', 0);
+        $mform->addHelpButton('config_show_enrolled', 'config_show_enrolled', 'block_recommended_courses');
+        
+        // Badge für eingeschriebene Kurse anzeigen.
+        $mform->addElement(
+            'advcheckbox',
+            'config_show_enrolled_badge',
+            get_string('config_show_enrolled_badge', 'block_recommended_courses')
+        );
+        $mform->setDefault('config_show_enrolled_badge', 1);
+        $mform->addHelpButton('config_show_enrolled_badge', 'config_show_enrolled_badge', 'block_recommended_courses');
+        $mform->disabledIf('config_show_enrolled_badge', 'config_show_enrolled');
+        
         // Kurs-Auswahl.
         $mform->addElement('header', 'courseselectionheader', get_string('select_courses', 'block_recommended_courses'));
 

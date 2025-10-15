@@ -80,6 +80,8 @@ class main implements renderable, templatable {
             'show_contact' => 1,
             'show_contact_picture' => 1,
             'show_lastmodified' => 1,
+            'show_enrolled' => 0,
+            'show_enrolled_badge' => 1,
         ], $displayoptions);
 
         // Falls der Button-Text nicht angegeben wurde, den Standardwert aus den Sprachdateien verwenden.
@@ -126,6 +128,9 @@ class main implements renderable, templatable {
         $data->show_contact = $this->displayoptions['show_contact'];
         $data->show_contact_picture = $this->displayoptions['show_contact_picture'];
         $data->show_lastmodified = $this->displayoptions['show_lastmodified'];
+        $data->show_enrolled = $this->displayoptions['show_enrolled'];
+        $data->show_enrolled_badge = $this->displayoptions['show_enrolled_badge'];
+        $data->enrolled_badge_text = get_string('enrolled_badge', 'block_recommended_courses');
 
         // Wenn keine Kurse vorhanden sind, leeres Objekt zurückgeben.
         if (!$data->hascourses) {
@@ -160,7 +165,10 @@ class main implements renderable, templatable {
 
             // Datum der letzten Bearbeitung.
             $coursedata->lastmodified = isset($course['lastmodified']) ? $course['lastmodified'] : '';
-
+            
+            // Eingeschrieben-Status.
+            $coursedata->isenrolled = isset($course['isenrolled']) ? $course['isenrolled'] : false;
+            
             // Erster Kurs wird groß angezeigt.
             $coursedata->first = $first;
 

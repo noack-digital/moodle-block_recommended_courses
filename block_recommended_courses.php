@@ -66,6 +66,8 @@ class block_recommended_courses extends block_base {
             'show_contact' => isset($this->config->show_contact) ? $this->config->show_contact : 1,
             'show_contact_picture' => isset($this->config->show_contact_picture) ? $this->config->show_contact_picture : 1,
             'show_lastmodified' => isset($this->config->show_lastmodified) ? $this->config->show_lastmodified : 1,
+            'show_enrolled' => isset($this->config->show_enrolled) ? $this->config->show_enrolled : 0,
+            'show_enrolled_badge' => isset($this->config->show_enrolled_badge) ? $this->config->show_enrolled_badge : 1,
         ];
 
         // Button-Text aus Konfiguration.
@@ -83,7 +85,8 @@ class block_recommended_courses extends block_base {
     }
 
     /**
-     * Gibt die vom Admin ausgewählten Kurse zurück, in die der Benutzer noch nicht eingeschrieben ist.
+     * Gibt die vom Admin ausgewählten Kurse zurück.
+     * Optional werden auch Kurse angezeigt, in die der Benutzer bereits eingeschrieben ist.
      *
      * @return array Array mit Kursinformationen
      */
@@ -97,6 +100,9 @@ class block_recommended_courses extends block_base {
             return [];
         }
 
+        // Eingeschriebene Kurse anzeigen?
+        $showenrolled = isset($this->config->show_enrolled) ? $this->config->show_enrolled : 0;
+
         // Kurse laden, in die der Benutzer eingeschrieben ist.
         $sql = "SELECT c.id FROM {course} c
                 JOIN {enrol} e ON e.courseid = c.id
@@ -105,10 +111,17 @@ class block_recommended_courses extends block_base {
         $enrolled = $DB->get_records_sql($sql, ['userid' => $USER->id]);
         $enrolledids = array_keys($enrolled);
 
-        // Nur Kurse zurückgeben, in die der Benutzer noch nicht eingeschrieben ist.
+        // Kurse zurückgeben (je nach Einstellung).
         $recommendedcourses = [];
         foreach ($configcourses as $courseid) {
-            if (!in_array($courseid, $enrolledids)) {
+            $isenrolled = in_array($courseid, $enrolledids);
+            
+            // Kurs überspringen, wenn bereits eingeschrieben und Option deaktiviert.
+            if ($isenrolled && !$showenrolled) {
+                continue;
+            }
+            
+            // Kurs anzeigen.
                 // Kursinformationen laden.
                 $course = $DB->get_record('course', ['id' => $courseid], '*', IGNORE_MISSING);
                 if (!$course) {
@@ -161,8 +174,8 @@ class block_recommended_courses extends block_base {
                     'enrollurl' => (new \moodle_url('/enrol/index.php', ['id' => $courseid]))->out(false),
                     'contact' => $contact,
                     'lastmodified' => $lastmodified,
+                    'isenrolled' => $isenrolled,
                 ];
-            }
         }
 
         return $recommendedcourses;

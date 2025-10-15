@@ -30,10 +30,15 @@
         <div class="slider-container">
             {{#courses}}
                 {{#first}}
-                    <div class="main-course-wrapper layout-{{layout_mode}}" data-course-id="{{id}}">
+                    <div class="main-course-wrapper layout-{{layout_mode}}" data-course-id="{{id}}" data-enrolled="{{isenrolled}}">
                         <div class="main-course" style="border-radius: {{border_radius}}px;">
                             <div class="main-course-image image-fit-{{image_fit}}" style="height: {{image_height}}px;">
                                 <img src="{{courseimage}}" alt="{{fullname}}" style="object-fit: {{image_fit}};">
+                                {{#show_enrolled_badge}}
+                                {{#isenrolled}}
+                                <div class="enrolled-badge">{{enrolled_badge_text}}</div>
+                                {{/isenrolled}}
+                                {{/show_enrolled_badge}}
                             </div>
                             <div class="main-course-content">
                                 <h2 class="main-course-title">
@@ -93,9 +98,14 @@
                 {{#courses}}
                     {{^first}}
                         {{#visible}}
-                            <div class="course-card" data-course-id="{{id}}">
+                            <div class="course-card" data-course-id="{{id}}" data-enrolled="{{isenrolled}}">
                                 <div class="course-card-image">
                                     <img src="{{courseimage}}" alt="{{fullname}}">
+                                    {{#show_enrolled_badge}}
+                                    {{#isenrolled}}
+                                    <div class="enrolled-badge enrolled-badge-small">{{enrolled_badge_text}}</div>
+                                    {{/isenrolled}}
+                                    {{/show_enrolled_badge}}
                                 </div>
                                 <div class="course-card-title">{{fullname}}</div>
                             </div>
@@ -146,6 +156,9 @@ require(['jquery'], function($) {
     var showContact = {{show_contact}} ? true : false;
     var showContactPicture = {{show_contact_picture}} ? true : false;
     var showLastmodified = {{show_lastmodified}} ? true : false;
+    var showEnrolled = {{show_enrolled}} ? true : false;
+    var showEnrolledBadge = {{show_enrolled_badge}} ? true : false;
+    var enrolledBadgeText = '{{enrolled_badge_text}}';
     var autoslideTimer = null;
     
     // Indikator-Punkte initialisieren
@@ -195,15 +208,30 @@ require(['jquery'], function($) {
         
         function updateContent() {
             $mainCourseWrapper.attr('data-course-id', mainCourse.id);
+            $mainCourseWrapper.attr('data-enrolled', mainCourse.isenrolled || false);
             
             // Layout-Klasse setzen
             $mainCourseWrapper.removeClass('layout-vertical layout-horizontal')
                               .addClass('layout-' + layoutMode);
             
             // Bildeinstellungen dynamisch anwenden
-            var $image = $mainCourseWrapper.find('.main-course-image img');
+            var $imageContainer = $mainCourseWrapper.find('.main-course-image');
+            var $image = $imageContainer.find('img');
             $image.attr('src', mainCourse.courseimage)
                   .attr('alt', mainCourse.fullname);
+            
+            // Badge für eingeschriebene Kurse aktualisieren
+            var $badge = $imageContainer.find('.enrolled-badge');
+            if (showEnrolledBadge && mainCourse.isenrolled) {
+                if ($badge.length === 0) {
+                    $badge = $('<div>').addClass('enrolled-badge').text(enrolledBadgeText);
+                    $imageContainer.append($badge);
+                } else {
+                    $badge.text(enrolledBadgeText);
+                }
+            } else {
+                $badge.remove();
+            }
             
             $mainCourseWrapper.find('.main-course')
                   .css('border-radius', borderRadius + 'px');
@@ -267,12 +295,19 @@ require(['jquery'], function($) {
             var index = (currentIndex + i) % coursesCount;
             var course = allCourses[index];
             
-            var $card = $('<div>').addClass('course-card').attr('data-course-id', course.id);
+            var $card = $('<div>').addClass('course-card').attr('data-course-id', course.id).attr('data-enrolled', course.isenrolled || false);
             var $imageContainer = $('<div>').addClass('course-card-image');
             var $image = $('<img>').attr('src', course.courseimage).attr('alt', course.fullname);
             var $title = $('<div>').addClass('course-card-title').text(course.fullname);
             
             $imageContainer.append($image);
+            
+            // Badge für eingeschriebene Kurse in Karten
+            if (showEnrolledBadge && course.isenrolled) {
+                var $badge = $('<div>').addClass('enrolled-badge enrolled-badge-small').text(enrolledBadgeText);
+                $imageContainer.append($badge);
+            }
+            
             $card.append($imageContainer).append($title);
             $courseCards.append($card);
         }

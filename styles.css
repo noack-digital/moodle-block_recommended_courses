@@ -489,6 +489,42 @@
     opacity: 1;
 }
 
+/* Badge für eingeschriebene Kurse */
+.block_empfohlene_kurse .enrolled-badge ,
+.block_recommended_courses .enrolled-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(15, 108, 191, 0.95); /* Moodle-Blau */
+    color: white;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.block_empfohlene_kurse .enrolled-badge:hover ,
+.block_recommended_courses .enrolled-badge:hover {
+    background-color: rgba(15, 108, 191, 1);
+    transform: scale(1.05);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Kleiner Badge für Kurskarten */
+.block_empfohlene_kurse .enrolled-badge-small ,
+.block_recommended_courses .enrolled-badge-small {
+    top: 8px;
+    right: 8px;
+    padding: 4px 8px;
+    font-size: 0.65rem;
+    border-radius: 12px;
+}
+
 /* Animation für das Einblenden */
 @keyframes fadeIn {
     from {
