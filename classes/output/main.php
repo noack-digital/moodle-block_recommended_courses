@@ -98,6 +98,7 @@ class main implements renderable, templatable {
      *
      * @param renderer_base $output
      * @return stdClass
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function export_for_template(renderer_base $output) {
         $data = new stdClass();

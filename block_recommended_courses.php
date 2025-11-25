@@ -51,20 +51,7 @@ class block_recommended_courses extends block_base {
         $courses = $this->get_recommended_courses();
 
         // Collect display options from instance configuration.
-        $displayoptions = [
-            'layout_mode' => isset($this->config->layout_mode) ? $this->config->layout_mode : 'vertical',
-            'image_fit' => isset($this->config->image_fit) ? $this->config->image_fit : 'cover',
-            'image_height' => isset($this->config->image_height) ? $this->config->image_height : '200',
-            'border_radius' => isset($this->config->border_radius) ? $this->config->border_radius : '8',
-            'animation_speed' => isset($this->config->animation_speed) ? $this->config->animation_speed : '300',
-            'autoslide' => isset($this->config->autoslide) ? $this->config->autoslide : '0',
-            'show_cards' => isset($this->config->show_cards) ? $this->config->show_cards : 1,
-            'show_button' => isset($this->config->show_button) ? $this->config->show_button : 1,
-            'show_category' => isset($this->config->show_category) ? $this->config->show_category : 1,
-            'show_contact' => isset($this->config->show_contact) ? $this->config->show_contact : 1,
-            'show_contact_picture' => isset($this->config->show_contact_picture) ? $this->config->show_contact_picture : 1,
-            'show_lastmodified' => isset($this->config->show_lastmodified) ? $this->config->show_lastmodified : 1,
-        ];
+        $displayoptions = $this->get_display_options();
 
         // Use the configured button text if provided.
         $buttontext = isset($this->config->button_text) ? $this->config->button_text : null;
@@ -81,12 +68,34 @@ class block_recommended_courses extends block_base {
     }
 
     /**
+     * Get display options from config.
+     *
+     * @return array
+     */
+    private function get_display_options() {
+        return [
+            'layout_mode' => isset($this->config->layout_mode) ? $this->config->layout_mode : 'vertical',
+            'image_fit' => isset($this->config->image_fit) ? $this->config->image_fit : 'cover',
+            'image_height' => isset($this->config->image_height) ? $this->config->image_height : '200',
+            'border_radius' => isset($this->config->border_radius) ? $this->config->border_radius : '8',
+            'animation_speed' => isset($this->config->animation_speed) ? $this->config->animation_speed : '300',
+            'autoslide' => isset($this->config->autoslide) ? $this->config->autoslide : '0',
+            'show_cards' => isset($this->config->show_cards) ? $this->config->show_cards : 1,
+            'show_button' => isset($this->config->show_button) ? $this->config->show_button : 1,
+            'show_category' => isset($this->config->show_category) ? $this->config->show_category : 1,
+            'show_contact' => isset($this->config->show_contact) ? $this->config->show_contact : 1,
+            'show_contact_picture' => isset($this->config->show_contact_picture) ? $this->config->show_contact_picture : 1,
+            'show_lastmodified' => isset($this->config->show_lastmodified) ? $this->config->show_lastmodified : 1,
+        ];
+    }
+
+    /**
      * Returns admin-selected courses the current user is not enrolled in yet.
      *
      * @return array Array of course information hashes
      */
     private function get_recommended_courses() {
-        global $DB, $USER, $OUTPUT;
+        global $DB, $USER;
 
         // Courses chosen by the administrator in the block settings.
         $configcourses = isset($this->config->courses) ? $this->config->courses : [];
@@ -116,6 +125,18 @@ class block_recommended_courses extends block_base {
                 )";
 
         $courses = $DB->get_records_sql($sql, $params);
+
+        return $this->format_courses_for_display($courses);
+    }
+
+    /**
+     * Format course records for display.
+     *
+     * @param array $courses Array of course records
+     * @return array Formatted courses
+     */
+    private function format_courses_for_display($courses) {
+        global $OUTPUT;
 
         $recommendedcourses = [];
         foreach ($courses as $course) {

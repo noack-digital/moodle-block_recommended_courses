@@ -11,7 +11,9 @@
     <!-- We create this to specifically exclude node_modules -->
     
     <exclude-pattern>*/node_modules/*</exclude-pattern>
+    <exclude-pattern>node_modules/*</exclude-pattern>
     <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>vendor/*</exclude-pattern>
     
     <!-- Include standard rules -->
     <rule ref="rulesets/codesize.xml" />
