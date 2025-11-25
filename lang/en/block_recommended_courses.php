@@ -1,18 +1,18 @@
 <?php
-
+// This file is part of Moodle - http://moodle.org/
 //
-
-
-
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-
-
-
-
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
 //
-
-
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * Language strings for block_recommended_courses.
@@ -45,6 +45,11 @@ $string['config_image_fit_help'] = 'Determines how the course image is displayed
 <strong>Contain:</strong> Image is displayed completely, may have empty spaces<br>
 <strong>Fill:</strong> Image is stretched to fill the entire area';
 $string['config_image_height'] = 'Main course image height';
+$string['config_image_height_150'] = '150px';
+$string['config_image_height_200'] = '200px (default)';
+$string['config_image_height_250'] = '250px';
+$string['config_image_height_300'] = '300px';
+$string['config_image_height_350'] = '350px';
 $string['config_layout_mode'] = 'Main course layout';
 $string['config_layout_mode_help'] = 'Determines how the main course is displayed:<br>
 <strong>Vertical:</strong> Course image on top, content below (classic)<br>

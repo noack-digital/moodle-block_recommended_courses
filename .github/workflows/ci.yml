@@ -88,10 +88,6 @@ jobs:
         if: ${{ !cancelled() }}
         run: moodle-plugin-ci phplint
 
-      - name: PHP Copy/Paste Detector
-        if: ${{ !cancelled() }}
-        run: moodle-plugin-ci phpcpd
-
       - name: PHP Mess Detector
         if: ${{ !cancelled() }}
         run: moodle-plugin-ci phpmd

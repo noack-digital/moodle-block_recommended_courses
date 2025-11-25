@@ -1,18 +1,18 @@
 <?php
-
+// This file is part of Moodle - http://moodle.org/
 //
-
-
-
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-
-
-
-
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
 //
-
-
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * Language strings for block_recommended_courses.
@@ -40,11 +40,16 @@ $string['config_autoslide_help'] = 'Wenn aktiviert, wechselt der Slider automati
 $string['config_border_radius'] = 'Eckenradius';
 $string['config_button_text'] = 'Text für den Einschreiben-Button';
 $string['config_image_fit'] = 'Bildanpassungsmodus';
-$string['config_image_fit_help'] = 'Bestimmt, wie das Kursbild im Hauptbereich angezeigt wird:<br>.
+$string['config_image_fit_help'] = 'Bestimmt, wie das Kursbild im Hauptbereich angezeigt wird:<br>
 <strong>Abdecken (Cover):</strong> Bild füllt den Bereich vollständig aus, wird ggf. oben/unten abgeschnitten<br>
 <strong>Enthalten (Contain):</strong> Bild wird vollständig angezeigt, es können Leerräume entstehen<br>
 <strong>Ausfüllen (Fill):</strong> Bild wird gestreckt, um den gesamten Bereich auszufüllen';
 $string['config_image_height'] = 'Höhe des Hauptkursbildes';
+$string['config_image_height_150'] = '150px';
+$string['config_image_height_200'] = '200px (Standard)';
+$string['config_image_height_250'] = '250px';
+$string['config_image_height_300'] = '300px';
+$string['config_image_height_350'] = '350px';
 $string['config_layout_mode'] = 'Layout des Hauptkurses';
 $string['config_layout_mode_help'] = 'Bestimmt, wie der Hauptkurs angezeigt wird:<br>
 <strong>Vertikal:</strong> Kursbild oben, Inhalt darunter (klassisch)<br>

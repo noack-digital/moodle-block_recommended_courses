@@ -1,18 +1,18 @@
 <?php
-
+// This file is part of Moodle - http://moodle.org/
 //
-
-
-
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 //
-
-
-
-
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
 //
-
-
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * Language strings for block_recommended_courses (Ukrainian).
@@ -45,6 +45,11 @@ $string['config_image_fit_help'] = 'Визначає, як зображення 
 <strong>Вміщення:</strong> Зображення відображається повністю, можуть бути порожні простори<br>
 <strong>Заповнення:</strong> Зображення розтягується для заповнення всієї області';
 $string['config_image_height'] = 'Висота зображення головного курсу';
+$string['config_image_height_150'] = '150 пікселів';
+$string['config_image_height_200'] = '200 пікселів (типово)';
+$string['config_image_height_250'] = '250 пікселів';
+$string['config_image_height_300'] = '300 пікселів';
+$string['config_image_height_350'] = '350 пікселів';
 $string['config_layout_mode'] = 'Розташування головного курсу';
 $string['config_layout_mode_help'] = 'Визначає, як відображається головний курс:<br>
 <strong>Вертикальне:</strong> Зображення курсу зверху, вміст знизу (класичне)<br>
