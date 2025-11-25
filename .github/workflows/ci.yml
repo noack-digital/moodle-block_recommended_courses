@@ -32,10 +32,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # Moodle 4.5 with PHP 8.0, 8.1, 8.2
-          - php: '8.0'
-            moodle-branch: 'MOODLE_405_STABLE'
-            database: 'pgsql'
+          # Moodle 4.5 with PHP 8.1, 8.2 (PHP 8.0 not supported)
           - php: '8.1'
             moodle-branch: 'MOODLE_405_STABLE'
             database: 'pgsql'
@@ -46,6 +43,7 @@ jobs:
           - php: '8.1'
             moodle-branch: 'MOODLE_500_STABLE'
             database: 'pgsql'
+
           - php: '8.2'
             moodle-branch: 'MOODLE_500_STABLE'
             database: 'pgsql'
@@ -86,40 +84,40 @@ jobs:
 
       - name: PHP Lint
         if: ${{ !cancelled() }}
-        run: moodle-plugin-ci phplint
+        run: moodle-plugin-ci phplint ./plugin
 
       - name: PHP Mess Detector
         if: ${{ !cancelled() }}
-        run: moodle-plugin-ci phpmd
+        run: moodle-plugin-ci phpmd ./plugin
 
       - name: Moodle Code Checker
         if: ${{ !cancelled() }}
-        run: moodle-plugin-ci phpcs
+        run: moodle-plugin-ci phpcs ./plugin
 
       - name: Moodle PHPDoc Checker
         if: ${{ !cancelled() }}
-        run: moodle-plugin-ci phpdoc
+        run: moodle-plugin-ci phpdoc ./plugin
 
       - name: Validating
         if: ${{ !cancelled() }}
-        run: moodle-plugin-ci validate
+        run: moodle-plugin-ci validate ./plugin
 
       - name: Check upgrade savepoints
         if: ${{ !cancelled() }}
-        run: moodle-plugin-ci savepoints
+        run: moodle-plugin-ci savepoints ./plugin
 
       - name: Mustache Lint
         if: ${{ !cancelled() }}
-        run: moodle-plugin-ci mustache
+        run: moodle-plugin-ci mustache ./plugin
 
       - name: Grunt
         if: ${{ !cancelled() }}
-        run: moodle-plugin-ci grunt --max-lint-warnings 0
+        run: moodle-plugin-ci grunt --max-lint-warnings 0 ./plugin
 
       - name: PHPUnit tests
         if: ${{ !cancelled() }}
-        run: moodle-plugin-ci phpunit --fail-on-warning
+        run: moodle-plugin-ci phpunit --fail-on-warning ./plugin
 
       - name: Behat features
         if: ${{ !cancelled() }}
-        run: moodle-plugin-ci behat --profile chrome
+        run: moodle-plugin-ci behat --profile chrome ./plugin
