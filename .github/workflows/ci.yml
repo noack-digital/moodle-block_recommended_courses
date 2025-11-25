@@ -123,7 +123,7 @@ jobs:
 
       - name: Mustache Lint
         if: ${{ !cancelled() }}
-        run: moodle-plugin-ci mustache ./plugin
+        run: moodle-plugin-ci mustache moodle/blocks/recommended_courses
 
       - name: Grunt
         if: ${{ !cancelled() }}
