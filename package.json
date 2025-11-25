@@ -19,7 +19,10 @@
     "grunt": "^1.6.1",
     "grunt-contrib-uglify": "^5.2.2",
     "grunt-contrib-watch": "^1.1.0",
-    "grunt-eslint": "^24.3.0"
+    "grunt-eslint": "^24.3.0",
+    "grunt-stylelint": "^0.18.0",
+    "stylelint": "^15.0.0",
+    "stylelint-config-standard": "^30.0.0"
   },
   "scripts": {
     "build": "grunt",
