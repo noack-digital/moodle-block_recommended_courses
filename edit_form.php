@@ -33,8 +33,6 @@ class block_recommended_courses_edit_form extends block_edit_form {
      * @return void
      */
     protected function specific_definition($mform) {
-        global $DB;
-
         // Header for block title configuration.
         $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
 

@@ -43,8 +43,6 @@ class block_recommended_courses extends block_base {
      * @return stdClass contents of block
      */
     public function get_content() {
-        global $DB, $USER, $OUTPUT;
-
         if (isset($this->content)) {
             return $this->content;
         }
@@ -182,7 +180,7 @@ class block_recommended_courses extends block_base {
      * @return array|null Array containing name, picture URL and profile URL or null
      */
     private function get_course_contact($courseid) {
-        global $DB, $OUTPUT;
+        global $DB;
 
         // Get the course context.
         $context = \context_course::instance($courseid);
