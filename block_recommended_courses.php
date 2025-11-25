@@ -49,10 +49,10 @@ class block_recommended_courses extends block_base {
             return $this->content;
         }
 
-        // Die Kurse für den Slider holen.
+        // Retrieve courses for the slider.
         $courses = $this->get_recommended_courses();
 
-        // Darstellungsoptionen aus der Konfiguration holen.
+        // Collect display options from instance configuration.
         $displayoptions = [
             'layout_mode' => isset($this->config->layout_mode) ? $this->config->layout_mode : 'vertical',
             'image_fit' => isset($this->config->image_fit) ? $this->config->image_fit : 'cover',
@@ -68,10 +68,10 @@ class block_recommended_courses extends block_base {
             'show_lastmodified' => isset($this->config->show_lastmodified) ? $this->config->show_lastmodified : 1,
         ];
 
-        // Button-Text aus Konfiguration.
+        // Use the configured button text if provided.
         $buttontext = isset($this->config->button_text) ? $this->config->button_text : null;
 
-        // Renderable erstellen.
+        // Render the template with the collected data.
         $renderable = new \block_recommended_courses\output\main($courses, $buttontext, $displayoptions);
         $renderer = $this->page->get_renderer('block_recommended_courses');
 
@@ -83,104 +83,111 @@ class block_recommended_courses extends block_base {
     }
 
     /**
-     * Gibt die vom Admin ausgewählten Kurse zurück, in die der Benutzer noch nicht eingeschrieben ist.
+     * Returns admin-selected courses the current user is not enrolled in yet.
      *
-     * @return array Array mit Kursinformationen
+     * @return array Array of course information hashes
      */
     private function get_recommended_courses() {
         global $DB, $USER, $OUTPUT;
 
-        // Die vom Admin ausgewählten Kurse aus den Einstellungen holen.
+        // Courses chosen by the administrator in the block settings.
         $configcourses = isset($this->config->courses) ? $this->config->courses : [];
 
-        if (empty($configcourses)) {
+        // Ensure configcourses is an array (Moodle sometimes stores autocomplete as CSV string).
+        if (is_string($configcourses)) {
+            $configcourses = explode(',', $configcourses);
+        }
+
+        if (empty($configcourses) || !is_array($configcourses)) {
             return [];
         }
 
-        // Kurse laden, in die der Benutzer eingeschrieben ist.
-        $sql = "SELECT c.id FROM {course} c
-                JOIN {enrol} e ON e.courseid = c.id
-                JOIN {user_enrolments} ue ON ue.enrolid = e.id
-                WHERE ue.userid = :userid";
-        $enrolled = $DB->get_records_sql($sql, ['userid' => $USER->id]);
-        $enrolledids = array_keys($enrolled);
+        // Get safe IN query for course IDs.
+        list($in_sql, $params) = $DB->get_in_or_equal($configcourses, SQL_PARAMS_NAMED);
+        $params['userid'] = $USER->id;
 
-        // Nur Kurse zurückgeben, in die der Benutzer noch nicht eingeschrieben ist.
+        // Fetch configured courses where the user is NOT enrolled.
+        $sql = "SELECT c.*
+                FROM {course} c
+                WHERE c.id $in_sql
+                AND c.id NOT IN (
+                    SELECT e.courseid
+                    FROM {enrol} e
+                    JOIN {user_enrolments} ue ON ue.enrolid = e.id
+                    WHERE ue.userid = :userid
+                )";
+
+        $courses = $DB->get_records_sql($sql, $params);
+
         $recommendedcourses = [];
-        foreach ($configcourses as $courseid) {
-            if (!in_array($courseid, $enrolledids)) {
-                // Kursinformationen laden.
-                $course = $DB->get_record('course', ['id' => $courseid], '*', IGNORE_MISSING);
-                if (!$course) {
-                    continue; // Kurs existiert nicht mehr, überspringen.
+        foreach ($courses as $course) {
+            $courseid = $course->id;
+
+            $courseobj = new \core_course_list_element($course);
+
+            // Resolve the course image URL and provide fallbacks.
+            $courseimage = null;
+            if (class_exists('\core_course\external\course_summary_exporter')) {
+                try {
+                    $courseimage = \core_course\external\course_summary_exporter::get_course_image($courseobj);
+                } catch (\Exception $e) {
+                    // Fall back if detection fails.
+                    $courseimage = null;
                 }
-
-                $courseobj = new \core_course_list_element($course);
-
-                // Kursbild URL - robuste Implementierung für verschiedene Moodle-Versionen.
-                $courseimage = null;
-                if (class_exists('\core_course\external\course_summary_exporter')) {
-                    try {
-                        $courseimage = \core_course\external\course_summary_exporter::get_course_image($courseobj);
-                    } catch (\Exception $e) {
-                        // Fallback bei Fehler.
-                        $courseimage = null;
-                    }
-                }
-
-                if (!$courseimage) {
-                    // Fallback: generiertes Bild verwenden.
-                    $courseimage = $OUTPUT->get_generated_image_for_id($courseid);
-                }
-
-                // Kursbeschreibung.
-                $coursesummary = strip_tags($courseobj->summary);
-
-                // Kursbereich holen.
-                $category = \core_course_category::get($course->category, IGNORE_MISSING);
-                $categoryname = $category ? $category->get_formatted_name() : '';
-
-                // Hauptansprechpartner (Course Contact) ermitteln.
-                $contact = $this->get_course_contact($courseid);
-
-                // Datum der letzten Bearbeitung mit führenden Nullen.
-                $lastmodified = '';
-                if ($course->timemodified > 0) {
-                    // Format: 09.10.25 (mit führenden Nullen, Jahr zweistellig).
-                    $lastmodified = date('d.m.y', $course->timemodified);
-                }
-
-                $recommendedcourses[] = [
-                    'id' => $courseid,
-                    'fullname' => $course->fullname,
-                    'shortname' => $course->shortname,
-                    'summary' => $coursesummary,
-                    'category' => $categoryname,
-                    'courseimage' => $courseimage,
-                    'viewurl' => (new \moodle_url('/course/view.php', ['id' => $courseid]))->out(false),
-                    'enrollurl' => (new \moodle_url('/enrol/index.php', ['id' => $courseid]))->out(false),
-                    'contact' => $contact,
-                    'lastmodified' => $lastmodified,
-                ];
             }
+
+            if (!$courseimage) {
+                // Use a generated pattern image as final fallback.
+                $courseimage = $OUTPUT->get_generated_image_for_id($courseid);
+            }
+
+            // Course summary text without HTML.
+            $coursesummary = strip_tags($courseobj->summary);
+
+            // Fetch the course category.
+            $category = \core_course_category::get($course->category, IGNORE_MISSING);
+            $categoryname = $category ? $category->get_formatted_name() : '';
+
+            // Determine the main course contact (first teacher).
+            $contact = $this->get_course_contact($courseid);
+
+            // Format last modification date with leading zeros.
+            $lastmodified = '';
+            if ($course->timemodified > 0) {
+                // Format: 09.10.25 (two digit year, leading zeros).
+                $lastmodified = date('d.m.y', $course->timemodified);
+            }
+
+            $recommendedcourses[] = [
+                'id' => $courseid,
+                'fullname' => $course->fullname,
+                'shortname' => $course->shortname,
+                'summary' => $coursesummary,
+                'category' => $categoryname,
+                'courseimage' => $courseimage,
+                'viewurl' => (new \moodle_url('/course/view.php', ['id' => $courseid]))->out(false),
+                'enrollurl' => (new \moodle_url('/enrol/index.php', ['id' => $courseid]))->out(false),
+                'contact' => $contact,
+                'lastmodified' => $lastmodified,
+            ];
         }
 
         return $recommendedcourses;
     }
 
     /**
-     * Ermittelt den Hauptansprechpartner eines Kurses (erster Kursleiter).
+     * Resolves the primary course contact (first teacher).
      *
-     * @param int $courseid ID des Kurses
-     * @return array|null Array mit Name, Profilbild-URL und Profil-URL oder null
+     * @param int $courseid ID of the course
+     * @return array|null Array containing name, picture URL and profile URL or null
      */
     private function get_course_contact($courseid) {
         global $DB, $OUTPUT;
 
-        // Kontext des Kurses holen.
+        // Get the course context.
         $context = \context_course::instance($courseid);
 
-        // Rollen definieren, die als Kursleiter gelten (editingteacher, teacher).
+        // Resolve roles that count as course contacts (editingteacher, teacher).
         $teacherroles = $DB->get_records_sql(
             "SELECT DISTINCT r.id
              FROM {role} r
@@ -196,7 +203,7 @@ class block_recommended_courses extends block_base {
         [$insql, $params] = $DB->get_in_or_equal($roleids, SQL_PARAMS_NAMED);
         $params['contextid'] = $context->id;
 
-        // Ersten Benutzer mit Kursleiter-Rolle holen.
+        // Get the first user that holds one of the teacher roles.
         $sql = "SELECT DISTINCT u.id, u.firstname, u.lastname, u.email, u.picture, u.imagealt,
                        u.firstnamephonetic, u.lastnamephonetic, u.middlename, u.alternatename
                 FROM {role_assignments} ra
@@ -212,15 +219,15 @@ class block_recommended_courses extends block_base {
 
         $teacher = reset($teachers);
 
-        // Profilbild-URL generieren.
+        // Build profile picture URL.
         $userpicture = new \user_picture($teacher);
-        $userpicture->size = 50; // Kleine Bildgröße (50x50px).
+        $userpicture->size = 50; // Small 50x50px headshot.
         $pictureurl = $userpicture->get_url($this->page)->out(false);
 
-        // Vollständigen Namen generieren.
+        // Resolve the localized full name.
         $fullname = fullname($teacher);
 
-        // Profil-URL.
+        // Link to the public profile page.
         $profileurl = (new \moodle_url('/user/profile.php', ['id' => $teacher->id]))->out(false);
 
         return [
