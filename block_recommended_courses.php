@@ -73,20 +73,27 @@ class block_recommended_courses extends block_base {
      * @return array
      */
     private function get_display_options() {
-        return [
-            'layout_mode' => isset($this->config->layout_mode) ? $this->config->layout_mode : 'vertical',
-            'image_fit' => isset($this->config->image_fit) ? $this->config->image_fit : 'cover',
-            'image_height' => isset($this->config->image_height) ? $this->config->image_height : '200',
-            'border_radius' => isset($this->config->border_radius) ? $this->config->border_radius : '8',
-            'animation_speed' => isset($this->config->animation_speed) ? $this->config->animation_speed : '300',
-            'autoslide' => isset($this->config->autoslide) ? $this->config->autoslide : '0',
-            'show_cards' => isset($this->config->show_cards) ? $this->config->show_cards : 1,
-            'show_button' => isset($this->config->show_button) ? $this->config->show_button : 1,
-            'show_category' => isset($this->config->show_category) ? $this->config->show_category : 1,
-            'show_contact' => isset($this->config->show_contact) ? $this->config->show_contact : 1,
-            'show_contact_picture' => isset($this->config->show_contact_picture) ? $this->config->show_contact_picture : 1,
-            'show_lastmodified' => isset($this->config->show_lastmodified) ? $this->config->show_lastmodified : 1,
+        $defaults = [
+            'layout_mode' => 'vertical',
+            'image_fit' => 'cover',
+            'image_height' => '200',
+            'border_radius' => '8',
+            'animation_speed' => '300',
+            'autoslide' => '0',
+            'show_cards' => 1,
+            'show_button' => 1,
+            'show_category' => 1,
+            'show_contact' => 1,
+            'show_contact_picture' => 1,
+            'show_lastmodified' => 1,
         ];
+
+        $options = [];
+        foreach ($defaults as $key => $default) {
+            $options[$key] = isset($this->config->$key) ? $this->config->$key : $default;
+        }
+
+        return $options;
     }
 
     /**

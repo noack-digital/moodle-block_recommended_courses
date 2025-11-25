@@ -99,6 +99,8 @@ jobs:
         run: |
           cd plugin
           npm install --no-save
+          # Remove PHP files from node_modules to prevent linting errors
+          find node_modules -name "*.php" -delete
 
       - name: PHP Lint
         if: ${{ !cancelled() }}

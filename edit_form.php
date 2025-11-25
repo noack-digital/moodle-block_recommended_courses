@@ -31,7 +31,6 @@ class block_recommended_courses_edit_form extends block_edit_form {
      *
      * @param moodleform $mform
      * @return void
-     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     protected function specific_definition($mform) {
         // Header for block title configuration.
