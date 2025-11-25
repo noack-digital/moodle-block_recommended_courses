@@ -89,6 +89,14 @@ jobs:
           IGNORE_PATHS: 'tests,amd/build,node_modules'
           IGNORE_NAMES: '*.md'
 
+      - name: Fix permissions after install
+        run: sudo chmod -R 777 .
+
+      - name: Install local npm dependencies
+        run: |
+          cd plugin
+          npm install --no-save
+
       - name: PHP Lint
         if: ${{ !cancelled() }}
         run: moodle-plugin-ci phplint ./plugin
