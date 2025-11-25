@@ -35,15 +35,15 @@ class block_recommended_courses_edit_form extends block_edit_form {
     protected function specific_definition($mform) {
         global $DB;
 
-        // Abschnitt für die Titelkonfiguration.
+        // Header for block title configuration.
         $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
 
-        // Block-Titel.
+        // Block title.
         $mform->addElement('text', 'config_title', get_string('config_title', 'block_recommended_courses'));
         $mform->setDefault('config_title', get_string('config_title_default', 'block_recommended_courses'));
         $mform->setType('config_title', PARAM_TEXT);
 
-        // Titelausrichtung.
+        // Title alignment.
         $alignmentoptions = [
             'left' => get_string('alignment_left', 'block_recommended_courses'),
             'center' => get_string('alignment_center', 'block_recommended_courses'),
@@ -57,7 +57,7 @@ class block_recommended_courses_edit_form extends block_edit_form {
         );
         $mform->setDefault('config_title_alignment', 'left');
 
-        // Button-Text.
+        // Custom enrollment button text.
         $mform->addElement(
             'text',
             'config_button_text',
@@ -66,10 +66,10 @@ class block_recommended_courses_edit_form extends block_edit_form {
         $mform->setDefault('config_button_text', get_string('enrollbutton', 'block_recommended_courses'));
         $mform->setType('config_button_text', PARAM_TEXT);
 
-        // Darstellungsoptionen.
+        // Display options section.
         $mform->addElement('header', 'displayheader', get_string('display_settings', 'block_recommended_courses'));
 
-        // Layout-Modus.
+        // Layout mode.
         $layoutmodes = [
             'vertical' => get_string('layout_vertical', 'block_recommended_courses'),
             'horizontal' => get_string('layout_horizontal', 'block_recommended_courses'),
@@ -85,7 +85,7 @@ class block_recommended_courses_edit_form extends block_edit_form {
         $mform->setDefault('config_layout_mode', 'vertical');
         $mform->addHelpButton('config_layout_mode', 'config_layout_mode', 'block_recommended_courses');
 
-        // Bild-Anpassung.
+        // Image fit configuration.
         $imagefitmodes = [
             'cover' => get_string('imagefit_cover', 'block_recommended_courses'),
             'contain' => get_string('imagefit_contain', 'block_recommended_courses'),
@@ -100,13 +100,13 @@ class block_recommended_courses_edit_form extends block_edit_form {
         $mform->setDefault('config_image_fit', 'cover');
         $mform->addHelpButton('config_image_fit', 'config_image_fit', 'block_recommended_courses');
 
-        // Bild-Höhe.
+        // Image height selection.
         $imageheights = [
-            '150' => '150px',
-            '200' => '200px (Standard)',
-            '250' => '250px',
-            '300' => '300px',
-            '350' => '350px',
+            '150' => get_string('config_image_height_150', 'block_recommended_courses'),
+            '200' => get_string('config_image_height_200', 'block_recommended_courses'),
+            '250' => get_string('config_image_height_250', 'block_recommended_courses'),
+            '300' => get_string('config_image_height_300', 'block_recommended_courses'),
+            '350' => get_string('config_image_height_350', 'block_recommended_courses'),
         ];
         $mform->addElement(
             'select',
@@ -116,7 +116,7 @@ class block_recommended_courses_edit_form extends block_edit_form {
         );
         $mform->setDefault('config_image_height', '200');
 
-        // Ecken-Radius.
+        // Border radius options.
         $borderradius = [
             '0' => get_string('border_radius_none', 'block_recommended_courses'),
             '4' => get_string('border_radius_small', 'block_recommended_courses'),
@@ -131,7 +131,7 @@ class block_recommended_courses_edit_form extends block_edit_form {
         );
         $mform->setDefault('config_border_radius', '8');
 
-        // Animations-Geschwindigkeit.
+        // Animation speed options.
         $animationspeeds = [
             '0' => get_string('animation_none', 'block_recommended_courses'),
             '200' => get_string('animation_fast', 'block_recommended_courses'),
@@ -146,7 +146,7 @@ class block_recommended_courses_edit_form extends block_edit_form {
         );
         $mform->setDefault('config_animation_speed', '300');
 
-        // Automatisches Sliding.
+        // Auto slide interval.
         $autoslideoptions = [
             '0' => get_string('autoslide_off', 'block_recommended_courses'),
             '3000' => '3 ' . get_string('seconds', 'block_recommended_courses'),
@@ -163,7 +163,7 @@ class block_recommended_courses_edit_form extends block_edit_form {
         $mform->setDefault('config_autoslide', '0');
         $mform->addHelpButton('config_autoslide', 'config_autoslide', 'block_recommended_courses');
 
-        // Kurs-Karten anzeigen.
+        // Toggle course cards.
         $mform->addElement(
             'advcheckbox',
             'config_show_cards',
@@ -171,7 +171,7 @@ class block_recommended_courses_edit_form extends block_edit_form {
         );
         $mform->setDefault('config_show_cards', 1);
 
-        // Button anzeigen.
+        // Toggle button visibility.
         $mform->addElement(
             'advcheckbox',
             'config_show_button',
@@ -179,10 +179,10 @@ class block_recommended_courses_edit_form extends block_edit_form {
         );
         $mform->setDefault('config_show_button', 1);
 
-        // Kurs-Informationen.
+        // Course information section.
         $mform->addElement('header', 'courseinfoheader', get_string('course_info_settings', 'block_recommended_courses'));
 
-        // Kategorie anzeigen.
+        // Toggle course category display.
         $mform->addElement(
             'advcheckbox',
             'config_show_category',
@@ -191,7 +191,7 @@ class block_recommended_courses_edit_form extends block_edit_form {
         $mform->setDefault('config_show_category', 1);
         $mform->addHelpButton('config_show_category', 'config_show_category', 'block_recommended_courses');
 
-        // Ansprechpartner anzeigen.
+        // Toggle contact information.
         $mform->addElement(
             'advcheckbox',
             'config_show_contact',
@@ -200,7 +200,7 @@ class block_recommended_courses_edit_form extends block_edit_form {
         $mform->setDefault('config_show_contact', 1);
         $mform->addHelpButton('config_show_contact', 'config_show_contact', 'block_recommended_courses');
 
-        // Profilbild des Ansprechpartners anzeigen.
+        // Toggle contact profile image.
         $mform->addElement(
             'advcheckbox',
             'config_show_contact_picture',
@@ -209,7 +209,7 @@ class block_recommended_courses_edit_form extends block_edit_form {
         $mform->setDefault('config_show_contact_picture', 1);
         $mform->disabledIf('config_show_contact_picture', 'config_show_contact');
 
-        // Datum der letzten Änderung anzeigen.
+        // Toggle last modified date.
         $mform->addElement(
             'advcheckbox',
             'config_show_lastmodified',
@@ -218,10 +218,10 @@ class block_recommended_courses_edit_form extends block_edit_form {
         $mform->setDefault('config_show_lastmodified', 1);
         $mform->addHelpButton('config_show_lastmodified', 'config_show_lastmodified', 'block_recommended_courses');
 
-        // Kurs-Auswahl.
+        // Course selection section.
         $mform->addElement('header', 'courseselectionheader', get_string('select_courses', 'block_recommended_courses'));
 
-        // Liste der verfügbaren Kurse.
+        // Build the available course list.
         $courseslist = [];
 
         $courses = get_courses('all', 'c.sortorder ASC', 'c.id, c.fullname, c.visible');
@@ -247,4 +247,3 @@ class block_recommended_courses_edit_form extends block_edit_form {
         );
     }
 }
-

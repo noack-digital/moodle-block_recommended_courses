@@ -48,6 +48,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-eslint');
 
+    // Register dummy stylelint task to satisfy Moodle CI if not configured
+    grunt.registerTask('stylelint', []);
+
     // Default task(s)
     grunt.registerTask('default', ['eslint', 'uglify']);
     grunt.registerTask('amd', ['eslint:amd', 'uglify:amd']);

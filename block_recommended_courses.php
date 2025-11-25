@@ -103,13 +103,13 @@ class block_recommended_courses extends block_base {
         }
 
         // Get safe IN query for course IDs.
-        list($in_sql, $params) = $DB->get_in_or_equal($configcourses, SQL_PARAMS_NAMED);
+        [$insql, $params] = $DB->get_in_or_equal($configcourses, SQL_PARAMS_NAMED);
         $params['userid'] = $USER->id;
 
         // Fetch configured courses where the user is NOT enrolled.
         $sql = "SELECT c.*
                 FROM {course} c
-                WHERE c.id $in_sql
+                WHERE c.id $insql
                 AND c.id NOT IN (
                     SELECT e.courseid
                     FROM {enrol} e
