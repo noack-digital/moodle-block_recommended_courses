@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Renderer for the empfohlene_kurse block.
+ * Renderer for the Recommended Courses block.
  *
  * @package    block_recommended_courses
  * @copyright  2025 Moodle Developer
@@ -27,7 +27,7 @@ namespace block_recommended_courses\output;
 use plugin_renderer_base;
 
 /**
- * Renderer for the empfohlene_kurse block.
+ * Renderer for the Recommended Courses block.
  *
  * @package    block_recommended_courses
  * @copyright  2025 Moodle Developer

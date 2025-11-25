@@ -86,7 +86,7 @@ jobs:
           MOODLE_BRANCH: ${{ matrix.moodle-branch }}
           DB_USER: postgres
           DB_PASS: postgres
-          IGNORE_PATHS: 'tests,amd/build,node_modules'
+          IGNORE_PATHS: 'tests,amd/build,node_modules,vendor,**/node_modules/**'
           IGNORE_NAMES: '*.md'
 
       - name: Fix permissions after install

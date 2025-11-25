@@ -3,33 +3,33 @@
  */
 
 /* Titelausrichtung */
-.block_empfohlene_kurse.title-left .header .title {
+.block_recommended_courses.title-left .header .title {
     text-align: left;
 }
 
-.block_empfohlene_kurse.title-center .header .title {
+.block_recommended_courses.title-center .header .title {
     text-align: center;
 }
 
-.block_empfohlene_kurse.title-right .header .title {
+.block_recommended_courses.title-right .header .title {
     text-align: right;
 }
 
 /* Slider-Styling */
-.block_empfohlene_kurse .slider-container {
+.block_recommended_courses .slider-container {
     position: relative;
     padding: 0;
     margin: 0;
     overflow: visible; /* Geändert von hidden zu visible, damit die Pfeile nicht abgeschnitten werden */
 }
 
-.block_empfohlene_kurse .main-course-wrapper {
+.block_recommended_courses .main-course-wrapper {
     margin-bottom: 20px;
     position: relative;
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.block_empfohlene_kurse .main-course {
+.block_recommended_courses .main-course {
     display: flex;
     flex-direction: column;
     background-color: #fff;
@@ -39,16 +39,16 @@
 }
 
 /* Horizontales Layout - Bild links, Inhalt rechts */
-.block_empfohlene_kurse .layout-horizontal .main-course {
+.block_recommended_courses .layout-horizontal .main-course {
     flex-direction: row;
 }
 
-.block_empfohlene_kurse .layout-horizontal .main-course-image {
+.block_recommended_courses .layout-horizontal .main-course-image {
     width: 40%;
     flex-shrink: 0;
 }
 
-.block_empfohlene_kurse .layout-horizontal .main-course-content {
+.block_recommended_courses .layout-horizontal .main-course-content {
     width: 60%;
     display: flex;
     flex-direction: column;
@@ -56,59 +56,59 @@
 }
 
 /* Card Layout - zentriert mit starkem Schatten */
-.block_empfohlene_kurse .layout-card .main-course {
+.block_recommended_courses .layout-card .main-course {
     max-width: 600px;
     margin: 0 auto;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.block_empfohlene_kurse .layout-card .main-course-content {
+.block_recommended_courses .layout-card .main-course-content {
     text-align: center;
 }
 
-.block_empfohlene_kurse .layout-card .main-course-title {
+.block_recommended_courses .layout-card .main-course-title {
     font-size: 1.6rem;
     margin-bottom: 12px;
 }
 
-.block_empfohlene_kurse .layout-card .button-container {
+.block_recommended_courses .layout-card .button-container {
     margin-top: 20px;
 }
 
 /* Minimal Layout - nur Bild und Titel, große Schrift */
-.block_empfohlene_kurse .layout-minimal .main-course {
+.block_recommended_courses .layout-minimal .main-course {
     background-color: transparent;
     box-shadow: none;
 }
 
-.block_empfohlene_kurse .layout-minimal .main-course-image {
+.block_recommended_courses .layout-minimal .main-course-image {
     border-radius: 8px;
     overflow: hidden;
 }
 
-.block_empfohlene_kurse .layout-minimal .main-course-content {
+.block_recommended_courses .layout-minimal .main-course-content {
     padding: 20px 10px;
     text-align: center;
 }
 
-.block_empfohlene_kurse .layout-minimal .main-course-title {
+.block_recommended_courses .layout-minimal .main-course-title {
     font-size: 2rem;
     margin-bottom: 0;
 }
 
-.block_empfohlene_kurse .layout-minimal .main-course-description,
-.block_empfohlene_kurse .layout-minimal .main-course-category {
+.block_recommended_courses .layout-minimal .main-course-description,
+.block_recommended_courses .layout-minimal .main-course-category {
     display: none;
 }
 
 /* Hauptkursbild in voller Breite mit proportionaler Höhe */
-.block_empfohlene_kurse .main-course-image {
+.block_recommended_courses .main-course-image {
     width: 100%;
     overflow: hidden;
     position: relative;
 }
 
-.block_empfohlene_kurse .main-course-image img {
+.block_recommended_courses .main-course-image img {
     width: 100%;
     height: auto;
     display: block;
@@ -116,65 +116,65 @@
 }
 
 /* Spezielle Styles für verschiedene Bildanpassungsmodi - nicht mehr benötigt bei auto-height */
-.block_empfohlene_kurse .main-course-image.image-fit-contain {
+.block_recommended_courses .main-course-image.image-fit-contain {
     background-color: transparent;
 }
 
 /* Bei Layout-Modi, die eine feste Höhe benötigen (z.B. horizontal) */
-.block_empfohlene_kurse .layout-horizontal .main-course-image {
+.block_recommended_courses .layout-horizontal .main-course-image {
     height: 300px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.block_empfohlene_kurse .layout-horizontal .main-course-image img {
+.block_recommended_courses .layout-horizontal .main-course-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
 /* Hover-Effekt für Bilder */
-.block_empfohlene_kurse .main-course-image:hover img,
-.block_empfohlene_kurse .course-card-image:hover img {
+.block_recommended_courses .main-course-image:hover img,
+.block_recommended_courses .course-card-image:hover img {
     transform: scale(1.05);
 }
 
-.block_empfohlene_kurse .main-course-content {
+.block_recommended_courses .main-course-content {
     padding: 15px;
 }
 
-.block_empfohlene_kurse .main-course-title {
+.block_recommended_courses .main-course-title {
     font-size: 1.1rem;
     font-weight: bold;
     margin-bottom: 10px;
     color: #0f6cbf;
 }
 
-.block_empfohlene_kurse .layout-horizontal .main-course-title {
+.block_recommended_courses .layout-horizontal .main-course-title {
     font-size: 1.5rem;
     margin-bottom: 8px;
 }
 
 /* Klickbarer Titel-Link */
-.block_empfohlene_kurse .main-course-title a.course-title-link {
+.block_recommended_courses .main-course-title a.course-title-link {
     color: inherit;
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
-.block_empfohlene_kurse .main-course-title a.course-title-link:hover {
+.block_recommended_courses .main-course-title a.course-title-link:hover {
     color: #0a4d8a; /* Dunkleres Moodle-Blau */
     text-decoration: underline;
 }
 
-.block_empfohlene_kurse .main-course-title a.course-title-link:focus {
+.block_recommended_courses .main-course-title a.course-title-link:focus {
     outline: 2px solid #0f6cbf;
     outline-offset: 2px;
 }
 
 /* Kurs-Meta-Informationen Container */
-.block_empfohlene_kurse .course-meta-info {
+.block_recommended_courses .course-meta-info {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
@@ -182,7 +182,7 @@
     align-items: center;
 }
 
-.block_empfohlene_kurse .meta-item {
+.block_recommended_courses .meta-item {
     display: flex;
     align-items: center;
     gap: 6px;
@@ -195,26 +195,26 @@
     transition: background-color 0.2s ease;
 }
 
-.block_empfohlene_kurse .meta-item:hover {
+.block_recommended_courses .meta-item:hover {
     background-color: #e8e8e8;
 }
 
-.block_empfohlene_kurse .meta-item i {
+.block_recommended_courses .meta-item i {
     color: #0f6cbf;
     font-size: 0.9rem;
 }
 
 /* Kategorie */
-.block_empfohlene_kurse .meta-category span {
+.block_recommended_courses .meta-category span {
     font-style: italic;
 }
 
 /* Kontakt mit Profilbild */
-.block_empfohlene_kurse .meta-contact {
+.block_recommended_courses .meta-contact {
     gap: 8px;
 }
 
-.block_empfohlene_kurse .contact-picture {
+.block_recommended_courses .contact-picture {
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -222,43 +222,43 @@
     border: 2px solid #e0e0e0;
 }
 
-.block_empfohlene_kurse .contact-name {
+.block_recommended_courses .contact-name {
     color: #0f6cbf;
     text-decoration: none;
     font-weight: 500;
     transition: color 0.2s ease;
 }
 
-.block_empfohlene_kurse .contact-name:hover {
+.block_recommended_courses .contact-name:hover {
     color: #0a4d8a;
     text-decoration: underline;
 }
 
 /* Datum der letzten Bearbeitung */
-.block_empfohlene_kurse .meta-lastmodified span {
+.block_recommended_courses .meta-lastmodified span {
     white-space: nowrap;
 }
 
 /* Layout-spezifische Anpassungen */
-.block_empfohlene_kurse .layout-horizontal .course-meta-info {
+.block_recommended_courses .layout-horizontal .course-meta-info {
     margin-bottom: 15px;
 }
 
-.block_empfohlene_kurse .layout-horizontal .meta-item {
+.block_recommended_courses .layout-horizontal .meta-item {
     font-size: 0.9rem;
 }
 
-.block_empfohlene_kurse .main-course-description {
+.block_recommended_courses .main-course-description {
     font-size: 0.9rem;
     color: #666;
     margin-bottom: 15px;
 }
 
-.block_empfohlene_kurse .button-container {
+.block_recommended_courses .button-container {
     text-align: center;
 }
 
-.block_empfohlene_kurse .course-cards {
+.block_recommended_courses .course-cards {
     display: flex;
     justify-content: space-between;
     gap: 10px;
@@ -266,7 +266,7 @@
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.block_empfohlene_kurse .course-card {
+.block_recommended_courses .course-card {
     flex: 0 0 calc(33.333% - 7px);
     max-width: calc(33.333% - 7px);
     background-color: #fff;
@@ -278,26 +278,26 @@
     position: relative;
 }
 
-.block_empfohlene_kurse .course-card:hover {
+.block_recommended_courses .course-card:hover {
     transform: translateY(-3px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* Kleine Kurskarten-Bilder - größer wie in der Kursübersicht */
-.block_empfohlene_kurse .course-card-image {
+.block_recommended_courses .course-card-image {
     width: 100%;
     height: 180px;
     overflow: hidden;
 }
 
-.block_empfohlene_kurse .course-card-image img {
+.block_recommended_courses .course-card-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
 }
 
-.block_empfohlene_kurse .course-card-title {
+.block_recommended_courses .course-card-title {
     padding: 10px;
     font-size: 0.85rem;
     font-weight: bold;
@@ -307,19 +307,19 @@
     color: #0f6cbf;
 }
 
-.block_empfohlene_kurse .course-card-title:hover {
+.block_recommended_courses .course-card-title:hover {
     text-decoration: underline;
 }
 
 /* Kurslinks */
-.block_empfohlene_kurse .course-link {
+.block_recommended_courses .course-link {
     text-decoration: none;
     color: inherit;
     display: block;
 }
 
 /* Navigationspfeile außerhalb des Contents, am Rand */
-.block_empfohlene_kurse .slider-nav {
+.block_recommended_courses .slider-nav {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -336,28 +336,34 @@
     transition: all 0.3s ease;
 }
 
-.block_empfohlene_kurse .slider-nav:hover {
+.block_recommended_courses .slider-nav:focus,
+.block_recommended_courses .course-card:focus {
+    outline: 2px solid #0f6cbf;
+    outline-offset: 2px;
+}
+
+.block_recommended_courses .slider-nav:hover {
     background-color: rgba(15, 108, 191, 1);
     transform: translateY(-50%) scale(1.15);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
-.block_empfohlene_kurse .slider-nav.prev {
+.block_recommended_courses .slider-nav.prev {
     left: -60px;
 }
 
-.block_empfohlene_kurse .slider-nav.next {
+.block_recommended_courses .slider-nav.next {
     right: -60px;
 }
 
-.block_empfohlene_kurse .slider-nav i,
-.block_empfohlene_kurse .slider-nav span {
+.block_recommended_courses .slider-nav i,
+.block_recommended_courses .slider-nav span {
     color: #fff; /* Weiße Icons auf blauem Hintergrund */
     font-size: 20px;
 }
 
 /* Slider-Indikatoren (Punkte) unter dem Hauptkurs */
-.block_empfohlene_kurse .slider-indicators {
+.block_recommended_courses .slider-indicators {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -367,7 +373,7 @@
     padding: 10px 0;
 }
 
-.block_empfohlene_kurse .slider-indicators .dot {
+.block_recommended_courses .slider-indicators .dot {
     position: relative;
     width: 12px;
     height: 12px;
@@ -378,20 +384,20 @@
     border: 2px solid transparent;
 }
 
-.block_empfohlene_kurse .slider-indicators .dot:hover {
+.block_recommended_courses .slider-indicators .dot:hover {
     background-color: #999;
     transform: scale(1.3);
     border-color: #0f6cbf;
 }
 
-.block_empfohlene_kurse .slider-indicators .dot.active {
+.block_recommended_courses .slider-indicators .dot.active {
     background-color: #0f6cbf; /* Moodle-Blau */
     transform: scale(1.4);
     border-color: #0a4d8a;
 }
 
 /* Tooltip für Kursname bei Hover */
-.block_empfohlene_kurse .slider-indicators .dot .tooltip {
+.block_recommended_courses .slider-indicators .dot .tooltip {
     position: absolute;
     bottom: 120%;
     left: 50%;
@@ -408,7 +414,7 @@
     z-index: 1000;
 }
 
-.block_empfohlene_kurse .slider-indicators .dot .tooltip::after {
+.block_recommended_courses .slider-indicators .dot .tooltip::after {
     content: '';
     position: absolute;
     top: 100%;
@@ -418,7 +424,7 @@
     border-top-color: rgba(0, 0, 0, 0.85);
 }
 
-.block_empfohlene_kurse .slider-indicators .dot:hover .tooltip {
+.block_recommended_courses .slider-indicators .dot:hover .tooltip {
     opacity: 1;
 }
 
@@ -448,55 +454,55 @@
 
 /* Responsive Anpassungen für kleinere Bildschirme */
 @media (max-width: 768px) {
-    .block_empfohlene_kurse .course-cards {
+    .block_recommended_courses .course-cards {
         flex-wrap: wrap;
     }
 
-    .block_empfohlene_kurse .course-card {
+    .block_recommended_courses .course-card {
         flex: 0 0 100%;
         max-width: 100%;
         margin-bottom: 10px;
     }
 
     /* Navigationspfeile auf mobilen Geräten näher ran */
-    .block_empfohlene_kurse .slider-nav.prev {
+    .block_recommended_courses .slider-nav.prev {
         left: 10px;
     }
 
-    .block_empfohlene_kurse .slider-nav.next {
+    .block_recommended_courses .slider-nav.next {
         right: 10px;
     }
 
     /* Horizontales Layout wird auf mobilen Geräten vertikal */
-    .block_empfohlene_kurse .layout-horizontal .main-course {
+    .block_recommended_courses .layout-horizontal .main-course {
         flex-direction: column;
     }
 
-    .block_empfohlene_kurse .layout-horizontal .main-course-image {
+    .block_recommended_courses .layout-horizontal .main-course-image {
         width: 100%;
         height: auto;
     }
 
-    .block_empfohlene_kurse .layout-horizontal .main-course-image img {
+    .block_recommended_courses .layout-horizontal .main-course-image img {
         height: auto;
         object-fit: none;
     }
 
-    .block_empfohlene_kurse .layout-horizontal .main-course-content {
+    .block_recommended_courses .layout-horizontal .main-course-content {
         width: 100%;
     }
 
     /* Card Layout auf mobil */
-    .block_empfohlene_kurse .layout-card .main-course {
+    .block_recommended_courses .layout-card .main-course {
         max-width: 100%;
     }
 
-    .block_empfohlene_kurse .layout-card .main-course-title {
+    .block_recommended_courses .layout-card .main-course-title {
         font-size: 1.3rem;
     }
 
     /* Minimal Layout Titel kleiner auf mobil */
-    .block_empfohlene_kurse .layout-minimal .main-course-title {
+    .block_recommended_courses .layout-minimal .main-course-title {
         font-size: 1.5rem;
     }
 }
