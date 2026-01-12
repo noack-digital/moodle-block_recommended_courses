@@ -28,4 +28,4 @@ $plugin->version   = 2025012500;        // The current plugin version (Date: YYY
 $plugin->requires  = 2024042200;        // Requires this Moodle version (4.5+).
 $plugin->component = 'block_recommended_courses'; // Full name of the plugin (used for diagnostics).
 $plugin->maturity  = MATURITY_STABLE;   // How stable the plugin is.
-$plugin->release   = '2.0.5';           // Human-readable version name - bugfixes for issues #2-#6.
+$plugin->release   = '2.0.6';           // Human-readable version name - bugfixes for issues #2-#6.
