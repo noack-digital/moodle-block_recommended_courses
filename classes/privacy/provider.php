@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Privacy API implementation for the empfohlene_kurse block.
+ * Privacy API implementation for the recommended_courses block.
  *
  * @package    block_recommended_courses
  * @copyright  2025 Moodle Developer
@@ -26,7 +26,7 @@ namespace block_recommended_courses\privacy;
 
 
 /**
- * Privacy API implementation for the empfohlene_kurse block.
+ * Privacy API implementation for the recommended_courses block.
  *
  * @package    block_recommended_courses
  * @copyright  2025 Moodle Developer

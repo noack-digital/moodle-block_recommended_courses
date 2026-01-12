@@ -1,8 +1,8 @@
 /**
- * CSS für den Block "Empfohlene Kurse"
+ * CSS for the Recommended Courses block
  */
 
-/* Titelausrichtung */
+/* Title alignment */
 .block_recommended_courses.title-left .header .title {
     text-align: left;
 }
@@ -20,7 +20,7 @@
     position: relative;
     padding: 0;
     margin: 0;
-    overflow: visible; /* Geändert von hidden zu visible, damit die Pfeile nicht abgeschnitten werden */
+    overflow: visible; /* Changed from hidden to visible so arrows are not cut off */
 }
 
 .block_recommended_courses .main-course-wrapper {
@@ -38,7 +38,7 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Horizontales Layout - Bild links, Inhalt rechts */
+/* Horizontal layout - image left, content right */
 .block_recommended_courses .layout-horizontal .main-course {
     flex-direction: row;
 }
@@ -55,7 +55,7 @@
     justify-content: center;
 }
 
-/* Card Layout - zentriert mit starkem Schatten */
+/* Card layout - centered with strong shadow */
 .block_recommended_courses .layout-card .main-course {
     max-width: 600px;
     margin: 0 auto;
@@ -75,7 +75,7 @@
     margin-top: 20px;
 }
 
-/* Minimal Layout - nur Bild und Titel, große Schrift */
+/* Minimal layout - only image and title, large font */
 .block_recommended_courses .layout-minimal .main-course {
     background-color: transparent;
     box-shadow: none;
@@ -101,7 +101,7 @@
     display: none;
 }
 
-/* Hauptkursbild in voller Breite mit proportionaler Höhe */
+/* Main course image at full width with proportional height */
 .block_recommended_courses .main-course-image {
     width: 100%;
     overflow: hidden;
@@ -115,12 +115,12 @@
     transition: transform 0.3s ease;
 }
 
-/* Spezielle Styles für verschiedene Bildanpassungsmodi - nicht mehr benötigt bei auto-height */
+/* Special styles for different image fit modes - no longer needed with auto-height */
 .block_recommended_courses .main-course-image.image-fit-contain {
     background-color: transparent;
 }
 
-/* Bei Layout-Modi, die eine feste Höhe benötigen (z.B. horizontal) */
+/* For layout modes that require a fixed height (e.g. horizontal) */
 .block_recommended_courses .layout-horizontal .main-course-image {
     height: 300px;
     display: flex;
@@ -134,7 +134,7 @@
     object-fit: cover;
 }
 
-/* Hover-Effekt für Bilder */
+/* Hover effect for images */
 .block_recommended_courses .main-course-image:hover img,
 .block_recommended_courses .course-card-image:hover img {
     transform: scale(1.05);
@@ -156,7 +156,7 @@
     margin-bottom: 8px;
 }
 
-/* Klickbarer Titel-Link */
+/* Clickable title link */
 .block_recommended_courses .main-course-title a.course-title-link {
     color: inherit;
     text-decoration: none;
@@ -164,7 +164,7 @@
 }
 
 .block_recommended_courses .main-course-title a.course-title-link:hover {
-    color: #0a4d8a; /* Dunkleres Moodle-Blau */
+    color: #0a4d8a; /* Darker Moodle blue */
     text-decoration: underline;
 }
 
@@ -173,7 +173,7 @@
     outline-offset: 2px;
 }
 
-/* Kurs-Meta-Informationen Container */
+/* Course meta information container */
 .block_recommended_courses .course-meta-info {
     display: flex;
     flex-wrap: wrap;
@@ -204,12 +204,12 @@
     font-size: 0.9rem;
 }
 
-/* Kategorie */
+/* Category */
 .block_recommended_courses .meta-category span {
     font-style: italic;
 }
 
-/* Kontakt mit Profilbild */
+/* Contact with profile picture */
 .block_recommended_courses .meta-contact {
     gap: 8px;
 }
@@ -234,12 +234,12 @@
     text-decoration: underline;
 }
 
-/* Datum der letzten Bearbeitung */
+/* Last modification date */
 .block_recommended_courses .meta-lastmodified span {
     white-space: nowrap;
 }
 
-/* Layout-spezifische Anpassungen */
+/* Layout-specific adjustments */
 .block_recommended_courses .layout-horizontal .course-meta-info {
     margin-bottom: 15px;
 }
@@ -283,7 +283,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Kleine Kurskarten-Bilder - größer wie in der Kursübersicht */
+/* Small course card images - larger than in course overview */
 .block_recommended_courses .course-card-image {
     width: 100%;
     height: 180px;
@@ -311,21 +311,21 @@
     text-decoration: underline;
 }
 
-/* Kurslinks */
+/* Course links */
 .block_recommended_courses .course-link {
     text-decoration: none;
     color: inherit;
     display: block;
 }
 
-/* Navigationspfeile außerhalb des Contents, am Rand */
+/* Navigation arrows outside content, at the edge */
 .block_recommended_courses .slider-nav {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     width: 45px;
     height: 45px;
-    background-color: rgba(15, 108, 191, 0.9); /* Moodle-Blau */
+    background-color: rgba(15, 108, 191, 0.9); /* Moodle blue */
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -358,11 +358,11 @@
 
 .block_recommended_courses .slider-nav i,
 .block_recommended_courses .slider-nav span {
-    color: #fff; /* Weiße Icons auf blauem Hintergrund */
+    color: #fff; /* White icons on blue background */
     font-size: 20px;
 }
 
-/* Slider-Indikatoren (Punkte) unter dem Hauptkurs */
+/* Slider indicators (dots) below the main course */
 .block_recommended_courses .slider-indicators {
     display: flex;
     justify-content: center;
@@ -391,12 +391,12 @@
 }
 
 .block_recommended_courses .slider-indicators .dot.active {
-    background-color: #0f6cbf; /* Moodle-Blau */
+    background-color: #0f6cbf; /* Moodle blue */
     transform: scale(1.4);
     border-color: #0a4d8a;
 }
 
-/* Tooltip für Kursname bei Hover */
+/* Tooltip for course name on hover */
 .block_recommended_courses .slider-indicators .dot .tooltip {
     position: absolute;
     bottom: 120%;
@@ -428,7 +428,7 @@
     opacity: 1;
 }
 
-/* Animation für das Einblenden */
+/* Animation for fade in */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -439,7 +439,7 @@
     }
 }
 
-/* Animation für das Hereingleiten */
+/* Animation for slide in */
 @keyframes slideIn {
     from {
         transform: translateY(-20px);
@@ -452,7 +452,7 @@
     }
 }
 
-/* Responsive Anpassungen für kleinere Bildschirme */
+/* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
     .block_recommended_courses .course-cards {
         flex-wrap: wrap;
@@ -464,7 +464,7 @@
         margin-bottom: 10px;
     }
 
-    /* Navigationspfeile auf mobilen Geräten näher ran */
+    /* Navigation arrows closer on mobile devices */
     .block_recommended_courses .slider-nav.prev {
         left: 10px;
     }
@@ -473,7 +473,7 @@
         right: 10px;
     }
 
-    /* Horizontales Layout wird auf mobilen Geräten vertikal */
+    /* Horizontal layout becomes vertical on mobile devices */
     .block_recommended_courses .layout-horizontal .main-course {
         flex-direction: column;
     }
@@ -492,7 +492,7 @@
         width: 100%;
     }
 
-    /* Card Layout auf mobil */
+    /* Card layout on mobile */
     .block_recommended_courses .layout-card .main-course {
         max-width: 100%;
     }
@@ -501,7 +501,7 @@
         font-size: 1.3rem;
     }
 
-    /* Minimal Layout Titel kleiner auf mobil */
+    /* Minimal layout title smaller on mobile */
     .block_recommended_courses .layout-minimal .main-course-title {
         font-size: 1.5rem;
     }
