@@ -89,4 +89,4 @@ See [DEMO_KURSE.md](DEMO_KURSE.md) for example courses with sustainability theme
 - Alexander Noack - Hochschule für nachhaltige Entwicklung Eberswalde (HNEE)
 
 ## License
-MIT - See [LICENSE](LICENSE) for more information
+GPL v3 - See [LICENSE](LICENSE) for more information
