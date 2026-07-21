@@ -56,19 +56,12 @@ class main implements renderable, templatable {
      * Constructor.
      *
      * @param array $courses List of courses for the slider.
-     * @param string|null $buttontext Text for the enrollment button.
      * @param array $displayoptions Display options for the slider.
      */
-    public function __construct($courses, $buttontext = null, $displayoptions = []) {
+    public function __construct($courses, $displayoptions = []) {
         $this->courses = $courses;
         $this->displayoptions = course_helper::sanitize_display_options($displayoptions);
-
-        if ($buttontext === null || $buttontext === '') {
-            $this->buttontext = get_string('enrollbutton', 'block_recommended_courses');
-        } else {
-            $this->buttontext = $buttontext;
-        }
-
+        $this->buttontext = get_string('enrollbutton', 'block_recommended_courses');
         $this->nocoursesmessage = get_string('no_courses_to_display', 'block_recommended_courses');
     }
 
@@ -98,8 +91,23 @@ class main implements renderable, templatable {
         $data->show_button = (int) $this->displayoptions['show_button'];
         $data->show_category = (int) $this->displayoptions['show_category'];
         $data->show_contact = (int) $this->displayoptions['show_contact'];
-        $data->show_contact_picture = (int) $this->displayoptions['show_contact_picture'];
         $data->show_lastmodified = (int) $this->displayoptions['show_lastmodified'];
+
+        $data->meta_label_category = get_string('meta_label_category', 'block_recommended_courses');
+        $data->meta_label_contact = get_string('meta_label_contact', 'block_recommended_courses');
+        $data->meta_label_lastmodified = get_string('meta_label_lastmodified', 'block_recommended_courses');
+        $data->meta_label_category_json = json_encode(
+            $data->meta_label_category,
+            JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE
+        );
+        $data->meta_label_contact_json = json_encode(
+            $data->meta_label_contact,
+            JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE
+        );
+        $data->meta_label_lastmodified_json = json_encode(
+            $data->meta_label_lastmodified,
+            JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE
+        );
 
         if (!$data->hascourses) {
             $data->coursesJson = course_helper::encode_courses_json([]);
@@ -123,7 +131,6 @@ class main implements renderable, templatable {
             if (!empty($course['contact'])) {
                 $coursedata->has_contact = true;
                 $coursedata->contact_name = $course['contact']['name'];
-                $coursedata->contact_pictureurl = $course['contact']['pictureurl'];
                 $coursedata->contact_profileurl = $course['contact']['profileurl'];
             } else {
                 $coursedata->has_contact = false;
@@ -139,6 +146,8 @@ class main implements renderable, templatable {
         }
 
         $data->coursesJson = course_helper::encode_courses_json($this->courses);
+        $data->coursescount = count($this->courses);
+        $data->current_position = 1;
 
         return $data;
     }

@@ -2,6 +2,12 @@
  * CSS for the Recommended Courses block
  */
 
+/* Enable width-based layout for sidebar / narrow columns */
+.block.block_recommended_courses {
+    container-type: inline-size;
+    container-name: recommended-courses;
+}
+
 /* Title alignment */
 .block_recommended_courses.title-left .header .title {
     text-align: left;
@@ -34,8 +40,10 @@
     flex-direction: column;
     background-color: #fff;
     border-radius: 8px;
-    overflow: hidden;
+    overflow: visible;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* Horizontal layout - image left, content right */
@@ -142,6 +150,11 @@
 
 .block_recommended_courses .main-course-content {
     padding: 15px;
+    overflow: visible;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .block_recommended_courses .main-course-title {
@@ -173,26 +186,61 @@
     outline-offset: 2px;
 }
 
-/* Course meta information container */
+/* Course meta information container – equal columns across full width */
 .block_recommended_courses .course-meta-info {
     display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 8px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
     margin-bottom: 12px;
+    margin-top: 4px;
+    overflow: visible;
+}
+
+.block_recommended_courses .meta-field {
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: flex-end;
+    flex: 1 1 0;
+    width: 0; /* force equal column widths */
+    gap: 4px;
+    min-width: 0;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.block_recommended_courses .meta-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #666;
+    text-align: center;
+    width: 100%;
 }
 
 .block_recommended_courses .meta-item {
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
     font-size: 0.85rem;
     color: #666;
     padding: 4px 8px;
     background-color: #f5f5f5;
     border-radius: 4px;
-    cursor: help;
+    cursor: default;
     transition: background-color 0.2s ease;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.block_recommended_courses .meta-item a.contact-name {
+    cursor: pointer;
 }
 
 .block_recommended_courses .meta-item:hover {
@@ -204,22 +252,14 @@
     font-size: 0.9rem;
 }
 
-/* Category */
-.block_recommended_courses .meta-category span {
+/* Category value */
+.block_recommended_courses .meta-category > span {
     font-style: italic;
 }
 
-/* Contact with profile picture */
+/* Contact person */
 .block_recommended_courses .meta-contact {
     gap: 8px;
-}
-
-.block_recommended_courses .contact-picture {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #e0e0e0;
 }
 
 .block_recommended_courses .contact-name {
@@ -235,7 +275,7 @@
 }
 
 /* Last modification date */
-.block_recommended_courses .meta-lastmodified span {
+.block_recommended_courses .meta-lastmodified > span {
     white-space: nowrap;
 }
 
@@ -250,8 +290,10 @@
 
 .block_recommended_courses .main-course-description {
     font-size: 0.9rem;
-    color: #666;
+    color: #8c8c8c;
     margin-bottom: 15px;
+    text-align: center;
+    line-height: 1.45;
 }
 
 .block_recommended_courses .button-container {
@@ -318,13 +360,16 @@
     display: block;
 }
 
-/* Navigation arrows outside content, at the edge */
+/* Slider navigation row: arrows left/right, indicators in the center */
 .block_recommended_courses .slider-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 45px;
-    height: 45px;
+    position: static;
+    top: auto;
+    left: auto;
+    right: auto;
+    transform: none;
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
     background-color: rgba(15, 108, 191, 0.9); /* Moodle blue */
     border-radius: 50%;
     display: flex;
@@ -332,8 +377,8 @@
     justify-content: center;
     cursor: pointer;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-    z-index: 100;
-    transition: all 0.3s ease;
+    z-index: 1;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .block_recommended_courses .slider-nav:focus,
@@ -344,33 +389,75 @@
 
 .block_recommended_courses .slider-nav:hover {
     background-color: rgba(15, 108, 191, 1);
-    transform: translateY(-50%) scale(1.15);
+    transform: scale(1.1);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-}
-
-.block_recommended_courses .slider-nav.prev {
-    left: 8px;
-}
-
-.block_recommended_courses .slider-nav.next {
-    right: 8px;
 }
 
 .block_recommended_courses .slider-nav i,
 .block_recommended_courses .slider-nav span {
     color: #fff; /* White icons on blue background */
-    font-size: 20px;
+    font-size: 18px;
 }
 
-/* Slider indicators (dots) below the main course */
+/* Slider progress: counter centered above nav row */
+.block_recommended_courses .slider-progress {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.block_recommended_courses .slider-counter {
+    width: 100%;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #666;
+    letter-spacing: 0.02em;
+    margin-bottom: 10px;
+    line-height: 1.2;
+    user-select: none;
+}
+
+.block_recommended_courses .slider-nav-row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    width: 100%;
+    gap: 8px;
+}
+
+.block_recommended_courses .slider-nav.prev {
+    grid-column: 1;
+    justify-self: start;
+}
+
+.block_recommended_courses .slider-nav.next {
+    grid-column: 3;
+    justify-self: end;
+}
+
+/* Slider indicators (dots) between navigation arrows */
 .block_recommended_courses .slider-indicators {
+    grid-column: 2;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    margin-top: 15px;
-    margin-bottom: 20px;
-    padding: 10px 0;
+    flex-wrap: nowrap;
+    gap: 6px;
+    min-width: 0;
+    margin: 0;
+    padding: 4px 2px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.block_recommended_courses .slider-indicators::-webkit-scrollbar {
+    display: none;
 }
 
 .block_recommended_courses .slider-indicators .dot {
@@ -471,8 +558,329 @@
     }
 }
 
+/**
+ * Narrow block layout (sidebar, drawers, small columns).
+ * Uses container queries so it reacts to the block width, not the viewport.
+ */
+@container recommended-courses (max-width: 480px) {
+    .block_recommended_courses .main-course-wrapper {
+        margin-bottom: 12px;
+    }
+
+    .block_recommended_courses .main-course-image {
+        max-height: 140px;
+    }
+
+    .block_recommended_courses .main-course-image img {
+        max-height: 140px;
+        object-fit: cover;
+    }
+
+    .block_recommended_courses .main-course-content {
+        padding: 10px;
+    }
+
+    .block_recommended_courses .main-course-title {
+        font-size: 1rem;
+        margin-bottom: 8px;
+        line-height: 1.3;
+    }
+
+    .block_recommended_courses .layout-card .main-course {
+        max-width: 100%;
+    }
+
+    .block_recommended_courses .layout-card .main-course-title,
+    .block_recommended_courses .layout-horizontal .main-course-title,
+    .block_recommended_courses .layout-minimal .main-course-title {
+        font-size: 1rem;
+    }
+
+    /* Always stack image above content in narrow columns */
+    .block_recommended_courses .layout-horizontal .main-course {
+        flex-direction: column;
+    }
+
+    .block_recommended_courses .layout-horizontal .main-course-image,
+    .block_recommended_courses .layout-horizontal .main-course-content {
+        width: 100%;
+    }
+
+    .block_recommended_courses .layout-horizontal .main-course-image {
+        height: 140px;
+    }
+
+    /* Meta fields: one per row, label left / badge right */
+    .block_recommended_courses .course-meta-info {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: stretch;
+        gap: 6px;
+        margin-bottom: 10px;
+    }
+
+    .block_recommended_courses .meta-field {
+        flex: 0 0 auto;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        gap: 8px;
+        text-align: left;
+    }
+
+    .block_recommended_courses .meta-label {
+        flex: 0 1 auto;
+        width: auto;
+        max-width: 45%;
+        text-align: left;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .block_recommended_courses .meta-item {
+        flex: 1 1 auto;
+        justify-content: flex-end;
+        min-width: 0;
+        font-size: 0.8rem;
+        padding: 3px 6px;
+    }
+
+    .block_recommended_courses .meta-item > span,
+    .block_recommended_courses .meta-item > a.contact-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        min-width: 0;
+    }
+
+    .block_recommended_courses .main-course-description {
+        font-size: 0.8rem;
+        margin-bottom: 10px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .block_recommended_courses .button-container .btn {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        white-space: normal;
+        padding: 0.45rem 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    /* Navigation below main course (no overlap with button) */
+    .block_recommended_courses .slider-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .block_recommended_courses .main-course-wrapper {
+        order: 1;
+    }
+
+    .block_recommended_courses .slider-progress {
+        order: 2;
+        margin-top: 4px;
+        margin-bottom: 12px;
+    }
+
+    .block_recommended_courses .course-cards {
+        order: 3;
+        flex-direction: column;
+        gap: 8px;
+        padding-bottom: 8px;
+    }
+
+    .block_recommended_courses .slider-nav-row {
+        gap: 4px;
+    }
+
+    .block_recommended_courses .slider-nav {
+        flex: 0 0 34px;
+        width: 34px;
+        height: 34px;
+    }
+
+    .block_recommended_courses .slider-nav i,
+    .block_recommended_courses .slider-nav span {
+        font-size: 14px;
+    }
+
+    .block_recommended_courses .slider-indicators {
+        gap: 4px;
+        padding: 2px 0;
+    }
+
+    .block_recommended_courses .slider-indicators .dot {
+        flex: 0 0 10px;
+        width: 10px;
+        height: 10px;
+        min-width: 10px;
+        min-height: 10px;
+        max-width: 10px;
+        max-height: 10px;
+    }
+
+    .block_recommended_courses .slider-counter {
+        font-size: 0.8rem;
+        margin-bottom: 8px;
+    }
+
+    /* Course cards stacked vertically instead of 3 cramped columns */
+    .block_recommended_courses .course-card {
+        flex: 0 0 auto;
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .block_recommended_courses .course-card-image {
+        flex: 0 0 72px;
+        width: 72px;
+        height: 72px;
+    }
+
+    .block_recommended_courses .course-card-title {
+        flex: 1 1 auto;
+        align-self: center;
+        padding: 8px 10px;
+        font-size: 0.8rem;
+        line-height: 1.25;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+}
+
+/* Fallback for browsers without container queries / classic side regions */
+#block-region-side-pre .block_recommended_courses .course-cards,
+#block-region-side-post .block_recommended_courses .course-cards,
+.block-region[data-blockregion="side-pre"] .block_recommended_courses .course-cards,
+.block-region[data-blockregion="side-post"] .block_recommended_courses .course-cards {
+    flex-direction: column;
+}
+
+#block-region-side-pre .block_recommended_courses .course-card,
+#block-region-side-post .block_recommended_courses .course-card,
+.block-region[data-blockregion="side-pre"] .block_recommended_courses .course-card,
+.block-region[data-blockregion="side-post"] .block_recommended_courses .course-card {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: row;
+    max-width: 100%;
+    width: 100%;
+}
+
+#block-region-side-pre .block_recommended_courses .course-card-image,
+#block-region-side-post .block_recommended_courses .course-card-image,
+.block-region[data-blockregion="side-pre"] .block_recommended_courses .course-card-image,
+.block-region[data-blockregion="side-post"] .block_recommended_courses .course-card-image {
+    flex: 0 0 72px;
+    width: 72px;
+    height: 72px;
+}
+
+#block-region-side-pre .block_recommended_courses .course-meta-info,
+#block-region-side-post .block_recommended_courses .course-meta-info,
+.block-region[data-blockregion="side-pre"] .block_recommended_courses .course-meta-info,
+.block-region[data-blockregion="side-post"] .block_recommended_courses .course-meta-info {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+}
+
+#block-region-side-pre .block_recommended_courses .meta-field,
+#block-region-side-post .block_recommended_courses .meta-field,
+.block-region[data-blockregion="side-pre"] .block_recommended_courses .meta-field,
+.block-region[data-blockregion="side-post"] .block_recommended_courses .meta-field {
+    flex: 0 0 auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    text-align: left;
+}
+
+#block-region-side-pre .block_recommended_courses .slider-container,
+#block-region-side-post .block_recommended_courses .slider-container,
+.block-region[data-blockregion="side-pre"] .block_recommended_courses .slider-container,
+.block-region[data-blockregion="side-post"] .block_recommended_courses .slider-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#block-region-side-pre .block_recommended_courses .main-course-wrapper,
+#block-region-side-post .block_recommended_courses .main-course-wrapper,
+.block-region[data-blockregion="side-pre"] .block_recommended_courses .main-course-wrapper,
+.block-region[data-blockregion="side-post"] .block_recommended_courses .main-course-wrapper {
+    order: 1;
+}
+
+#block-region-side-pre .block_recommended_courses .slider-progress,
+#block-region-side-post .block_recommended_courses .slider-progress,
+.block-region[data-blockregion="side-pre"] .block_recommended_courses .slider-progress,
+.block-region[data-blockregion="side-post"] .block_recommended_courses .slider-progress {
+    order: 2;
+}
+
+#block-region-side-pre .block_recommended_courses .course-cards,
+#block-region-side-post .block_recommended_courses .course-cards,
+.block-region[data-blockregion="side-pre"] .block_recommended_courses .course-cards,
+.block-region[data-blockregion="side-post"] .block_recommended_courses .course-cards {
+    order: 3;
+}
+
+#block-region-side-pre .block_recommended_courses .slider-nav,
+#block-region-side-post .block_recommended_courses .slider-nav,
+.block-region[data-blockregion="side-pre"] .block_recommended_courses .slider-nav,
+.block-region[data-blockregion="side-post"] .block_recommended_courses .slider-nav {
+    width: 34px;
+    height: 34px;
+}
+
+#block-region-side-pre .block_recommended_courses .slider-nav-row,
+#block-region-side-post .block_recommended_courses .slider-nav-row,
+.block-region[data-blockregion="side-pre"] .block_recommended_courses .slider-nav-row,
+.block-region[data-blockregion="side-post"] .block_recommended_courses .slider-nav-row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 4px;
+}
+
+#block-region-side-pre .block_recommended_courses .slider-indicators .dot,
+#block-region-side-post .block_recommended_courses .slider-indicators .dot,
+.block-region[data-blockregion="side-pre"] .block_recommended_courses .slider-indicators .dot,
+.block-region[data-blockregion="side-post"] .block_recommended_courses .slider-indicators .dot {
+    flex: 0 0 10px;
+    width: 10px;
+    height: 10px;
+    min-width: 10px;
+    min-height: 10px;
+    max-width: 10px;
+    max-height: 10px;
+}
+
 /* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
+    .block_recommended_courses .course-meta-info {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .block_recommended_courses .meta-field {
+        flex: 1 1 calc(50% - 8px);
+        width: auto;
+        min-width: 140px;
+    }
+
     .block_recommended_courses .course-cards {
         flex-wrap: wrap;
     }
@@ -481,15 +889,6 @@
         flex: 0 0 100%;
         max-width: 100%;
         margin-bottom: 10px;
-    }
-
-    /* Navigation arrows closer on mobile devices */
-    .block_recommended_courses .slider-nav.prev {
-        left: 10px;
-    }
-
-    .block_recommended_courses .slider-nav.next {
-        right: 10px;
     }
 
     /* Horizontal layout becomes vertical on mobile devices */

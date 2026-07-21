@@ -35,8 +35,10 @@ define(['jquery'], function($) {
         showCards: true,
         showCategory: true,
         showContact: true,
-        showContactPicture: true,
         showLastmodified: true,
+        metaLabelCategory: '',
+        metaLabelContact: '',
+        metaLabelLastmodified: '',
     };
 
     var toBool = function(value) {
@@ -83,7 +85,6 @@ define(['jquery'], function($) {
         options.showCards = toBool(options.showCards);
         options.showCategory = toBool(options.showCategory);
         options.showContact = toBool(options.showContact);
-        options.showContactPicture = toBool(options.showContactPicture);
         options.showLastmodified = toBool(options.showLastmodified);
 
         var state = {
@@ -98,6 +99,8 @@ define(['jquery'], function($) {
         }
 
         var sliderIndicators = container.find('.slider-indicators');
+        var sliderCounter = container.find('.slider-counter');
+        var sliderNavRow = container.find('.slider-nav-row');
         var courseCardsWrapper = options.showCards ? container.find('.course-cards') : $();
         if (!courseCardsWrapper.length) {
             courseCardsWrapper = null;
@@ -113,12 +116,20 @@ define(['jquery'], function($) {
             mainCourseWrapper.find('.main-course-image img').css('object-fit', options.imageFit);
         };
 
+        var updateCounter = function() {
+            if (!sliderCounter.length || !state.coursesCount) {
+                return;
+            }
+            sliderCounter.text((state.currentIndex + 1) + ' / ' + state.coursesCount);
+        };
+
         var initializeIndicators = function() {
             if (state.coursesCount <= 1) {
-                sliderIndicators.hide();
+                sliderNavRow.hide();
                 return;
             }
 
+            sliderNavRow.show();
             sliderIndicators.empty();
             for (var i = 0; i < state.coursesCount; i++) {
                 var $dot = $('<button>')
@@ -152,35 +163,37 @@ define(['jquery'], function($) {
             meta.empty();
 
             if (options.showCategory && course.category) {
+                var $categoryField = $('<div>').addClass('meta-field');
+                $('<div>').addClass('meta-label').text(options.metaLabelCategory).appendTo($categoryField);
                 var $category = $('<div>').addClass('meta-item meta-category');
-                $('<i>').addClass('fa fa-folder-open').appendTo($category);
+                $('<i>').addClass('fa fa-folder-open').attr('aria-hidden', 'true').appendTo($category);
                 $('<span>').text(course.category).appendTo($category);
-                meta.append($category);
+                $categoryField.append($category);
+                meta.append($categoryField);
             }
 
             if (options.showContact && course.contact && course.contact.name) {
+                var $contactField = $('<div>').addClass('meta-field');
+                $('<div>').addClass('meta-label').text(options.metaLabelContact).appendTo($contactField);
                 var $contact = $('<div>').addClass('meta-item meta-contact');
-                $('<i>').addClass('fa fa-user').appendTo($contact);
-                if (options.showContactPicture && course.contact.pictureurl) {
-                    $('<img>')
-                        .addClass('contact-picture')
-                        .attr('src', course.contact.pictureurl)
-                        .attr('alt', course.contact.name)
-                        .appendTo($contact);
-                }
+                $('<i>').addClass('fa fa-user').attr('aria-hidden', 'true').appendTo($contact);
                 $('<a>')
                     .addClass('contact-name')
                     .attr('href', course.contact.profileurl)
                     .text(course.contact.name)
                     .appendTo($contact);
-                meta.append($contact);
+                $contactField.append($contact);
+                meta.append($contactField);
             }
 
             if (options.showLastmodified && course.lastmodified) {
+                var $dateField = $('<div>').addClass('meta-field');
+                $('<div>').addClass('meta-label').text(options.metaLabelLastmodified).appendTo($dateField);
                 var $lastmodified = $('<div>').addClass('meta-item meta-lastmodified');
-                $('<i>').addClass('fa fa-calendar').appendTo($lastmodified);
+                $('<i>').addClass('fa fa-calendar').attr('aria-hidden', 'true').appendTo($lastmodified);
                 $('<span>').text(course.lastmodified).appendTo($lastmodified);
-                meta.append($lastmodified);
+                $dateField.append($lastmodified);
+                meta.append($dateField);
             }
         };
 
@@ -252,6 +265,7 @@ define(['jquery'], function($) {
             }
 
             var course = rawCourses[state.currentIndex];
+            updateCounter();
             updateIndicators();
             animateMainCourse(function() {
                 updateMainCourse(course);
@@ -349,8 +363,7 @@ define(['jquery'], function($) {
         if (state.coursesCount > 1) {
             initializeIndicators();
         } else {
-            container.find('.slider-nav').hide();
-            sliderIndicators.hide();
+            sliderNavRow.hide();
         }
 
         updateSlider();

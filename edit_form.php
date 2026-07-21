@@ -57,14 +57,6 @@ class block_recommended_courses_edit_form extends block_edit_form {
         );
         $mform->setDefault('config_title_alignment', 'left');
 
-        $mform->addElement(
-            'text',
-            'config_button_text',
-            get_string('config_button_text', 'block_recommended_courses')
-        );
-        $mform->setDefault('config_button_text', get_string('enrollbutton', 'block_recommended_courses'));
-        $mform->setType('config_button_text', PARAM_TEXT);
-
         $mform->addElement('header', 'displayheader', get_string('display_settings', 'block_recommended_courses'));
 
         $layoutmodes = [
@@ -186,14 +178,6 @@ class block_recommended_courses_edit_form extends block_edit_form {
         );
         $mform->setDefault('config_show_contact', 1);
         $mform->addHelpButton('config_show_contact', 'config_show_contact', 'block_recommended_courses');
-
-        $mform->addElement(
-            'advcheckbox',
-            'config_show_contact_picture',
-            get_string('config_show_contact_picture', 'block_recommended_courses')
-        );
-        $mform->setDefault('config_show_contact_picture', 1);
-        $mform->disabledIf('config_show_contact_picture', 'config_show_contact');
 
         $mform->addElement(
             'advcheckbox',

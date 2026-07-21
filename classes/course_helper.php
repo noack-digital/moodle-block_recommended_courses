@@ -297,17 +297,13 @@ class course_helper {
 
         $first = reset($contacts);
         $userid = (int) $first['user']->id;
-        $user = $DB->get_record('user', ['id' => $userid, 'deleted' => 0, 'suspended' => 0], '*', IGNORE_MISSING);
+        $user = $DB->get_record('user', ['id' => $userid, 'deleted' => 0, 'suspended' => 0], 'id', IGNORE_MISSING);
         if (!$user) {
             return null;
         }
 
-        $userpicture = new \user_picture($user);
-        $userpicture->size = 50;
-
         return [
             'name' => $first['username'],
-            'pictureurl' => $userpicture->get_url($page)->out(false),
             'profileurl' => (new \moodle_url('/user/profile.php', ['id' => $user->id]))->out(false),
         ];
     }

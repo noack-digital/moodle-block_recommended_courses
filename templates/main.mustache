@@ -36,11 +36,10 @@
                 "has_contact": true,
                 "contact_name": "Teacher 1",
                 "contact_profileurl": "#",
-                "contact_pictureurl": "#",
                 "lastmodified": "01.01.2025"
             }
         ],
-        "buttontext": "Enroll",
+        "buttontext": "Enrol now",
         "no_courses_message": "No courses",
         "prev_course": "Prev",
         "next_course": "Next",
@@ -54,8 +53,12 @@
         "show_cards": true,
         "show_category": true,
         "show_contact": true,
-        "show_contact_picture": true,
         "show_lastmodified": true,
+        "meta_label_category": "Semester:",
+        "meta_label_contact": "Responsible:",
+        "meta_label_lastmodified": "Start:",
+        "coursescount": 1,
+        "current_position": 1,
         "coursesJson": "[]"
     }
 }}
@@ -78,30 +81,36 @@
                                 <div class="course-meta-info">
                                     {{#show_category}}
                                     {{#category}}
-                                    <div class="meta-item meta-category">
-                                        <i class="fa fa-folder-open"></i>
-                                        <span>{{category}}</span>
+                                    <div class="meta-field">
+                                        <div class="meta-label">{{meta_label_category}}</div>
+                                        <div class="meta-item meta-category">
+                                            <i class="fa fa-folder-open" aria-hidden="true"></i>
+                                            <span>{{category}}</span>
+                                        </div>
                                     </div>
                                     {{/category}}
                                     {{/show_category}}
-                                    
+
                                     {{#show_contact}}
                                     {{#has_contact}}
-                                    <div class="meta-item meta-contact">
-                                        <i class="fa fa-user"></i>
-                                        {{#show_contact_picture}}
-                                        <img src="{{contact_pictureurl}}" alt="{{contact_name}}" class="contact-picture">
-                                        {{/show_contact_picture}}
-                                        <a href="{{contact_profileurl}}" class="contact-name">{{contact_name}}</a>
+                                    <div class="meta-field">
+                                        <div class="meta-label">{{meta_label_contact}}</div>
+                                        <div class="meta-item meta-contact">
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                            <a href="{{contact_profileurl}}" class="contact-name">{{contact_name}}</a>
+                                        </div>
                                     </div>
                                     {{/has_contact}}
                                     {{/show_contact}}
-                                    
+
                                     {{#show_lastmodified}}
                                     {{#lastmodified}}
-                                    <div class="meta-item meta-lastmodified">
-                                        <i class="fa fa-calendar"></i>
-                                        <span>{{lastmodified}}</span>
+                                    <div class="meta-field">
+                                        <div class="meta-label">{{meta_label_lastmodified}}</div>
+                                        <div class="meta-item meta-lastmodified">
+                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                            <span>{{lastmodified}}</span>
+                                        </div>
                                     </div>
                                     {{/lastmodified}}
                                     {{/show_lastmodified}}
@@ -119,8 +128,18 @@
                 {{/first}}
             {{/courses}}
             
-            <!-- Indicator dots below the hero course -->
-            <div class="slider-indicators"></div>
+            <div class="slider-progress">
+                <div class="slider-counter" aria-live="polite">{{current_position}} / {{coursescount}}</div>
+                <div class="slider-nav-row">
+                    <div class="slider-nav prev" role="button" tabindex="0" aria-label="{{prev_course}}" title="{{prev_course}}">
+                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                    </div>
+                    <div class="slider-indicators"></div>
+                    <div class="slider-nav next" role="button" tabindex="0" aria-label="{{next_course}}" title="{{next_course}}">
+                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
             
             {{#show_cards}}
             <div class="course-cards">
@@ -138,13 +157,6 @@
                 {{/courses}}
             </div>
             {{/show_cards}}
-            
-            <div class="slider-nav prev" role="button" tabindex="0" aria-label="{{prev_course}}" title="{{prev_course}}">
-                <i class="fa fa-chevron-left" aria-hidden="true"></i>
-            </div>
-            <div class="slider-nav next" role="button" tabindex="0" aria-label="{{next_course}}" title="{{next_course}}">
-                <i class="fa fa-chevron-right" aria-hidden="true"></i>
-            </div>
         </div>
     {{/hascourses}}
     
@@ -169,8 +181,10 @@ require(['block_recommended_courses/slider'], function(slider) {
             showCards: {{show_cards}},
             showCategory: {{show_category}},
             showContact: {{show_contact}},
-            showContactPicture: {{show_contact_picture}},
-            showLastmodified: {{show_lastmodified}}
+            showLastmodified: {{show_lastmodified}},
+            metaLabelCategory: {{{meta_label_category_json}}},
+            metaLabelContact: {{{meta_label_contact_json}}},
+            metaLabelLastmodified: {{{meta_label_lastmodified_json}}}
         }
     );
 });

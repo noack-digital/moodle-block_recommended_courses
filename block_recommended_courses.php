@@ -60,12 +60,7 @@ class block_recommended_courses extends block_base {
             $includecontact
         );
 
-        $buttontext = null;
-        if (isset($this->config->button_text) && $this->config->button_text !== '') {
-            $buttontext = format_string($this->config->button_text, true, ['context' => $this->context]);
-        }
-
-        $renderable = new \block_recommended_courses\output\main($courses, $buttontext, $displayoptions);
+        $renderable = new \block_recommended_courses\output\main($courses, $displayoptions);
         $renderer = $this->page->get_renderer('block_recommended_courses');
 
         $this->content = new stdClass();
