@@ -38,55 +38,46 @@ This Moodle plugin provides a block that displays selected courses in which the 
 
 ## Requirements
 - Moodle 4.5 or higher (compatible with Moodle 5.0)
-- PHP 7.4 or higher
+- PHP 8.1 or higher
+
+## Bug tracker
+https://github.com/noack-digital/moodle-block_recommended_courses/issues
 
 ## Changelog
+
+### Version 2.0.8 (2026-07-21)
+- Security and access: hide invisible courses, respect course visibility capabilities, filter active enrolments only
+- Use site course-contact roles (`$CFG->coursecontact`) instead of hard-coded teacher roles
+- Escape JSON for slider bootstrap (`JSON_HEX_*`)
+- Format titles/summaries with Moodle APIs (`format_string`, `content_to_text`, `userdate`)
+- Apply configured title alignment CSS class
+- Remove empty global settings page (`has_config` = false)
+- AMD accessibility improvements (keyboard dots, `prefers-reduced-motion`)
+- Add PHPUnit and Behat coverage
+- Align version metadata, copyright headers, and coding guidelines
 
 ### Version 2.0.0 (2025-10-10) - STABLE RELEASE - RENAMED PLUGIN
 
 **Major Changes:**
-- 🔄 **Plugin renamed:** from `block_empfohlene_kurse` to `block_recommended_courses`
-- 🌍 **Multilingual:** German, English, Ukrainian language support
-- 🆔 **Component name:** Changed to `block_recommended_courses`
+- Plugin renamed: from `block_empfohlene_kurse` to `block_recommended_courses`
+- Multilingual: German, English, Ukrainian language support
+- Component name: Changed to `block_recommended_courses`
 
 **Features from v1.3.1:**
-- 👤 **Main contact person:** Shows course teacher with profile picture
-- 📅 **Last modification date:** Shows when the course was last updated (format: 09.10.25)
-- ⚙️ **Flexible course information:** Category, contact person, and date individually toggleable
-- 🖼️ **Profile picture option:** Contact person profile picture optionally displayable
-- 🎨 **Modern meta tags:** Information in clear badges with icons
-- 💡 **Tooltips:** Explanations displayed on mouseover of meta information
-
-**Previous Features:**
-- 🎯 **Indicator dots:** Dots below main course show number and position of slides
-- 💡 **Course name tooltips:** Hover over indicator dot displays course name
-- 🖱️ **Direct navigation:** Click on indicator dot jumps directly to course
-- 🎨 **Optimized navigation arrows:** Outside of content at edge, Moodle blue with white icons
-- 🖼️ **Full image width:** Main course images use full width with proportional height
-- 🔗 **Clickable course titles:** Titles in main slider lead directly to course
-- 🎨 **4 layout modes:** Vertical, Horizontal, Card (centered), Minimal (image + title only)
-- ⏱️ **Automatic sliding:** 3-10 seconds configurable, pauses on hover
-- 👁️ **Toggleable elements:** Course cards and button individually configurable
-- 📱 **Responsive:** Navigation arrows adjust on mobile devices
-
-**Improvements:**
-- Automatic detection of main contact person (editingteacher/teacher)
-- Flexgroup layout for meta information with automatic wrapping
-- Clickable contact names lead to user profile
-- Hover effects on meta badges (background color changes)
-- Cursor: help for tooltips for better UX
-- Responsive display on mobile devices
+- Main contact person with optional profile picture
+- Last modification date
+- Flexible course information toggles
+- Indicator dots with tooltips and direct navigation
+- 4 layout modes, auto-slide, responsive navigation
 
 **Tested on:**
-- ✅ Moodle 5.0.2+ (Build: 20250923)
-- ✅ Moodle 4.5+
-- ✅ PHP 8.4.5
-- ✅ MariaDB 11.4.7
-
-See [DEMO_KURSE.md](DEMO_KURSE.md) for example courses with sustainability themes
+- Moodle 5.0.2+
+- Moodle 4.5+
+- PHP 8.1–8.4
+- MariaDB / PostgreSQL
 
 ## Author
 - Alexander Noack - Hochschule für nachhaltige Entwicklung Eberswalde (HNEE)
 
 ## License
-GPL v3 - See [LICENSE](LICENSE) for more information
+GPL v3 - See LICENSE for more information

@@ -18,7 +18,7 @@
  * Language strings for block_recommended_courses.
  *
  * @package    block_recommended_courses
- * @copyright  2025 Moodle Developer
+ * @copyright  2025 Alexander Noack
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -61,7 +61,7 @@ $string['config_show_cards'] = 'Show course cards';
 $string['config_show_category'] = 'Show course category';
 $string['config_show_category_help'] = 'Displays the course category below the course title';
 $string['config_show_contact'] = 'Show contact person';
-$string['config_show_contact_help'] = 'Displays the main contact person (course teacher) of the course';
+$string['config_show_contact_help'] = 'Displays the main course contact person configured in Site administration → Courses → Course contacts';
 $string['config_show_contact_picture'] = 'Show contact person profile picture';
 $string['config_show_lastmodified'] = 'Show last modification date';
 $string['config_show_lastmodified_help'] = 'Displays the date when the course was last modified';

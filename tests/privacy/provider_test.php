@@ -15,12 +15,33 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Block recommended_courses settings.
+ * Privacy provider tests.
  *
  * @package    block_recommended_courses
- * @copyright  2025 Moodle Developer
+ * @category   test
+ * @copyright  2025 Alexander Noack
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-// This block intentionally left empty.
-// Block-specific settings can be configured per-instance.
+namespace block_recommended_courses\privacy;
+
+defined('MOODLE_INTERNAL') || die();
+
+/**
+ * Privacy provider tests.
+ *
+ * @package    block_recommended_courses
+ * @category   test
+ * @copyright  2025 Alexander Noack
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+final class provider_test extends \core_privacy\tests\provider_testcase {
+
+    /**
+     * Confirm null provider reason string exists.
+     */
+    public function test_get_reason(): void {
+        $this->assertSame('privacy:metadata', provider::get_reason());
+        $this->assertNotEmpty(get_string(provider::get_reason(), 'block_recommended_courses'));
+    }
+}

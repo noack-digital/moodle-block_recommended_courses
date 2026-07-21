@@ -18,7 +18,7 @@
  * Language strings for block_recommended_courses (Ukrainian).
  *
  * @package    block_recommended_courses
- * @copyright  2025 Moodle Developer
+ * @copyright  2025 Alexander Noack
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -61,7 +61,7 @@ $string['config_show_cards'] = 'Показати картки курсів';
 $string['config_show_category'] = 'Показати категорію курсу';
 $string['config_show_category_help'] = 'Відображає категорію курсу під назвою курсу';
 $string['config_show_contact'] = 'Показати контактну особу';
-$string['config_show_contact_help'] = 'Відображає головну контактну особу (викладача курсу)';
+$string['config_show_contact_help'] = 'Відображає головну контактну особу згідно з налаштуваннями «Контакти курсу» на сайті';
 $string['config_show_contact_picture'] = 'Показати фото контактної особи';
 $string['config_show_lastmodified'] = 'Показати дату останньої зміни';
 $string['config_show_lastmodified_help'] = 'Відображає дату, коли курс був останній раз змінений';

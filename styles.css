@@ -301,9 +301,9 @@
     padding: 10px;
     font-size: 0.85rem;
     font-weight: bold;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
     color: #0f6cbf;
 }
 
@@ -349,11 +349,11 @@
 }
 
 .block_recommended_courses .slider-nav.prev {
-    left: -60px;
+    left: 8px;
 }
 
 .block_recommended_courses .slider-nav.next {
-    right: -60px;
+    right: 8px;
 }
 
 .block_recommended_courses .slider-nav i,
@@ -375,19 +375,38 @@
 
 .block_recommended_courses .slider-indicators .dot {
     position: relative;
+    box-sizing: border-box;
+    display: inline-block;
+    flex: 0 0 12px;
     width: 12px;
     height: 12px;
+    min-width: 12px;
+    min-height: 12px;
+    max-width: 12px;
+    max-height: 12px;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+    font-size: 0;
     background-color: #ccc;
     border-radius: 50%;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
     border: 2px solid transparent;
+    appearance: none;
+    -webkit-appearance: none;
+    overflow: visible;
 }
 
 .block_recommended_courses .slider-indicators .dot:hover {
     background-color: #999;
     transform: scale(1.3);
     border-color: #0f6cbf;
+}
+
+.block_recommended_courses .slider-indicators .dot:focus {
+    outline: 2px solid #0f6cbf;
+    outline-offset: 2px;
 }
 
 .block_recommended_courses .slider-indicators .dot.active {

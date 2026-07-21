@@ -121,7 +121,12 @@ define(['jquery'], function($) {
 
             sliderIndicators.empty();
             for (var i = 0; i < state.coursesCount; i++) {
-                var $dot = $('<div>').addClass('dot').attr('data-index', i);
+                var $dot = $('<button>')
+                    .attr('type', 'button')
+                    .addClass('dot')
+                    .attr('data-index', i)
+                    .attr('aria-label', rawCourses[i].fullname)
+                    .attr('aria-current', i === state.currentIndex ? 'true' : 'false');
                 $('<span>').addClass('tooltip').text(rawCourses[i].fullname).appendTo($dot);
                 if (i === state.currentIndex) {
                     $dot.addClass('active');
@@ -134,8 +139,12 @@ define(['jquery'], function($) {
             if (state.coursesCount <= 1) {
                 return;
             }
-            sliderIndicators.find('.dot').removeClass('active');
-            sliderIndicators.find('.dot[data-index="' + state.currentIndex + '"]').addClass('active');
+            sliderIndicators.find('.dot').each(function() {
+                var $dot = $(this);
+                var isActive = parseInt($dot.attr('data-index'), 10) === state.currentIndex;
+                $dot.toggleClass('active', isActive);
+                $dot.attr('aria-current', isActive ? 'true' : 'false');
+            });
         };
 
         var renderMetaInfo = function(course) {
@@ -254,6 +263,9 @@ define(['jquery'], function($) {
             if (options.autoslide <= 0 || state.coursesCount <= 1) {
                 return;
             }
+            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                return;
+            }
             state.autoslideTimer = window.setInterval(function() {
                 state.currentIndex = (state.currentIndex + 1) % state.coursesCount;
                 updateSlider();
@@ -307,7 +319,10 @@ define(['jquery'], function($) {
             activateCourseById($(this).attr('data-course-id'));
         });
 
-        container.on('click', '.slider-indicators .dot', function(e) {
+        container.on('click keydown', '.slider-indicators .dot', function(e) {
+            if (!isActivationEvent(e)) {
+                return;
+            }
             e.preventDefault();
             var index = parseInt($(this).attr('data-index'), 10);
             if (!isNaN(index) && index !== state.currentIndex) {

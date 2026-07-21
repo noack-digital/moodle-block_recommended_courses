@@ -1,6 +1,6 @@
 {
   "name": "moodle-block_recommended_courses",
-  "version": "2.0.3",
+  "version": "2.0.8",
   "description": "Moodle Block Plugin - Recommended Courses with interactive slider",
   "repository": {
     "type": "git",

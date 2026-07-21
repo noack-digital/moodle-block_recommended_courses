@@ -18,7 +18,7 @@
  * Language strings for block_recommended_courses.
  *
  * @package    block_recommended_courses
- * @copyright  2025 Moodle Developer
+ * @copyright  2025 Alexander Noack
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -61,13 +61,13 @@ $string['config_show_cards'] = 'Kurskacheln anzeigen';
 $string['config_show_category'] = 'Kursbereich anzeigen';
 $string['config_show_category_help'] = 'Zeigt den Kursbereich/die Kategorie unter dem Kurstitel an';
 $string['config_show_contact'] = 'Ansprechpartner anzeigen';
-$string['config_show_contact_help'] = 'Zeigt den Hauptansprechpartner (Kursleiter) des Kurses an';
+$string['config_show_contact_help'] = 'Zeigt den Hauptansprechpartner gemäß Website-Administration → Kurse → Kurskontakte an';
 $string['config_show_contact_picture'] = 'Profilbild des Ansprechpartners anzeigen';
 $string['config_show_lastmodified'] = 'Datum der letzten Bearbeitung anzeigen';
 $string['config_show_lastmodified_help'] = 'Zeigt das Datum an, wann der Kurs zuletzt geändert wurde';
 $string['config_title'] = 'Titel des Blocks';
 $string['config_title_alignment'] = 'Titel-Ausrichtung';
-$string['config_title_default'] = 'Recommended Courses';
+$string['config_title_default'] = 'Empfohlene Kurse';
 $string['course_info_settings'] = 'Kursinformations-Einstellungen';
 $string['display_settings'] = 'Darstellungsoptionen';
 $string['enrollbutton'] = 'In den Kurs einschreiben';
@@ -81,11 +81,11 @@ $string['layout_vertical'] = 'Vertikal - Bild oben, Inhalt unten';
 $string['next_course'] = 'Nächster Kurs';
 $string['no_courses_selected'] = 'Keine Kurse ausgewählt';
 $string['no_courses_to_display'] = 'Keine Kurse zum Anzeigen verfügbar';
-$string['pluginname'] = 'Recommended Courses';
+$string['pluginname'] = 'Empfohlene Kurse';
 $string['previous_course'] = 'Vorheriger Kurs';
-$string['privacy:metadata'] = 'Der Block "Recommended Courses" speichert keine personenbezogenen Daten.';
-$string['recommended_courses:addinstance'] = 'Neuen Block "Recommended Courses" hinzufügen';
-$string['recommended_courses:myaddinstance'] = 'Neuen Block "Recommended Courses" zum Dashboard hinzufügen';
+$string['privacy:metadata'] = 'Der Block „Empfohlene Kurse“ speichert keine personenbezogenen Daten.';
+$string['recommended_courses:addinstance'] = 'Neuen Block „Empfohlene Kurse“ hinzufügen';
+$string['recommended_courses:myaddinstance'] = 'Neuen Block „Empfohlene Kurse“ zum Dashboard hinzufügen';
 $string['search_courses'] = 'Kurse suchen';
 $string['seconds'] = 'Sekunden';
 $string['select_courses'] = 'Kurse für den Slider auswählen';

@@ -2,26 +2,29 @@
  * Grunt configuration for block_recommended_courses.
  *
  * @package    block_recommended_courses
- * @copyright  2025 Alexander Noack - HNEE
+ * @copyright  2025 Alexander Noack
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
     'use strict';
 
-    // Project configuration.
     grunt.initConfig({
-        // ESLint for JavaScript linting
         eslint: {
             amd: {
                 src: ['amd/src/*.js']
             }
         },
 
-        // Uglify for JavaScript minification
         uglify: {
             options: {
-                preserveComments: 'some'
+                preserveComments: false,
+                sourceMap: {
+                    includeSources: true
+                },
+                sourceMapName: function(dest) {
+                    return dest + '.map';
+                }
             },
             amd: {
                 files: [{
@@ -29,12 +32,12 @@ module.exports = function (grunt) {
                     cwd: 'amd/src',
                     src: ['*.js'],
                     dest: 'amd/build',
-                    ext: '.min.js'
+                    ext: '.min.js',
+                    extDot: 'last'
                 }]
             }
         },
 
-        // Watch for changes
         watch: {
             amd: {
                 files: ['amd/src/*.js'],
@@ -43,15 +46,13 @@ module.exports = function (grunt) {
         }
     });
 
-    // Load NPM tasks
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-eslint');
 
-    // Register dummy stylelint task to satisfy Moodle CI if not configured
+    // Satisfy moodle-plugin-ci grunt stylelint step when no CSS lint config is needed.
     grunt.registerTask('stylelint', []);
 
-    // Default task(s)
     grunt.registerTask('default', ['eslint', 'uglify']);
     grunt.registerTask('amd', ['eslint:amd', 'uglify:amd']);
 };
