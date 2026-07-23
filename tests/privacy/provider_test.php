@@ -38,10 +38,27 @@ defined('MOODLE_INTERNAL') || die();
 final class provider_test extends \core_privacy\tests\provider_testcase {
 
     /**
-     * Confirm null provider reason string exists.
+     * Metadata must declare the enrolment filter preference.
      */
-    public function test_get_reason(): void {
-        $this->assertSame('privacy:metadata', provider::get_reason());
-        $this->assertNotEmpty(get_string(provider::get_reason(), 'block_recommended_courses'));
+    public function test_get_metadata(): void {
+        $collection = new \core_privacy\local\metadata\collection('block_recommended_courses');
+        $metadata = provider::get_metadata($collection);
+        $this->assertNotEmpty($metadata);
+        $this->assertNotEmpty(get_string('privacy:metadata:preference:unenrolledonly', 'block_recommended_courses'));
+    }
+
+    /**
+     * Export preference when set.
+     */
+    public function test_export_user_preferences(): void {
+        $this->resetAfterTest();
+        $user = $this->getDataGenerator()->create_user();
+        $this->setUser($user);
+
+        set_user_preference('block_recommended_courses_unenrolledonly', 0, $user);
+        provider::export_user_preferences($user->id);
+
+        $writer = \core_privacy\local\request\writer::with_context(\context_user::instance($user->id));
+        $this->assertTrue($writer->has_any_data());
     }
 }

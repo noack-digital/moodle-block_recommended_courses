@@ -8,6 +8,121 @@
     container-name: recommended-courses;
 }
 
+/* Enrolment filter toggle (moved into block header via JS) */
+.block_recommended_courses .enrolment-filter,
+.block.block_recommended_courses .enrolment-filter {
+    display: flex;
+    align-items: center;
+    margin: 0 0 12px;
+}
+
+.block.block_recommended_courses .enrolment-filter-in-header {
+    margin: 0 12px 0 auto;
+    flex: 1 1 auto;
+    justify-content: flex-end;
+    min-width: 0;
+    max-width: calc(100% - 8rem);
+}
+
+.block.block_recommended_courses .card-title,
+.block.block_recommended_courses .header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.block_recommended_courses .enrolment-filter-control {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    cursor: pointer;
+    max-width: 100%;
+}
+
+.block_recommended_courses .enrolment-filter-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1.25;
+    color: #555;
+    text-align: right;
+}
+
+.block_recommended_courses .enrolment-filter-switch {
+    position: relative;
+    display: inline-flex;
+    flex: 0 0 auto;
+    width: 42px;
+    height: 24px;
+}
+
+.block_recommended_courses .enrolment-filter-input {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.block_recommended_courses .enrolment-filter-slider {
+    position: absolute;
+    inset: 0;
+    background: #c5c5c5;
+    border-radius: 999px;
+    transition: background-color 0.2s ease;
+}
+
+.block_recommended_courses .enrolment-filter-slider::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease;
+}
+
+.block_recommended_courses .enrolment-filter-input:checked + .enrolment-filter-slider {
+    background: #0f6cbf;
+}
+
+.block_recommended_courses .enrolment-filter-input:checked + .enrolment-filter-slider::after {
+    transform: translateX(18px);
+}
+
+.block_recommended_courses .enrolment-filter-input:focus-visible + .enrolment-filter-slider {
+    outline: 2px solid #0f6cbf;
+    outline-offset: 2px;
+}
+
+.block_recommended_courses .enrolment-filter.is-saving {
+    opacity: 0.65;
+    pointer-events: none;
+}
+
+@container recommended-courses (max-width: 480px) {
+    .block.block_recommended_courses .enrolment-filter-in-header,
+    .block_recommended_courses .enrolment-filter {
+        margin: 0 0 10px;
+        max-width: 100%;
+        width: 100%;
+        justify-content: space-between;
+        order: 2;
+        flex: 1 0 100%;
+    }
+
+    .block_recommended_courses .enrolment-filter-label {
+        text-align: left;
+        font-size: 0.75rem;
+    }
+}
+
 /* Title alignment */
 .block_recommended_courses.title-left .header .title {
     text-align: left;

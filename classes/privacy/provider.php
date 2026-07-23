@@ -26,6 +26,9 @@ namespace block_recommended_courses\privacy;
 
 defined('MOODLE_INTERNAL') || die();
 
+use core_privacy\local\metadata\collection;
+use core_privacy\local\request\writer;
+
 /**
  * Privacy API implementation for the recommended_courses block.
  *
@@ -33,14 +36,40 @@ defined('MOODLE_INTERNAL') || die();
  * @copyright  2025 Alexander Noack
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class provider implements \core_privacy\local\metadata\null_provider {
+class provider implements
+    \core_privacy\local\metadata\provider,
+    \core_privacy\local\request\user_preference_provider {
+
     /**
-     * Get the language string identifier with the component's language
-     * file to explain why this plugin stores no data.
+     * Returns metadata about stored user data.
      *
-     * @return string
+     * @param collection $collection
+     * @return collection
      */
-    public static function get_reason(): string {
-        return 'privacy:metadata';
+    public static function get_metadata(collection $collection): collection {
+        $collection->add_user_preference(
+            'block_recommended_courses_unenrolledonly',
+            'privacy:metadata:preference:unenrolledonly'
+        );
+        return $collection;
+    }
+
+    /**
+     * Export user preferences owned by this plugin.
+     *
+     * @param int $userid
+     */
+    public static function export_user_preferences(int $userid): void {
+        $value = get_user_preferences('block_recommended_courses_unenrolledonly', null, $userid);
+        if ($value === null) {
+            return;
+        }
+
+        writer::export_user_preference(
+            'block_recommended_courses',
+            'block_recommended_courses_unenrolledonly',
+            $value,
+            get_string('privacy:metadata:preference:unenrolledonly', 'block_recommended_courses')
+        );
     }
 }

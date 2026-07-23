@@ -59,10 +59,30 @@
         "meta_label_lastmodified": "Start:",
         "coursescount": 1,
         "current_position": 1,
+        "show_enrolment_filter": true,
+        "unenrolled_only": true,
+        "enrolment_filter_label": "Show only courses I am not enrolled in",
+        "enrolment_filter_pref": "block_recommended_courses_unenrolledonly",
         "coursesJson": "[]"
     }
 }}
 <div class="block_recommended_courses" id="block_recommended_courses_{{uniqid}}" data-image-fit="{{image_fit}}" data-image-height="{{image_height}}" data-border-radius="{{border_radius}}" data-animation-speed="{{animation_speed}}">
+    {{#show_enrolment_filter}}
+    <div class="enrolment-filter" data-preference="{{enrolment_filter_pref}}">
+        <label class="enrolment-filter-control" for="enrolment-filter-{{uniqid}}">
+            <span class="enrolment-filter-label">{{enrolment_filter_label}}</span>
+            <span class="enrolment-filter-switch">
+                <input id="enrolment-filter-{{uniqid}}"
+                       class="enrolment-filter-input"
+                       type="checkbox"
+                       role="switch"
+                       {{#unenrolled_only}}checked{{/unenrolled_only}}
+                       aria-checked="{{#unenrolled_only}}true{{/unenrolled_only}}{{^unenrolled_only}}false{{/unenrolled_only}}">
+                <span class="enrolment-filter-slider" aria-hidden="true"></span>
+            </span>
+        </label>
+    </div>
+    {{/show_enrolment_filter}}
     {{#hascourses}}
         <div class="slider-container">
             {{#courses}}
@@ -119,7 +139,7 @@
                                 <div class="main-course-description">{{summary}}</div>
                                 {{#show_button}}
                                 <div class="button-container">
-                                    <a href="{{enrollurl}}" class="btn btn-primary">{{buttontext}}</a>
+                                    <a href="{{enrollurl}}" class="btn btn-primary course-action-btn">{{actiontext}}</a>
                                 </div>
                                 {{/show_button}}
                             </div>
@@ -166,7 +186,7 @@
 </div>
 
 {{#js}}
-require(['block_recommended_courses/slider'], function(slider) {
+require(['block_recommended_courses/slider', 'block_recommended_courses/enrolment_filter'], function(slider, enrolmentFilter) {
     slider.init(
         'block_recommended_courses_{{uniqid}}',
         {{{coursesJson}}},
@@ -187,5 +207,6 @@ require(['block_recommended_courses/slider'], function(slider) {
             metaLabelLastmodified: {{{meta_label_lastmodified_json}}}
         }
     );
+    enrolmentFilter.init('block_recommended_courses_{{uniqid}}');
 });
 {{/js}}

@@ -24,6 +24,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+require_once(__DIR__ . '/lib.php');
+
 /**
  * Recommended Courses block class.
  *
@@ -53,14 +55,16 @@ class block_recommended_courses extends block_base {
 
         $displayoptions = $this->get_display_options();
         $includecontact = !empty($displayoptions['show_contact']);
+        $unenrolledonly = block_recommended_courses_is_unenrolled_only();
         $courses = \block_recommended_courses\course_helper::get_recommended_courses(
             isset($this->config->courses) ? $this->config->courses : [],
             (int) $USER->id,
             $this->page,
-            $includecontact
+            $includecontact,
+            $unenrolledonly
         );
 
-        $renderable = new \block_recommended_courses\output\main($courses, $displayoptions);
+        $renderable = new \block_recommended_courses\output\main($courses, $displayoptions, $unenrolledonly);
         $renderer = $this->page->get_renderer('block_recommended_courses');
 
         $this->content = new stdClass();

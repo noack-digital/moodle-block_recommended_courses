@@ -241,6 +241,9 @@ define(['jquery'], function($) {
                 var button = mainCourseWrapper.find('.button-container a');
                 if (button.length) {
                     button.attr('href', course.enrollurl);
+                    if (course.actiontext) {
+                        button.text(course.actiontext);
+                    }
                 }
             }
 

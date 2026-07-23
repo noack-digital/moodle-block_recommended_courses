@@ -170,10 +170,11 @@ class course_helper {
      * @param int $userid User ID.
      * @param \moodle_page $page Current page (for user pictures).
      * @param bool $includecontact Whether to resolve course contacts.
+     * @param bool $excludeenrolled Whether to hide courses with an active enrolment.
      * @return array
      */
     public static function get_recommended_courses(array $courseids, int $userid, \moodle_page $page,
-            bool $includecontact = true): array {
+            bool $includecontact = true, bool $excludeenrolled = true): array {
         global $DB;
 
         $courseids = self::normalize_course_ids($courseids);
@@ -182,14 +183,15 @@ class course_helper {
         }
 
         [$insql, $params] = $DB->get_in_or_equal($courseids, SQL_PARAMS_NAMED);
-        $params['userid'] = $userid;
-        $params['uestatus'] = ENROL_USER_ACTIVE;
-        $params['estatus'] = ENROL_INSTANCE_ENABLED;
 
         $sql = "SELECT c.*
                   FROM {course} c
-                 WHERE c.id $insql
-                   AND c.id NOT IN (
+                 WHERE c.id $insql";
+        if ($excludeenrolled) {
+            $params['userid'] = $userid;
+            $params['uestatus'] = ENROL_USER_ACTIVE;
+            $params['estatus'] = ENROL_INSTANCE_ENABLED;
+            $sql .= " AND c.id NOT IN (
                         SELECT e.courseid
                           FROM {enrol} e
                           JOIN {user_enrolments} ue ON ue.enrolid = e.id
@@ -197,10 +199,16 @@ class course_helper {
                            AND ue.status = :uestatus
                            AND e.status = :estatus
                    )";
+        }
 
         $records = $DB->get_records_sql($sql, $params);
         if (empty($records)) {
             return [];
+        }
+
+        $enrolledids = [];
+        if (!$excludeenrolled && $userid > 0) {
+            $enrolledids = self::get_active_enrolment_course_ids($courseids, $userid);
         }
 
         // Preserve admin-configured order.
@@ -216,10 +224,51 @@ class course_helper {
             if (!\core_course_category::can_view_course_info($course, $userid)) {
                 continue;
             }
-            $recommended[] = self::format_course_for_display($course, $page, $includecontact);
+            $recommended[] = self::format_course_for_display(
+                $course,
+                $page,
+                $includecontact,
+                isset($enrolledids[(int) $course->id])
+            );
         }
 
         return $recommended;
+    }
+
+    /**
+     * Return active enrolment course IDs for a user within a candidate set.
+     *
+     * @param int[] $courseids Candidate course IDs.
+     * @param int $userid User ID.
+     * @return array<int,bool> Map of courseid => true
+     */
+    public static function get_active_enrolment_course_ids(array $courseids, int $userid): array {
+        global $DB;
+
+        $courseids = self::normalize_course_ids($courseids);
+        if (empty($courseids) || $userid <= 0) {
+            return [];
+        }
+
+        [$insql, $params] = $DB->get_in_or_equal($courseids, SQL_PARAMS_NAMED);
+        $params['userid'] = $userid;
+        $params['uestatus'] = ENROL_USER_ACTIVE;
+        $params['estatus'] = ENROL_INSTANCE_ENABLED;
+
+        $sql = "SELECT DISTINCT e.courseid
+                  FROM {enrol} e
+                  JOIN {user_enrolments} ue ON ue.enrolid = e.id
+                 WHERE e.courseid $insql
+                   AND ue.userid = :userid
+                   AND ue.status = :uestatus
+                   AND e.status = :estatus";
+
+        $records = $DB->get_records_sql($sql, $params);
+        $map = [];
+        foreach ($records as $record) {
+            $map[(int) $record->courseid] = true;
+        }
+        return $map;
     }
 
     /**
@@ -228,10 +277,11 @@ class course_helper {
      * @param \stdClass $course Course record.
      * @param \moodle_page $page Current page.
      * @param bool $includecontact Whether to resolve contacts.
+     * @param bool $isenrolled Whether the current user is actively enrolled.
      * @return array
      */
     public static function format_course_for_display(\stdClass $course, \moodle_page $page,
-            bool $includecontact = true): array {
+            bool $includecontact = true, bool $isenrolled = false): array {
         global $OUTPUT;
 
         $courseid = (int) $course->id;
@@ -266,6 +316,9 @@ class course_helper {
             $lastmodified = userdate($course->timemodified, get_string('strftimedatefullshort', 'langconfig'));
         }
 
+        $viewurl = (new \moodle_url('/course/view.php', ['id' => $courseid]))->out(false);
+        $enrollurl = (new \moodle_url('/enrol/index.php', ['id' => $courseid]))->out(false);
+
         return [
             'id' => $courseid,
             'fullname' => format_string($course->fullname, true, ['context' => $context]),
@@ -273,8 +326,12 @@ class course_helper {
             'summary' => $coursesummary,
             'category' => $categoryname,
             'courseimage' => $courseimage,
-            'viewurl' => (new \moodle_url('/course/view.php', ['id' => $courseid]))->out(false),
-            'enrollurl' => (new \moodle_url('/enrol/index.php', ['id' => $courseid]))->out(false),
+            'viewurl' => $viewurl,
+            'enrollurl' => $isenrolled ? $viewurl : $enrollurl,
+            'isenrolled' => $isenrolled ? 1 : 0,
+            'actiontext' => $isenrolled
+                ? get_string('gotocourse', 'block_recommended_courses')
+                : get_string('enrollbutton', 'block_recommended_courses'),
             'contact' => $contact,
             'lastmodified' => $lastmodified,
         ];

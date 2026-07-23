@@ -52,15 +52,24 @@ class main implements renderable, templatable {
     /** @var array Display options. */
     protected $displayoptions;
 
+    /** @var bool Whether only unenrolled courses are shown. */
+    protected $unenrolledonly;
+
+    /** @var bool Whether the enrolment filter toggle is available. */
+    protected $showenrolmentfilter;
+
     /**
      * Constructor.
      *
      * @param array $courses List of courses for the slider.
      * @param array $displayoptions Display options for the slider.
+     * @param bool $unenrolledonly Whether enrolled courses are currently hidden.
      */
-    public function __construct($courses, $displayoptions = []) {
+    public function __construct($courses, $displayoptions = [], $unenrolledonly = true) {
         $this->courses = $courses;
         $this->displayoptions = course_helper::sanitize_display_options($displayoptions);
+        $this->unenrolledonly = (bool) $unenrolledonly;
+        $this->showenrolmentfilter = isloggedin() && !isguestuser();
         $this->buttontext = get_string('enrollbutton', 'block_recommended_courses');
         $this->nocoursesmessage = get_string('no_courses_to_display', 'block_recommended_courses');
     }
@@ -93,6 +102,11 @@ class main implements renderable, templatable {
         $data->show_contact = (int) $this->displayoptions['show_contact'];
         $data->show_lastmodified = (int) $this->displayoptions['show_lastmodified'];
 
+        $data->show_enrolment_filter = $this->showenrolmentfilter ? 1 : 0;
+        $data->unenrolled_only = $this->unenrolledonly ? 1 : 0;
+        $data->enrolment_filter_label = get_string('filter_unenrolled_only', 'block_recommended_courses');
+        $data->enrolment_filter_pref = 'block_recommended_courses_unenrolledonly';
+
         $data->meta_label_category = get_string('meta_label_category', 'block_recommended_courses');
         $data->meta_label_contact = get_string('meta_label_contact', 'block_recommended_courses');
         $data->meta_label_lastmodified = get_string('meta_label_lastmodified', 'block_recommended_courses');
@@ -111,6 +125,8 @@ class main implements renderable, templatable {
 
         if (!$data->hascourses) {
             $data->coursesJson = course_helper::encode_courses_json([]);
+            $data->coursescount = 0;
+            $data->current_position = 0;
             return $data;
         }
 
@@ -127,6 +143,8 @@ class main implements renderable, templatable {
             $coursedata->courseimage = $course['courseimage'];
             $coursedata->viewurl = $course['viewurl'];
             $coursedata->enrollurl = $course['enrollurl'];
+            $coursedata->isenrolled = !empty($course['isenrolled']);
+            $coursedata->actiontext = isset($course['actiontext']) ? $course['actiontext'] : $this->buttontext;
 
             if (!empty($course['contact'])) {
                 $coursedata->has_contact = true;
@@ -140,6 +158,10 @@ class main implements renderable, templatable {
             $coursedata->first = $first;
             $coursedata->visible = $visiblecount < 4;
             $data->courses[] = $coursedata;
+
+            if ($first) {
+                $data->buttontext = $coursedata->actiontext;
+            }
 
             $first = false;
             $visiblecount++;

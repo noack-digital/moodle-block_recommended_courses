@@ -135,11 +135,25 @@ final class course_helper_test extends \advanced_testcase {
             [$enrolled->id, $other->id],
             (int) $student->id,
             $page,
-            false
+            false,
+            true
         );
 
         $this->assertCount(1, $courses);
         $this->assertSame((int) $other->id, $courses[0]['id']);
+
+        $allcourses = course_helper::get_recommended_courses(
+            [$enrolled->id, $other->id],
+            (int) $student->id,
+            $page,
+            false,
+            false
+        );
+        $this->assertCount(2, $allcourses);
+        $this->assertSame(1, $allcourses[0]['isenrolled']);
+        $this->assertSame(0, $allcourses[1]['isenrolled']);
+        $this->assertSame(get_string('gotocourse', 'block_recommended_courses'), $allcourses[0]['actiontext']);
+        $this->assertSame(get_string('enrollbutton', 'block_recommended_courses'), $allcourses[1]['actiontext']);
     }
 
     /**
