@@ -24,8 +24,6 @@
 
 namespace block_recommended_courses;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Helpers for selecting and formatting recommended courses.
  *
@@ -34,7 +32,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class course_helper {
-
     /**
      * Allowed layout modes.
      */
@@ -173,8 +170,13 @@ class course_helper {
      * @param bool $excludeenrolled Whether to hide courses with an active enrolment.
      * @return array
      */
-    public static function get_recommended_courses(array $courseids, int $userid, \moodle_page $page,
-            bool $includecontact = true, bool $excludeenrolled = true): array {
+    public static function get_recommended_courses(
+        array $courseids,
+        int $userid,
+        \moodle_page $page,
+        bool $includecontact = true,
+        bool $excludeenrolled = true
+    ): array {
         global $DB;
 
         $courseids = self::normalize_course_ids($courseids);
@@ -280,8 +282,12 @@ class course_helper {
      * @param bool $isenrolled Whether the current user is actively enrolled.
      * @return array
      */
-    public static function format_course_for_display(\stdClass $course, \moodle_page $page,
-            bool $includecontact = true, bool $isenrolled = false): array {
+    public static function format_course_for_display(
+        \stdClass $course,
+        \moodle_page $page,
+        bool $includecontact = true,
+        bool $isenrolled = false
+    ): array {
         global $OUTPUT;
 
         $courseid = (int) $course->id;

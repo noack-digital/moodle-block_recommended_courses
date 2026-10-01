@@ -25,8 +25,6 @@
 
 namespace block_recommended_courses\privacy;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Privacy provider tests.
  *
@@ -36,7 +34,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 final class provider_test extends \core_privacy\tests\provider_testcase {
-
     /**
      * Metadata must declare the enrolment filter preference.
      */

@@ -24,8 +24,6 @@
 
 namespace block_recommended_courses\output;
 
-defined('MOODLE_INTERNAL') || die();
-
 use block_recommended_courses\course_helper;
 use renderable;
 use renderer_base;

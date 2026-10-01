@@ -24,8 +24,6 @@
 
 namespace block_recommended_courses\privacy;
 
-defined('MOODLE_INTERNAL') || die();
-
 use core_privacy\local\metadata\collection;
 use core_privacy\local\request\writer;
 
@@ -39,7 +37,6 @@ use core_privacy\local\request\writer;
 class provider implements
     \core_privacy\local\metadata\provider,
     \core_privacy\local\request\user_preference_provider {
-
     /**
      * Returns metadata about stored user data.
      *

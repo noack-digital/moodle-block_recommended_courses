@@ -1,4 +1,4 @@
-@block_recommended_courses
+@block @block_recommended_courses
 Feature: Recommended courses block can be added
   In order to recommend courses
   As an administrator

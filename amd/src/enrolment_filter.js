@@ -73,7 +73,6 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, Ajax, Notificat
 
         input.on('change', function() {
             var checked = input.is(':checked');
-            input.attr('aria-checked', checked ? 'true' : 'false');
             input.prop('disabled', true);
             filterEl.addClass('is-saving');
 
@@ -93,7 +92,6 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, Ajax, Notificat
                 input.prop('disabled', false);
                 filterEl.removeClass('is-saving');
                 input.prop('checked', !checked);
-                input.attr('aria-checked', (!checked).toString());
                 Notification.exception(error);
             });
         });
