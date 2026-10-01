@@ -18,6 +18,7 @@ This Moodle plugin provides a block that displays selected courses in which the 
   - Show/hide course cards and enrollment button
   - Course information (category, contact person, last modified date)
 - Multilingual support (German, English, Ukrainian)
+- Optional per-user filter: show only courses without an active enrolment
 
 ## Installation
 1. Upload the contents of the repository to the directory `/blocks/recommended_courses/` of your Moodle installation.
@@ -37,13 +38,22 @@ This Moodle plugin provides a block that displays selected courses in which the 
    - Configure course information display (category, contact, date)
 
 ## Requirements
-- Moodle 4.5 or higher (compatible with Moodle 5.0)
-- PHP 8.1 or higher
+- Moodle 4.5 or higher (compatible with Moodle 5.0 and 5.1)
+- PHP 8.1 or higher (PHP 8.2+ required for Moodle 5.0+)
 
 ## Bug tracker
 https://github.com/noack-digital/moodle-block_recommended_courses/issues
 
 ## Changelog
+
+### Version 2.1.0 (2026-07-23)
+- Enrolment filter toggle in the block header: show only courses the user is not enrolled in
+- Preference is stored per user and applied after reload
+- When the filter is off, enrolled courses show a **Go to course** action instead of enrol
+- Sidebar and responsive layout improvements (course counter, navigation row)
+- Fixed enrol button / meta labels; category meta label renamed to **Semester / Area**
+- Privacy API documents the enrolment-filter user preference
+- CI updated for Moodle 4.5 / 5.0 / 5.1 (PostgreSQL and MariaDB)
 
 ### Version 2.0.8 (2026-07-21)
 - Security and access: hide invisible courses, respect course visibility capabilities, filter active enrolments only
