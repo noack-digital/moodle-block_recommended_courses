@@ -41,9 +41,12 @@ final class course_helper_test extends \advanced_testcase {
     public function test_normalize_course_ids(): void {
         $this->resetAfterTest();
 
-        // SITEID is excluded by design (usually 1).
-        $ids = course_helper::normalize_course_ids(['3', '2', '3', '1', SITEID, 0, '']);
-        $this->assertSame([3, 2], $ids);
+        $ids = course_helper::normalize_course_ids(['10', '20', '10', '30', 0, '']);
+        $this->assertSame([10, 20, 30], $ids);
+
+        // Site course ID must always be excluded.
+        $ids = course_helper::normalize_course_ids([SITEID, 7, (string) SITEID, 8]);
+        $this->assertSame([7, 8], $ids);
 
         $ids = course_helper::normalize_course_ids('5, 4, 5');
         $this->assertSame([5, 4], $ids);

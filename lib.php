@@ -22,10 +22,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-/**
- * Preference name for the unenrolled-only filter toggle.
- */
-define('BLOCK_RECOMMENDED_COURSES_PREF_UNENROLLEDONLY', 'block_recommended_courses_unenrolledonly');
+defined('MOODLE_INTERNAL') || die(); // phpcs:ignore moodle.Files.MoodleInternal.MoodleInternalNotNeeded
 
 /**
  * Declare user preferences used by this plugin.
@@ -34,7 +31,7 @@ define('BLOCK_RECOMMENDED_COURSES_PREF_UNENROLLEDONLY', 'block_recommended_cours
  */
 function block_recommended_courses_user_preferences(): array {
     $preferences = [];
-    $preferences[BLOCK_RECOMMENDED_COURSES_PREF_UNENROLLEDONLY] = [
+    $preferences[\block_recommended_courses\local\preference::UNENROLLED_ONLY] = [
         'type' => PARAM_INT,
         'null' => NULL_NOT_ALLOWED,
         'default' => 1,
@@ -52,5 +49,6 @@ function block_recommended_courses_is_unenrolled_only(): bool {
     if (!isloggedin() || isguestuser()) {
         return true;
     }
-    return (int) get_user_preferences(BLOCK_RECOMMENDED_COURSES_PREF_UNENROLLEDONLY, 1) === 1;
+    $prefname = \block_recommended_courses\local\preference::UNENROLLED_ONLY;
+    return (int) get_user_preferences($prefname, 1) === 1;
 }

@@ -25,6 +25,7 @@
 namespace block_recommended_courses\output;
 
 use block_recommended_courses\course_helper;
+use block_recommended_courses\local\preference;
 use renderable;
 use renderer_base;
 use templatable;
@@ -103,7 +104,7 @@ class main implements renderable, templatable {
         $data->show_enrolment_filter = $this->showenrolmentfilter ? 1 : 0;
         $data->unenrolled_only = $this->unenrolledonly ? 1 : 0;
         $data->enrolment_filter_label = get_string('filter_unenrolled_only', 'block_recommended_courses');
-        $data->enrolment_filter_pref = 'block_recommended_courses_unenrolledonly';
+        $data->enrolment_filter_pref = preference::UNENROLLED_ONLY;
 
         $data->meta_label_category = get_string('meta_label_category', 'block_recommended_courses');
         $data->meta_label_contact = get_string('meta_label_contact', 'block_recommended_courses');

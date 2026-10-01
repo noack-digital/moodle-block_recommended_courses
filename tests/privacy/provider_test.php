@@ -25,6 +25,9 @@
 
 namespace block_recommended_courses\privacy;
 
+use block_recommended_courses\local\preference;
+use core_privacy\local\request\writer;
+
 /**
  * Privacy provider tests.
  *
@@ -41,8 +44,21 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
     public function test_get_metadata(): void {
         $collection = new \core_privacy\local\metadata\collection('block_recommended_courses');
         $metadata = provider::get_metadata($collection);
-        $this->assertNotEmpty($metadata);
-        $this->assertNotEmpty(get_string('privacy:metadata:preference:unenrolledonly', 'block_recommended_courses'));
+        $items = $metadata->get_collection();
+
+        $this->assertNotEmpty($items);
+        $found = false;
+        foreach ($items as $item) {
+            if ($item->get_name() === preference::UNENROLLED_ONLY) {
+                $found = true;
+                $this->assertSame(
+                    'privacy:metadata:preference:unenrolledonly',
+                    $item->get_summary()
+                );
+                break;
+            }
+        }
+        $this->assertTrue($found, 'Enrolment filter preference missing from privacy metadata.');
     }
 
     /**
@@ -53,10 +69,15 @@ final class provider_test extends \core_privacy\tests\provider_testcase {
         $user = $this->getDataGenerator()->create_user();
         $this->setUser($user);
 
-        set_user_preference('block_recommended_courses_unenrolledonly', 0, $user);
+        set_user_preference(preference::UNENROLLED_ONLY, 0, $user);
         provider::export_user_preferences($user->id);
 
-        $writer = \core_privacy\local\request\writer::with_context(\context_user::instance($user->id));
+        $writer = writer::with_context(\context_system::instance());
         $this->assertTrue($writer->has_any_data());
+
+        $prefs = $writer->get_user_preferences('block_recommended_courses');
+        $prefname = preference::UNENROLLED_ONLY;
+        $this->assertTrue(property_exists($prefs, $prefname));
+        $this->assertEquals(0, $prefs->{$prefname}->value);
     }
 }

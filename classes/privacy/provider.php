@@ -24,6 +24,7 @@
 
 namespace block_recommended_courses\privacy;
 
+use block_recommended_courses\local\preference;
 use core_privacy\local\metadata\collection;
 use core_privacy\local\request\writer;
 
@@ -45,7 +46,7 @@ class provider implements
      */
     public static function get_metadata(collection $collection): collection {
         $collection->add_user_preference(
-            'block_recommended_courses_unenrolledonly',
+            preference::UNENROLLED_ONLY,
             'privacy:metadata:preference:unenrolledonly'
         );
         return $collection;
@@ -57,14 +58,14 @@ class provider implements
      * @param int $userid
      */
     public static function export_user_preferences(int $userid): void {
-        $value = get_user_preferences('block_recommended_courses_unenrolledonly', null, $userid);
+        $value = get_user_preferences(preference::UNENROLLED_ONLY, null, $userid);
         if ($value === null) {
             return;
         }
 
         writer::export_user_preference(
             'block_recommended_courses',
-            'block_recommended_courses_unenrolledonly',
+            preference::UNENROLLED_ONLY,
             $value,
             get_string('privacy:metadata:preference:unenrolledonly', 'block_recommended_courses')
         );

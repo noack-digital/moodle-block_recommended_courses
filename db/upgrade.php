@@ -22,6 +22,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die(); // phpcs:ignore moodle.Files.MoodleInternal.MoodleInternalNotNeeded
+
 /**
  * Upgrade the block_recommended_courses plugin.
  *
@@ -38,8 +40,8 @@ function xmldb_block_recommended_courses_upgrade($oldversion) {
                 continue;
             }
 
-            $config = unserialize(base64_decode($instance->configdata));
-            if (!is_object($config) || !property_exists($config, 'button_text')) {
+            $config = unserialize_object(base64_decode($instance->configdata));
+            if (!property_exists($config, 'button_text')) {
                 continue;
             }
 
