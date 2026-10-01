@@ -30,6 +30,7 @@ namespace block_recommended_courses\privacy;
  *
  * @package    block_recommended_courses
  * @category   test
+ * @covers     \block_recommended_courses\privacy\provider
  * @copyright  2025 Alexander Noack
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

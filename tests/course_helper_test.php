@@ -30,6 +30,7 @@ namespace block_recommended_courses;
  *
  * @package    block_recommended_courses
  * @category   test
+ * @covers     \block_recommended_courses\course_helper
  * @copyright  2025 Alexander Noack
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

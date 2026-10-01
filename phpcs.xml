@@ -2,10 +2,11 @@
 <ruleset name="Moodle Plugin CI">
     <description>Moodle Plugin CI Ruleset</description>
     <rule ref="moodle"/>
-    
-    <!-- Exclude third-party libraries -->
+
+    <!-- Exclude third-party / generated paths -->
     <exclude-pattern>*/node_modules/*</exclude-pattern>
     <exclude-pattern>node_modules/*</exclude-pattern>
     <exclude-pattern>*/vendor/*</exclude-pattern>
     <exclude-pattern>vendor/*</exclude-pattern>
+    <exclude-pattern>*/amd/build/*</exclude-pattern>
 </ruleset>

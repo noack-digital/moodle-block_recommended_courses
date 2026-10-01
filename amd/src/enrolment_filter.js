@@ -88,6 +88,7 @@ define(['jquery', 'core/ajax', 'core/notification'], function($, Ajax, Notificat
 
             request.then(function() {
                 window.location.reload();
+                return undefined;
             }).catch(function(error) {
                 input.prop('disabled', false);
                 filterEl.removeClass('is-saving');
