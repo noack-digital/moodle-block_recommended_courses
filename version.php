@@ -24,7 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2026072200;
+$plugin->version   = 2026100100;
 $plugin->requires  = 2024100700; // Moodle 4.5.
 $plugin->component = 'block_recommended_courses';
 $plugin->maturity  = MATURITY_STABLE;

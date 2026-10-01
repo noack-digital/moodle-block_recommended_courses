@@ -46,14 +46,16 @@ https://github.com/noack-digital/moodle-block_recommended_courses/issues
 
 ## Changelog
 
-### Version 2.1.0 (2026-07-23)
+### Version 2.1.0 (2026-10-01)
 - Enrolment filter toggle in the block header: show only courses the user is not enrolled in
 - Preference is stored per user and applied after reload
 - When the filter is off, enrolled courses show a **Go to course** action instead of enrol
 - Sidebar and responsive layout improvements (course counter, navigation row)
 - Fixed enrol button / meta labels; category meta label renamed to **Semester / Area**
 - Privacy API documents the enrolment-filter user preference
-- CI updated for Moodle 4.5 / 5.0 / 5.1 (PostgreSQL and MariaDB)
+- Native checkbox for the enrolment filter (accessible, no invalid `aria-checked`/`role="switch"`)
+- Shared preference constant (`classes/local/preference.php`); safer upgrade unserialize
+- Behat coverage for the enrolment filter; CI for Moodle 4.5 / 5.0 / 5.1 (PostgreSQL and MariaDB)
 
 ### Version 2.0.8 (2026-07-21)
 - Security and access: hide invisible courses, respect course visibility capabilities, filter active enrolments only
