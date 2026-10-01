@@ -33,10 +33,10 @@ Feature: Recommended courses block can be added and filtered
     And I log out
     And I log in as "student1"
     And I am on site homepage
-    Then I should see "Show only courses I am not enrolled in"
-    And I should see "Recommended Beta"
-    And I should not see "Recommended Alpha"
-    And I should see "Enrol now"
+    Then I should see "Show only courses I am not enrolled in" in the "Recommended Courses" "block"
+    And I should see "Recommended Beta" in the "Recommended Courses" "block"
+    And I should not see "Recommended Alpha" in the "Recommended Courses" "block"
+    And I should see "Enrol now" in the "Recommended Courses" "block"
 
   Scenario: Turning the enrolment filter off shows enrolled courses with go-to-course
     Given I log in as "admin"
@@ -48,6 +48,6 @@ Feature: Recommended courses block can be added and filtered
     And I log in as "student1"
     And I am on site homepage
     When I toggle the recommended courses enrolment filter
-    Then I should see "Recommended Alpha"
-    And I should see "Recommended Beta"
-    And I should see "Go to course"
+    Then I should see "Recommended Alpha" in the "Recommended Courses" "block"
+    And I should see "Recommended Beta" in the "Recommended Courses" "block"
+    And I should see "Go to course" in the "Recommended Courses" "block"
